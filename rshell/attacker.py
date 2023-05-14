@@ -5,7 +5,7 @@ def connect():
     s.bind(("127.0.0.1", 4444))
     s.listen(1)
 
-    print('-- Listening on port 444')
+    print('-- Listening on port 4444')
 
     conn, addr = s.accept()
 
