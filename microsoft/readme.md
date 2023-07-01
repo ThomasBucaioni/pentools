@@ -1,5 +1,11 @@
 # Microsoft Windows attacks
 
+## Cmd
+
+```
+forfiles /P C:\Windows /S /M *.txt /c "cmd /c echo @PATH"
+```
+
 ## WebDAV
 
 ```
