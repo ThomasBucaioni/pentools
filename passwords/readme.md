@@ -26,7 +26,12 @@ hydra -l user -P wordlist.txt http-get $IpVictim
 ```
 hashcat wordlist.txt -j 'd' wordlist.txt --stdout > newwordlist.txt
 hastcat wordlist.txt -r rulelist.txt --stdout
-hashcat -m 0 wordlist.txt -k 'u' newwordlist.txt --force
+hashcat -m 0 tocrack.txt -k 'u' newwordlist.txt --force
 ```
 
+## Powershell
 
+Find extensions:
+```
+Get-ChildItem -Path C:\ -Include *.someextension -File -Recurse -ErrorAction SilentlyContinue
+```
