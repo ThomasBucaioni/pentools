@@ -4,9 +4,14 @@
 
 source: https://medium.com/@PenTest_duck/almost-all-the-ways-to-file-transfer-1bd6bf710d65
 
+### Python
+
 ```
 python -m http.server 8080
+```
+### Apache
 
+```
 mv somefile /var/www/html
 systemctl start apache2
 ```
@@ -81,6 +86,7 @@ vim upload.html
   </body>
 </html>
 ```
-To upload on a browser
+To upload on a browser at `http://AttackerIpAddress/upload.html`
+
 
 
