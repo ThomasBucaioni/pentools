@@ -26,6 +26,12 @@ Find file:
 Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue
 ```
 
+Base64: https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
+```
+[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("somebase64string"))
+[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("sometext"))
+```
+
 Memory injection
 ```
 $code = '
