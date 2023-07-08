@@ -21,6 +21,14 @@ mkdir mywebdav
 
 ### Powershell
 
+Get help:
+
+```
+Get-Help somecommand
+Get-Command -ParameterName ComputerName
+Get-Command -name "*name*"
+```
+
 Find file:
 ```
 Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue

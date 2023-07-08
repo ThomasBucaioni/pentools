@@ -64,13 +64,15 @@ Get-Process | ForEach-Object {$_.Path}
 
 ## Other searches
 
-Find files
+### Files
+
 ```
 Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path C:\*.txt -Recurse -Force
 Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue | select-object name
 ```
 
-
-
-
+### History
+```
+Get-History
+(Get-PSReadlineOption).HistorySavePath
