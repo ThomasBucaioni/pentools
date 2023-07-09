@@ -88,5 +88,45 @@ function padZeros(num, totalLen) {
 
 ## Conditionals
 
+```
+var randomNum = parseInt(Math.random()*10)
+switch(randomNum) {
+ case 0:
+   console.log("Number is 0")
+   break // !!
+ case 1:
+   console.log("Number is 1")
+   break
+ case 2:
+   console.log("Number is 2")
+   break
+ case 3:
+   console.log("Number is 3")
+   break
+ case 4:
+   console.log("Number is 4")
+   break
+ default:
+   console.log("Number is 5 or higher")
+}
+```
+
+## Loops
+
+```
+for (count = 1; count < 10; count++) {
+  console.log(count)
+}
+
+var count = 1
+while (count < 10) {
+  console.log(count);
+  count=count+1;
+}
+console.log(count);
 
 
+
+```
+
+APIs: https://developer.mozilla.org/en-US/
