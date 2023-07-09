@@ -2,6 +2,20 @@
 
 ## Data
 
+### Images
+
+```
+from wand.image import Image
+fin = input("Enter file name: ")
+fout = fin.replace(".jpg",".png")
+with open(fin,"rb") as f:
+  image_blob = f.read()
+  with Image(blob=image_blob) as img:
+     img.format = 'png'
+     img.save(filename=fout)
+f.close()
+```
+
 ### Linked list
 
 ```
