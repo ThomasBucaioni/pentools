@@ -36,6 +36,20 @@ reg query hklm\path\to\key
 reg export hkxx\path\to\key keyfilename
 
 schtasks /?
+schtasks /create /tn mytask /sc onstart # on reboot
+schtasks /run /i /tn mytast # force run
+
+fsutil
+fsutil fsinfo
+fsutil fsinfo drives
+fsutil fsinfo drivetype c:
+fsutil fsinfo volumeinfo c:
+
+systeminternalsuite\du -accepteula c:
+
+dir /r
+sysinternalsuite\stream.exe -accepteula
+
 
 ```
 
