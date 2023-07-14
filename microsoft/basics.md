@@ -19,14 +19,22 @@ pslist -t
 
 pskill
 pssuspend
+```
 
+## Programs
+
+```
 listdlls
 listdlls -u # unsigned
 
 set PATH=%PATH%;C:\Users\myuser\Downloads\SysinternalsSuite
 
 dir /s *somefile*
+```
 
+### Registry
+
+```
 reg /?
 reg query hkcu\software\microsoft\windows\currentversion\runonce
 reg query hkcu\software\microsoft\windows\currentversion\run
@@ -50,6 +58,71 @@ systeminternalsuite\du -accepteula c:
 dir /r
 sysinternalsuite\stream.exe -accepteula
 
+c:\Windows\System32\conhost.exe
+```
+
+## System
+
+```
+systeminfo /s somehost /u someuser\somedomain /p somepass
+
+set
+setx
+setx varsystemwide "someprg.exe" /m
+```
+
+## Networking
+
+```
+ipconfig /all
+ipconfig /renew "myadapter"
+
+netstat -ano
+arp -s
+route print
+ping -n
+tracert
+pathping
+```
+
+### Shares
+
+```
+nbtstat /n # netBios ports 135, 138, 139
+nslookup
+
+net share
+net share mysharename=c:\my\share\dir
+net use
+net use f: \\hostnameorip\dir /user:someuser /persistent:no
+```
+
+### Remote connexions
+
+```
+nc -s ipaddr -l -n -v -p portnum # listener
+nc ipaddr portnum # open connection
+socat
+
+psexec -i \\remotecomputer cmd /c "somecommandtorunontheremote"
+psexec -i \\remotecomputer -s cmd /c "somecommandtorunontheremote" # system privileges
+psexec -i \\remotepc -u user -p pass cmd # interactive connexion
+```
+
+## Firewall
+
+```
+netsh advfirewall show allprofiles
+netsh advfirewall set ?
+netsh advfirewall add rule ?
+```
+
+## Services
+
+```
+sc start WSearch
+
+tasklist
 
 ```
 
