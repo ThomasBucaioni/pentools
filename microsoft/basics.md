@@ -145,5 +145,5 @@ Get-ADObject -LDAPFilter '(&(objectClass=organizationalUnit)(!(OU=Domain Control
 ## AD
 
 ```
-
+reg save HKLM\sam c:\temp\samfile
 ```
