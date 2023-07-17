@@ -1,4 +1,4 @@
-#https://usersearch.org/updates/2023/02/05/the-ultimate-google-dorking-cheatsheet-2023/
+# https://vovohelo.medium.com/cracking-rolling-code-locks-the-lazy-way-d9ab36ea9e8a 
 
 import numpy as np
 
