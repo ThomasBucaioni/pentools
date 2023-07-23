@@ -3,5 +3,6 @@
 - https://usersearch.org/updates/2023/02/05/the-ultimate-google-dorking-cheatsheet-2023/
 - https://www.freecodecamp.org/news/google-dorking-for-pentesters-a-practical-tutorial/
 - https://www.exploit-db.com/google-hacking-database
+- https://gist.github.com/sundowndev/283efaddbcf896ab405488330d1bbc06
 
 

