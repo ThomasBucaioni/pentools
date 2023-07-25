@@ -14,6 +14,7 @@
 - "The Web Application Hacker's Handbook", Dafydd Stuttard, Marcus Pinto
 - "Real-World Bug Hunting", Peter Yaworski
 - "The Tangled Web", Michal Zalewski
+- "Bug Bounty Bootcamp", Vickie Li
 
 ## Buffer overflow
 
