@@ -15,6 +15,7 @@
 - "Real-World Bug Hunting", Peter Yaworski
 - "The Tangled Web", Michal Zalewski
 - "Bug Bounty Bootcamp", Vickie Li
+- "Hacking APIs", Corey J. Ball
 
 ## Buffer overflow
 

