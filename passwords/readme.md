@@ -1,6 +1,8 @@
 # Password attacks
 
-Graphics card cracking: https://www.tomshardware.com/news/eight-rtx-4090s-can-break-passwords-in-under-an-hour
+Graphics card cracking: 
+- https://openbenchmarking.org/test/pts/hashcat-1.0.0
+- https://www.tomshardware.com/news/eight-rtx-4090s-can-break-passwords-in-under-an-hour
 
 ## Hydra
 
