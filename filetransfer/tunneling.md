@@ -26,6 +26,17 @@ Awk tips: https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in
 ### Ssh
 
 ```
+python3 -c 'import pty; pty.spawn("/bin/sh")'
+nc -zv -w 1 $IP $Port # listen, verbose, timeout 1sec
+
+IpDmzOut$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpDeepInternal:$PortDeepInternal user@$IpDmzIn # from $IpDmzOut: out | dmz | in
+Kali$ smbclient -p $PortDmzOut -L //$IpDmzOut/ -U someuser --password=somepass
+
+IpDmzOut$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDmzIn
+Kali$ vi /etc/proxychains4.conf
+    socks5 $IpDmzIn $PortDmzOut
+Kali$ proxychains smbclient -L //$IpDeepInternal/ -U someuser --password=somepass
+Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpDeepInternal
 
 ```
 
