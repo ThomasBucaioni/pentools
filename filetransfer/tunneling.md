@@ -28,7 +28,7 @@ Awk tips: https://www.theunixschool.com/2012/06/awk-10-examples-to-group-data-in
 IpAttacker <--|--> IpDmzOut <--DMZ--> IpDmzIn <--|--> IpDeepIn
 
 ```
-python3 -c 'import pty; pty.spawn("/bin/sh")'
+python3 -c 'import pty; pty.spawn("/bin/sh")' # python3 -c 'import pty; pty.spawn(["env","TERM=xterm-256color","/bin/bash","--rcfile", "/etc/bash.bashrc","-i"])'
 nc -zv -w 1 $IP $Port # listen, verbose, timeout 1sec
 
 IpDmzOut$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpDeepInternal:$PortDeepInternal user@$IpDmzIn # from $IpDmzOut: out | dmz | in
