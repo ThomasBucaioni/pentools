@@ -2,16 +2,37 @@
 
 ## Enumeration
 
+https://learn.microsoft.com/en-us/windows/win32/adschema/a-samaccounttype
+
 ```
-$myPrimaryDomainController = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
+function LDAPSearch {
+    param (
+        [string]$LDAPQuery
+    )
 
-$myDn = ([adsi]'').distinguishedName 
+    $PDC = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().PdcRoleOwner.Name
+    $DistinguishedName = ([adsi]'').distinguishedName
 
-$LdapPath = "LDAP://$myPrimaryDomainController/$myDn"
+    $DirectoryEntry = New-Object System.DirectoryServices.DirectoryEntry("LDAP://$PDC/$DistinguishedName")
 
-$direntry = New-Object System.DirectoryServices.DirectoryEntry($LdapPath)
+    $DirectorySearcher = New-Object System.DirectoryServices.DirectorySearcher($DirectoryEntry, $LDAPQuery)
 
-$dirsearcher = New-Object System.DirectoryServices.DirectorySearcher($direntry)
-$dirsearcher.FindAll()
+    return $DirectorySearcher.FindAll()
+
+}
 ```
+In a shell:
+```
+Import-Module .\myscript.ps1
+LDAPSearch -LDAPQuery "(samAccountType=805306368)"
+LDAPSearch -LDAPQuery "(objectclass=group)"
+foreach ($group in $(LDAPSearch -LDAPQuery "(objectCategory=group)")) { $group.properties | select {$_.cn}, {$_.member} }
+$group = LDAPSearch -LDAPQuery "(&(objectCategory=group)(cn=Development Depart*))"
+$group.properties.member
+```
+
+## Powerview
+
+
+
 
