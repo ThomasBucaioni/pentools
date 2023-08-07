@@ -23,3 +23,7 @@ nmap -sU -sT -n -Pn -sC -T5 $IP
 nmap -A -oA ${IP}_out $IP
 ```
 
+## Reddit
+
+https://www.reddit.com/r/oscp/comments/15j4ewd/best_default_nmap_scan_flags/
+
