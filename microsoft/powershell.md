@@ -157,3 +157,14 @@ Get-ADUser -filter 'department -eq "hr"'| Remove-ADUser -Confirm:$false
 Import-Csv ".\users.csv" | New-ADUser -AccountPassword $(convertto-securestring "P@55w0rd" -AsPlainText -Force) -ChangePasswordAtLogon $true -Enabled $true
 
 ```
+
+## Enumeration
+
+```
+Get-WmiObject win32_product | Select-Object Name, Version, PackageName, InstallDate | Format-Table 
+Get-CmiInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct
+Get-MpComputerStatus
+net users
+net localgroup
+```
+
