@@ -68,11 +68,17 @@ Get-NetComputer | select operatingsystem, dnshostname
 Find-LocalAdminAccess
 Get-NetSession -ComputerName somehostname
 Get-NetSession -ComputerName somehostname -Verbose
-Get-Acl -Path HKLM:System\CurrentControlSet\Services\LanmanServer\DefaultSecurity\ | fl
+Get-Acl -Path HKLM:System\CurrentControlSet\Services\LanmanServer\DefaultSecurity\ | format-list
 C:\PSTools\PsLoggedon.exe \\somehostname
 ```
+Warning: PsLoggedon.exe needs the service `Remote Registry` on the target
 
-### Service names
+### Service accounts
+
+```
+cmd > setspn -L iis_service
+PS > Get-NetUser -SPN | select samaccountname,serviceprincipalname
+```
 
 ### Object permissions
 
