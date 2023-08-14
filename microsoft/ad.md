@@ -1,6 +1,15 @@
 # Active Directory
 
-## Enumeration
+## Native enumeration
+
+```
+net user /domain
+net user someuser /domain
+net group /domain
+net group "Some Group With Whitespaces" /domain
+```
+
+## Ldap enumeration
 
 https://learn.microsoft.com/en-us/windows/win32/adschema/a-samaccounttype
 
@@ -33,6 +42,45 @@ $group.properties.member
 
 ## Powerview
 
+https://powersploit.readthedocs.io/en/latest/Recon/
 
+### Users and groups
 
+```
+Import-Module .\PowerView.ps1
+Get-NetDomain
+Get-NetUser
+Get-NetUser | select cn,pwdlastset,lastlogon
+Get-NetGroup | select cn
+Get-NetGroup "Some Department" | select member
+```
+
+### Operating System
+
+```
+Get-NetComputer
+Get-NetComputer | select operatingsystem, dnshostname
+```
+
+### Permissions and logged users
+
+```
+Find-LocalAdminAccess
+Get-NetSession -ComputerName somehostname
+Get-NetSession -ComputerName somehostname -Verbose
+Get-Acl -Path HKLM:System\CurrentControlSet\Services\LanmanServer\DefaultSecurity\ | fl
+C:\PSTools\PsLoggedon.exe \\somehostname
+```
+
+### Service names
+
+### Object permissions
+
+### Domain shares
+
+## Automated AD enumeration
+
+### SharpHound
+
+### BloodHound
 
