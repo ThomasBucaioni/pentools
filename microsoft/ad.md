@@ -119,7 +119,7 @@ Sysvol: https://social.technet.microsoft.com/wiki/contents/articles/24160.active
 ### SharpHound
 
 ```
-PS > Import-Module c:\path]\to\Sharphound.ps1
+PS > Import-Module c:\path\to\Sharphound.ps1
 Get-Help Invoke-BloodHound
 Invoke-BloodHound -CollectionMethod All -OutputDirectory c:\Users\hackeduser\Desktop -OutputPrefix "some_file_prefix"
 ls c:\Users\hackeduser\Desktop
@@ -128,5 +128,9 @@ ls c:\Users\hackeduser\Desktop
 ### BloodHound
 
 ```
-
+sudo apt install neo4j
+sudo apt install bloodhound
+sudo neo4j start
+bloodhound > upload data > more info > analysis > find shortest paths to domain admins
 ```
+
