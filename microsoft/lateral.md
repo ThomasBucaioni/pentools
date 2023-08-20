@@ -62,8 +62,15 @@ Enter-PSSession $winrm_session_number
 
 ### PsExec
 
+Pre-requisites:
+- user `targetuser` needs to be part of the `Administrators` local group
+- the `ADMIN$` share must be available
+- `File and Printer Sharing` has to be turned on
+
+Uses Sysinternals: https://learn.microsoft.com/en-us/sysinternals/
+
 ```
-C:\path\to\PsExec64.exe -i  \\hostname -u somedomain\someuser -p somepass cmd
+C:\path\to\PsExec64.exe -i  \\targethostname -u targetdomain\targetuser -p somepass cmd
 > hostname
 > whoami
 ```
