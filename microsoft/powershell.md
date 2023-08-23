@@ -186,3 +186,20 @@ Invoke-Command -ComputerName otherserver -ScriptBlock { Enable-WSManCredSSP -Rol
 Invoke-Command -ComputerName otherserver -ScriptBlock ( Get-ChildItem -Path '\\thedomaincontrollername\c$' } -Authentication Credssp -Credential (Get-Credential)
 ```
 
+## Pester
+
+On GitHub: https://github.com/pester/Pester/wiki/
+Example:
+```
+describe 'Checks if the webserver is running' {
+    context 'Webserver install' {
+        it 'Checks the installation' {
+            $parameters = @{
+                ComputerName = 'otherserver'
+                Name = 'Web-Server'
+            }
+            (Get-WindowsFeature @parameters).Installed | should -Be $true
+        }
+    }
+}
+```
