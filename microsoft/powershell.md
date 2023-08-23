@@ -203,3 +203,6 @@ describe 'Checks if the webserver is running' {
     }
 }
 ```
+Invoke with: `PS > Invoke-Pester -Path c:\path\to\SomeCheck.Tests.ps1`
+
+
