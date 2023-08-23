@@ -168,3 +168,21 @@ net users
 net localgroup
 ```
 
+## Sessions
+
+```
+Invoke-Command -ScriptBlock { $gonevariable = "This variable will be gone when the commands is torn down" }
+$session = New-PSSession -ComputerName otherserver
+Get-PSSession
+Invoke-Command -Session $session -ScriptBlock { $persistentvariable = "This variable will remain" }
+Get-PSSession | Disconnect-PSSession
+Connect-PSSession -ComputerName otherserver
+Get-PSSession | Remove-PSSession
+```
+Double hops with `CredSSP`:
+```
+Enable-WSManCredSSP -Role Client -DelegateComputer otherserver -Force
+Invoke-Command -ComputerName otherserver -ScriptBlock { Enable-WSManCredSSP -Role Server }
+Invoke-Command -ComputerName otherserver -ScriptBlock ( Get-ChildItem -Path '\\thedomaincontrollername\c$' } -Authentication Credssp -Credential (Get-Credential)
+```
+
