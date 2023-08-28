@@ -83,6 +83,14 @@ Then, install the `vagrant-mutate` plugin: https://medium.com/@gamunu/use-vagran
 sudo yum install qemu-img libvirt-devel rubygem-ruby-libvirt ruby-devel redhat-rpm-config
 vagrant plugin install vagrant-mutate
 ```
+Then download the GOAD boxes and mutate them:
+```
+vagrant box add --provider virtualbox StefanScherer/windows_2016
+vagrant box add --provider virtualbox StefanScherer/windows_2019
+vagrant mutate StefanScherer/windows_2016 libvirt
+vagrant mutate StefanScherer/windows_2019 libvirt
+```
+and check the list: `vagrant box list`
 
 ### Networking
 
