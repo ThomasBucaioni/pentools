@@ -109,6 +109,7 @@ e = 1 or 2 -- value is 1...
 
 ### Control
 
+```
 if a ~= b then
     print("a is not b")
 elseif c == d
