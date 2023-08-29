@@ -1,6 +1,8 @@
-# Nmap common scans
+# Nmap
 
-## Options
+## Usual scans
+
+### Options
 
 Ports: `-p-`, `-p num1, num2`
 No ping: `-Pn`
@@ -14,7 +16,7 @@ NSE category scripts: `--script=auth, broadcast, brute, default, discovery, dos,
 NSE expression scripts: `--script=http*`
 Script help: `nmap --script-help "http-* and vuln"`
 
-## Combined
+### Combined
 
 ```
 nmap -sS -n -nP $IP -p-
@@ -23,7 +25,23 @@ nmap -sU -sT -n -Pn -sC -T5 $IP
 nmap -A -oA ${IP}_out $IP
 ```
 
-## Reddit
+### Reddit
 
 https://www.reddit.com/r/oscp/comments/15j4ewd/best_default_nmap_scan_flags/
+
+
+## Vulnerabily scan
+
+### Principle
+
+1. Host discovery
+2. Port scanning
+3. Operating system, service, and version detection
+4. Check in vulnerability DBs: 
+    - https://cve.mitre.org/cve/search_cve_list.html
+    - https://nvd.nist.gov/
+
+### NSE scripts
+
+
 
