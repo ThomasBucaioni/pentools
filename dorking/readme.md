@@ -115,8 +115,9 @@ Test-NetConnection -Port 80 $IP
 ```
 PowerShell special characters: https://stackoverflow.com/questions/56875192/what-does-mean-and-in-powershell
 
-#### SMB (default ports: 139, 445)
+#### SMB (Server Message Block)
 
+Default ports: 139, 445
 Other names: NetBIOS, NBT
 ```
 nmap -v -p 139,445 -oG smb_summary.txt $IpRange.1-254
@@ -133,9 +134,66 @@ On Windows (cmd.exe):
 > net view \\domaincontrollername /all
 ```
 
-#### SMTP
+#### SMTP (Simple Mail Transport Protocol)
 
-#### SNMP
+##### Manual enumeration
+
+Username manual enumeration:
+```
+nc -nv $IP 25
+VRFY someusername
+VRFY otherusername
+```
+
+##### Enumeration with a Python socket
+
+With a Python script:
+```
+#!/usr/bin/python
+
+import socket
+import sys
+
+if len(sys.argv) != 3:
+    print("Usage: mysmtppythonscript.py someusernametotest ipaddressofthemailserver")
+    sys.exit(0)
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ip = sys.argv[2]
+connect = s.connect((ip,25)) # usual SMTP port
+banner = s.recv(1024)
+print(banner)
+
+user = (sys.argv[1]).encode()
+s.send(b'VRFY ' + user + b'\r\n')
+result = s.recv(1024)
+print(result)
+s.close()
+```
+and then: `IP=a.b.c.d ; for name in root user1 user2 user3 ; do python3 mysmtppythonscript.py $name $IP ; done`
+
+##### Windows
+
+With `Test-NetConnection`, test the port:
+```
+Test-Connection -Port 25 $IP
+```
+then install Telnet (with Admin privileged...):
+```
+PS > dism /online /Enable-Feature /FeatureName:TelnetClient
+```
+and `VRFY` users:
+```
+cmd > telnet $IP 25
+VRFY root
+VRFY someusername
+```
+
+#### SNMP (Simple Network Management Protocol)
+
+```
+
+```
 
 
 
