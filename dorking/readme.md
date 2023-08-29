@@ -48,6 +48,8 @@ intitle:"index of" "parent directory"
 
 ### DNS
 
+Lists: https://github.com/danielmiessler/SecLists
+
 #### Manual
 
 ##### Host
@@ -86,7 +88,10 @@ dnsenum domain.name.to.hack.com
 
 ### Port scanning
 
-Netcat example: `nc -nvv -w 1 -z $IP $PortInit-$PortEnd` 
+Netcat example: `nc -nvv -w 1 -z $IP $PortInit-$PortEnd`
+Other tools (more noisy):
+- https://www.kali.org/tools/masscan/
+- https://rustscan.github.io/RustScan/
 
 #### Nmap
 
@@ -191,10 +196,27 @@ VRFY someusername
 
 #### SNMP (Simple Network Management Protocol)
 
+https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
+https://en.wikipedia.org/wiki/Object_identifier
+
+Scan:
 ```
-
+sudo nmap -sU --open -p 161 $IP -oG open-snmp.txt
 ```
-
-
-
+Community [strings](http://www.phreedom.org/software/onesixtyone/): `public`, `private`, `manager`
+Brute force the community strings:
+```
+kali$ onesixtyone -c communitystringfile.txt -i ipfile.txt
+```
+then query the community MIBs (Management Information Base) with `snmpwalk`:
+```
+snmpwalk -c somecommunitystring -v 1 -t 10 $IP # -v = version number of SNMP ; -t = timeout ; somecommunitystring = public, private, management, ...
+```
+to gather email addresses, hostnames, services running, ...: 
+```
+snmpwalk -c public -v 1 $IP 1.3.6.1.2.1.25.4.2.1.2 # Service OID
+snmpwalk -c public -v 1 $IP 1.3.6.1.4.1.77.1.2.25 # User OID ; decimal, decoded in ASCII https://en.wikipedia.org/wiki/ASCII ; 65.100.109.105.110.105.115.116.114.97.116.111.114 = STRING: "Administrator"
+snmpwalk -c public -v 1 $IP 1.3.6.1.2.1.25.6.3.1.2 # Installed software OID
+snmpwalk -c public -v 1 $IP 1.3.6.1.2.1.6.13.1.3 # Open TCP port OID ; 1.3.6.1.2.1.6.13.1.3.0.0.0.0.88.0.0.0.0.0 = port 88
+```
 
