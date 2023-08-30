@@ -1,5 +1,18 @@
 # WebApps enum
 
+OWASP top ten: https://owasp.org/www-project-top-ten/
+
+## Nmap
+
+```
+sudo nmap -p80 -sV $IP
+sudo nmap -p80 --script=http-enum $IP
+```
+
+## Wappalyzer
+
+Technology stack: https://www.wappalyzer.com/
+
 ## Sitemaps
 
 ```
@@ -7,7 +20,17 @@ http://ip/robots.txt
 http://ip/sitemap.xml
 ```
 
-## Gobuster
+## Gobuster 
+
+### Directory brute force
+
+Documentation on Kali: https://www.kali.org/tools/gobuster/
+```
+gobuster dir -u $IP -w /path/to/wordlist.txt
+```
+Kali wordlists: `/usr/share/wordlists/dirb/*.txt`
+
+### Enumerating APIs
 
 ```
 gobuster dir -u http://ip:port -w /usr/share/wordlists/dirb/big.txt -p pattern
@@ -33,7 +56,17 @@ curl -d '{"password":"new_pass","username":"guser"}' -H 'Content-Type: applicati
 
 ```
 
-## Javascript (console: ^C+^S+k)
+## Burp Suite
+
+Proxy > Proxy Settings > Proxy Listeners
+Firefox > Connection Settings > Configure Proxy > Manual > 127.0.0.1
+Proxy > HTTP history > right-click "Send to repeater"
+Repeater > Send
+`cat /etc/hosts # add the website`
+Proxy > HTTP history > right-click "Send to intruder"
+Intruder > Clear/Add > Payload > Paste > paste a wordlist > check the return code
+
+## Javascript (console: `^C+^S+k`)
 
 ```
 function myFunc(a,b){
