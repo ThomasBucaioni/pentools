@@ -4,17 +4,18 @@
 
 ### Options
 
-Ports: `-p-`, `-p num1, num2`
-No ping: `-Pn`
-TCP, UDP: `-sT -sU`
-With output file: `-oG` (grep), `-oA` (all)
-OS scan: `-O`
-Agressive scan: `-A` 
-Timeouts: `-T5`
-NSE default scripts: `-sC`
-NSE category scripts: `--script=auth, broadcast, brute, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, vuln`
-NSE expression scripts: `--script=http*`
-Script help: `nmap --script-help "http-* and vuln"`
+Also [here](https://github.com/ThomasBucaioni/pentools/tree/main/dorking#nmap):
+- Ports: `-p-`, `-p num1, num2`
+- No ping: `-Pn`
+- TCP, UDP: `-sT -sU`
+- With output file: `-oG` (grep), `-oA` (all)
+- OS scan: `-O`
+- Agressive scan: `-A` 
+- Timeouts: `-T5`
+- NSE default scripts: `-sC`
+- NSE category scripts: `--script=auth, broadcast, brute, default, discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, vuln`
+- NSE expression scripts: `--script=http*`
+- Script help: `nmap --script-help "http-* and vuln"`
 
 ### Combined
 
@@ -37,11 +38,26 @@ https://www.reddit.com/r/oscp/comments/15j4ewd/best_default_nmap_scan_flags/
 1. Host discovery
 2. Port scanning
 3. Operating system, service, and version detection
-4. Check in vulnerability DBs: 
+4. Check in vulnerability DataBases: 
     - https://cve.mitre.org/cve/search_cve_list.html
     - https://nvd.nist.gov/
 
 ### NSE scripts
 
+Lua syntax: 
+- https://www.lua.org/pil/contents.html
+- https://github.com/ThomasBucaioni/pentools/tree/main/programming#lua
+
+```
+grep -r '"vuln"' /usr/share/nmap/scripts/
+sudo nmap -sV -p 443 --script "vuln" $IP
+```
+
+Vulners script: https://svn.nmap.org/nmap/scripts/vulners.nse
+```
+sudo nmap -sV --script vulners $IP
+sudo nmap -sV --script vulners --script-args mincvss=minimumcvssscorefordisplay $IP
+```
+Then, Google the CVE and try to fix the exploit... Update Nmap database: `sudo nmap --script-updatedb`
 
 
