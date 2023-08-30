@@ -152,7 +152,7 @@ VRFY otherusername
 
 ##### Enumeration with a Python socket
 
-With a Python script:
+Python script:
 ```
 #!/usr/bin/python
 
@@ -179,11 +179,11 @@ and then: `IP=a.b.c.d ; for name in root user1 user2 user3 ; do python3 mysmtppy
 
 ##### Windows
 
-With `Test-NetConnection`, test the port:
+With cmdlet `Test-NetConnection`, test the port:
 ```
 Test-Connection -Port 25 $IP
 ```
-then install Telnet (with Admin privileged...):
+then install Telnet (with [Admin privileges](https://learn.microsoft.com/en-us/powershell/module/dism/enable-windowsoptionalfeature?view=windowsserver2022-ps)):
 ```
 PS > dism /online /Enable-Feature /FeatureName:TelnetClient
 ```
@@ -196,8 +196,8 @@ VRFY someusername
 
 #### SNMP (Simple Network Management Protocol)
 
-https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
-https://en.wikipedia.org/wiki/Object_identifier
+- https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol
+- https://en.wikipedia.org/wiki/Object_identifier
 
 Scan:
 ```
