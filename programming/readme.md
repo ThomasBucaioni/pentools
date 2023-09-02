@@ -2,7 +2,10 @@
 
 ## LUA
 
-https://www.packtpub.com/product/lua-quick-start-guide/9781789343229
+- https://www.lua.org/pil/contents.html
+- https://www.lua.org/demo.html
+- https://www.packtpub.com/product/lua-quick-start-guide/9781789343229
+- https://www.udemy.com/course/nmap-scan
 
 ### Hello World
 
@@ -240,6 +243,17 @@ print(next()) -- prints 2
 print(next()) -- prints 3
 ```
 
+### Examples
+
+#### String comparison
+
+```
+count = 0
+for i = 1, #str1 do
+    count = count + (str1:sub(i,i) == str2:sub(i,i) and 0 or 1) -- `and` returns the first if false and the second part if true...
+end
+print("Number of differences: ", count)
+```
 
 ## Ruby
 
