@@ -37,5 +37,6 @@ action = function(host, port)
     -- stdnse.debug1("Initial check failed, uri is valid?")
     print("Initial check failed, uri is valid?")
   end
+  return "End of the script"
 end
 
