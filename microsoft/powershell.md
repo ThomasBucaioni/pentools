@@ -336,4 +336,22 @@ Get-somedcprefixADUser -Filter * | select name
 Remove-PSSession $dcsession
 ```
 
+## Challenges
 
+### Predicates
+
+```
+Function Invoke-Keep() {
+    [CmdletBinding()]
+    Param(
+        [Object[]]$Data,
+        [ScriptBlock]$Predicate
+    )
+    $answer = @()
+    foreach ($elem in $Data) { 
+      if ( -not ($Predicate.Invoke($elem) ) ) { $answer += @($elem) }
+    }
+    $answer
+}
+
+```
