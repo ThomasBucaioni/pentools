@@ -68,7 +68,11 @@ for i in ['test', 'pass', 'password']:
     print(r.status_code, len(r.content))
 ```
 
-## Javascript (console: `^C+^S+k`)
+## Javascript
+
+Shortcuts:
+- console: `^C+^S+k`
+- devtools: `^C+^S+i`
 
 ```
 function myFunc(a,b){
