@@ -50,12 +50,12 @@ curl -d '{"username":"someuser","password":"somepass"}' -H 'Content-Type: applic
 
 ## Burp Suite
 
-Proxy > Proxy Settings > Proxy Listeners
-Firefox > Connection Settings > Configure Proxy > Manual > 127.0.0.1
-Proxy > HTTP history > right-click "Send to repeater"
-Repeater > Send
-`cat /etc/hosts # add the website`
-Proxy > HTTP history > right-click "Send to intruder"
+Proxy > Proxy Settings > Proxy Listeners\
+Firefox > Connection Settings > Configure Proxy > Manual > 127.0.0.1\
+Proxy > HTTP history > right-click "Send to repeater"\
+Repeater > Send\
+`cat /etc/hosts # add the website`\
+Proxy > HTTP history > right-click "Send to intruder"\
 Intruder > Clear/Add > Payload > Paste > paste a wordlist > check the return code
 
 ## Python manual password attack
