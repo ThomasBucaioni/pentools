@@ -41,6 +41,8 @@ then fuzz the placeholder with a wordlist:
 ```
 gobuster dir -u http://ip:port -w /usr/share/wordlists/dirb/big.txt -p pattern.txt
 ```
+Curl with headers: `curl -i`
+
 Post json data:
 ```
 curl -d '{"username":"someuser","password":"somepass"}' -H 'Content-Type: application/json' http://$IP/path/to/login/page.html
