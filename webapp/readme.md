@@ -96,4 +96,6 @@ let encoded = encode_to_javascript('insert_minified_javascript')
 console.log(encoded)
 ```
 
+Minified Javascript: https://jscompress.com/
+
 
