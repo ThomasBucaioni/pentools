@@ -6,6 +6,11 @@
 nc -nvlp PortAtt
 ```
 
+## URL encoding
+
+- https://en.wikipedia.org/wiki/Percent-encoding
+- https://www.urlencoder.io/
+
 ## Powershell
 
 ```
