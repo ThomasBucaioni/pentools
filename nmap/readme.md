@@ -20,7 +20,7 @@ Also [here](https://github.com/ThomasBucaioni/pentools/tree/main/dorking#nmap):
 ### Combined
 
 ```
-nmap -sS -n -nP $IP -p-
+nmap -sS -n -Pn $IP -p-
 nmap -sT -n -Pn --script=vuln -p $Port $IP
 nmap -sU -sT -n -Pn -sC -T5 $IP
 nmap -A -oA ${IP}_out $IP
