@@ -1,5 +1,11 @@
 # Reverse shells
 
+## References
+
+- https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+- https://www.revshells.com/
+- Hacktricks: https://book.hacktricks.xyz/generic-methodologies-and-resources/shells
+
 ## Listener
 
 ```
