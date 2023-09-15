@@ -12,6 +12,8 @@ kali$ impacket-mssqlclient $SomeUserAccount:$somepass@$TargetIp -windows-auth
 ```
 
 #### Commands
+
+Known table `master.sys.sysusers`: https://learn.microsoft.com/en-us/sql/relational-databases/system-compatibility-views/sys-sysusers-transact-sql?view=sql-server-ver16
 ```
 SQL> SELECT @@version;
 SQL> SELECT name FROM sys.databases;
