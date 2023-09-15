@@ -5,8 +5,10 @@
 ### Basics
 
 #### Connection
+
+User account: `Administrator`
 ```
-impacket-mssqlclient account:passwd@ip -windows-auth
+kali$ impacket-mssqlclient $SomeUserAccount:$somepass@$TargetIp -windows-auth
 ```
 
 #### Commands
@@ -15,6 +17,9 @@ SQL> SELECT @@version;
 SQL> SELECT name FROM sys.databases;
 SQL> SELECT * FROM somedatabasename.information_schema.tables; # tables of the "somedatabasename" db, together with their schema
 SQL> SELECT * FROM somedatabasename.someschema.sometablename; # table name of interest: "users"
+
+SQL> select * from master.information_schema.tables;
+SQL> select top 2 * from master.dbo.sysusers; # table "sysusers" is an alias /!\; top 2 lines
 
 SQL> EXECUTE sp_configure 'show advanced options', 1;
 SQL> RECONFIGURE;
