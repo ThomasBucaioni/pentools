@@ -175,4 +175,8 @@ Intercept a `UNION SELECT` in Burp and record the `POST` as a file. Then use sql
 sqlmap -r post_request_saved_as_a_file.txt -p some_input_parameter_in_the_post_request --os-shell --web-root "/var/www/html/tmp"
 ```
 
+## CVE examples
+
+- WordPress plugin Perfect Survey: https://sploitus.com/exploit?id=WPEX-ID:C1620905-7C31-4E62-80F5-1D9635BE11AD
+- PostGreSQL RCE: https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/SQL%20Injection/PostgreSQL%20Injection.md#cve-20199193
 
