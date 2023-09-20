@@ -48,10 +48,19 @@ Lua syntax:
 - https://www.lua.org/pil/contents.html
 - https://github.com/ThomasBucaioni/pentools/tree/main/programming#lua
 
+#### Directory and help
+
+The NSE scripts are under: `/usr/share/nmap/scripts/*.nse`
+Help on a particular one: `nmap --script-help=some-script.nse`
+
+#### By category
+
 ```
 grep -r '"vuln"' /usr/share/nmap/scripts/
 sudo nmap -sV -p 443 --script "vuln" $IP
 ```
+
+#### Individual scripts
 
 Vulners script: https://svn.nmap.org/nmap/scripts/vulners.nse
 ```
@@ -60,4 +69,11 @@ sudo nmap -sV --script vulners --script-args mincvss=minimumcvssscorefordisplay 
 ```
 Then, Google the CVE and try to fix the exploit... Update Nmap database: `sudo nmap --script-updatedb`
 
+---
 
+# Searchsploit
+
+Update the DB...
+Path: `/usr/share/exploitdb/`
+Research: `searchsploit somestring`
+Download: `searchsploit -m path/of/exploit/number.py`
