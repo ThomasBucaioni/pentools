@@ -246,6 +246,14 @@ $tomorrow = (get-date).adddays(1).day
 New-Variable thing -value "some string"
 ```
 
+### Find files
+
+https://shellgeek.com/powershell-search-for-files/
+```
+Get-ChildItem -Include *.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Exclude *.exe -Recurse
+```
+
 ### Pipelines
 
 Tips: use `Help` and `Get-Member` to get information
