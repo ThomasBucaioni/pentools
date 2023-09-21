@@ -139,6 +139,9 @@ On Windows (cmd.exe):
 > net view \\domaincontrollername /all
 ```
 
+Shares enumeration: https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
+
+
 #### SMTP (Simple Mail Transport Protocol)
 
 ##### Manual enumeration
