@@ -24,6 +24,11 @@ nmap -sS -n -Pn $IP -p-
 nmap -sT -n -Pn --script=vuln -p $Port $IP
 nmap -sU -sT -n -Pn -sC -T5 $IP
 nmap -A -oA ${IP}_out $IP
+nmap -Pn -n -sC -sV -T5 -p- -vvv $IP
+nmap -Pn -n -p$port -vvv --script smb-enum-share $IP
+nmap -Pn -n -p$port -vvv --script http-enum $IP
+nmap -sU --open -vvv $IP
+nmap -sU --open -p- -T5 -vvv $IP
 ```
 
 ### Reddit

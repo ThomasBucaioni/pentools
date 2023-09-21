@@ -20,6 +20,12 @@ http://ip/robots.txt
 http://ip/sitemap.xml
 ```
 
+## Dirb
+
+```
+dirb http://$IP
+```
+
 ## Gobuster 
 
 ### Directory brute force
