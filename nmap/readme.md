@@ -82,3 +82,5 @@ Update the DB...
 Path: `/usr/share/exploitdb/`
 Research: `searchsploit somestring`
 Download: `searchsploit -m path/of/exploit/number.py`
+
+PyInstaller: https://pyinstaller.org/en/stable/

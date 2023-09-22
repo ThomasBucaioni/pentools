@@ -1,5 +1,29 @@
 # Metasploit
 
+## Searchsploit
+
+```
+searchsploit Apache 2.4.49
+searchsploit -m 42341 # mirror
+searchsploit -u # update
+```
+
+### Adapting exploits
+
+#### Python
+
+PyInstaller: https://pyinstaller.org/en/stable/
+
+#### C
+
+Cross-compiler `wingw-w64`:
+```
+kali$ sudo apt-get install mingw-w64
+kali$ i686-w64-mingw32-gcc searchsploit_number.c -o exploit_for_the_target_machine.exe
+kali$ i686-w64-mingw32-gcc searchsploit_number.c - lws2_32 -o exploit_for_the_target_machine.exe # for the winsock.h library
+```
+Change the listener Ip and Port in the source code.
+
 ## Msfconsole
 
 ```
