@@ -143,6 +143,10 @@ Shares enumeration:
 - https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
 - https://fareedfauzi.gitbook.io/oscp-playbook/services-enumeration/smb
 
+Mount shares locally: `sudo mount //$IP/someshare /mnt`
+
+Enum4Linux: `enum4linux -a $ip` or `enum4linux -u 'guest' -p '' -a $ip`
+
 #### SMTP (Simple Mail Transport Protocol)
 
 ##### Manual enumeration

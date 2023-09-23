@@ -31,10 +31,12 @@ dirb http://$IP
 ### Directory brute force
 
 Documentation on Kali: https://www.kali.org/tools/gobuster/
+S1ren: https://sirensecurity.io/blog/common/
 ```
 gobuster dir -u $IP -w /path/to/wordlist.txt
 ```
 Kali wordlists: `/usr/share/wordlists/dirb/*.txt`
+Daniel Miessler wordlists: https://github.com/danielmiessler/SecLists
 
 ### Enumerating APIs
 
