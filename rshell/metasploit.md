@@ -93,6 +93,9 @@ $ rdesktop VictimIp -u user -p pass -g num%+offsetX+offsetY
 ```
 
 ### Multi-handler
+
+https://www.rapid7.com/db/modules/exploit/multi/handler/
+
 ```
 $ msfconsole
 > use multi/handler
