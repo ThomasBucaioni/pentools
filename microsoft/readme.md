@@ -42,8 +42,8 @@ Base64: https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-stri
 
 Memory injection
 
-https://www.elastic.co/blog/ten-process-injection-techniques-technical-survey-common-and-trending-process
-https://blog.f-secure.com/memory-injection-like-a-boss/
+- https://www.elastic.co/blog/ten-process-injection-techniques-technical-survey-common-and-trending-process
+- https://blog.f-secure.com/memory-injection-like-a-boss/
 
 ```
 $code = '
