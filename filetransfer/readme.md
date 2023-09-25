@@ -21,7 +21,9 @@ systemctl start apache2
 
 ### Upload
 
-sources: 
+OffSec: https://github.com/ThomasBucaioni/pentools/blob/main/filetransfer/readme.md#uploads-to-kali
+
+Other sources: 
 - https://infosecwriteups.com/tip-uploading-files-from-windows-to-kali-using-php-63aadde872a9
 - https://davidhamann.de/2019/04/12/powershell-invoke-webrequest-by-example/
 - https://stackoverflow.com/questions/22491129/how-to-send-multipart-form-data-with-powershell-invoke-restmethod
@@ -139,7 +141,7 @@ FTP commands:
 - `put someotherfile.txt`
 - `quit`
 - `ascii`
-- `binari`: https://knowledge.broadcom.com/external/article/28212/ftp-ascii-vs-binary-mode-what-it-means.html
+- `binary`: https://knowledge.broadcom.com/external/article/28212/ftp-ascii-vs-binary-mode-what-it-means.html
 
 
 ## LolBas
