@@ -49,7 +49,7 @@ Regular options:
 - NonInteractive
 - ExecutionPolicy: bypass
 - EncodedCommand: same as `-enc`
-- WindowStyle: `hidden`
+- WindowStyle: `-w hidden`
 
 ### Find files
 
