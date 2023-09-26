@@ -52,11 +52,12 @@ Usage:
 hashcat -r rulefile.rule wordlist.txt --stdout
 hashcat -m 0 tocrackfile.txt wordlist.txt -r rulefile.rule --force # MD5 hash (-m 0), ignore GPU warnings (--force)
 
-hashcat wordlist.txt -j 'd' wordlist.txt --stdout > newwordlist.txt
 hastcat wordlist.txt -r rulelist.txt --stdout
+hashcat wordlist.txt -j 'd' wordlist.txt --stdout > newwordlist.txt
 hashcat -m 0 tocrack.txt -k 'u' newwordlist.txt --force
 hashcat -m passman.mode passman.hash rockyou.txt -r rockyou-30000.rule --force
 ```
+Common rules: `/usr/share/hashcat/rules/` (for rockyou: `rockyou-30000.rule`)
 
 ## Ssh passphrase
 
