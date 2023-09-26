@@ -36,7 +36,22 @@ hydra -l user -P wordlist.txt http-get $IpVictim
 ## Hashcat
 
 Benchmark: `-b`
+Example of rule: https://hashcat.net/wiki/doku.php?id=rule_based_attack
 ```
+: ---> do nothing
+$1 ---> add '1' and the end
+c $1 $2 $3 ---> capitalize, add '1', then '2', then '3' at the end
+$ ---> append a whitespace
+^ ---> prepend a whitespace
+$1 c $! ---> append '1', then capitalize, then add '!' at the end
+$2 c $! ---> append '2', then capitalize, then add '!' at the end
+$1 $2 $3 c $! ---> append '1', then '2', then '3', then capitalize, then append '!'
+```
+Usage:
+```
+hashcat -r rulefile.rule wordlist.txt --stdout
+hashcat -m 0 tocrackfile.txt wordlist.txt -r rulefile.rule --force # MD5 hash (-m 0), ignore GPU warnings (--force)
+
 hashcat wordlist.txt -j 'd' wordlist.txt --stdout > newwordlist.txt
 hastcat wordlist.txt -r rulelist.txt --stdout
 hashcat -m 0 tocrack.txt -k 'u' newwordlist.txt --force
