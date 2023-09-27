@@ -35,7 +35,7 @@ hydra -l user -P wordlist.txt http-get $IpVictim
 
 ## Hashcat
 
-Benchmark: `-b`
+Benchmark: `-b` \
 Example of rule: https://hashcat.net/wiki/doku.php?id=rule_based_attack
 ```
 : ---> do nothing
@@ -81,6 +81,12 @@ hashcat -m ssh.hashcat.mode ssh.hash ssh.passwords -r ssh.rule --force
 cp ssh.rule /etc/john/otherssh.rule
 vim /etc/john/john.config
 john --wordlist=ssh.passwords --rules=sshJohnRules ssh.hash
+```
+Example of rule file:
+```
+[List.Rules.sshJohnRules]
+p1 u
+$1 $2 $3 c $!
 ```
 
 ---
