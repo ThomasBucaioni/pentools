@@ -82,3 +82,9 @@ Build the base64 string in Linux:
 References:
 - https://gist.githubusercontent.com/egre55/c058744a4240af6515eb32b2d33fbed3/raw/3ad91872713d60888dca95850c3f6e706231cb40/powershell_reverse_shell.ps1
 - https://github.com/darkoperator/powershell_scripts/tree/master
+
+### Enumeration
+
+```
+Get-LocalUser
+```
