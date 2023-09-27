@@ -70,6 +70,18 @@ vim /etc/john/john.config
 john --wordlist=ssh.passwords --rules=sshJohnRules ssh.hash
 ```
 
+---
+
+## Mimikatz
+
+Password modules:
+- extraction from [LSASS](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service): `sekurlsa::logonpasswords`
+- dump: `lsadump::sam` (lighter)
+
+Access right needed:
+- extraction: __SeDebugPrivilege__
+- privilege escalation: __SeImpersonatePrivilege__ (e.g. local administrators)
+
 ## NTLM
 
 On Windows:
