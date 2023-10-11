@@ -44,6 +44,7 @@ get-localuser
 ### Groups
 
 ```
+net localgroup
 Get-LocalGroup
 Get-LocalGroupMember somegroup
 ```
