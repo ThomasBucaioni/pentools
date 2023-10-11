@@ -21,6 +21,16 @@ Start-Process Notepad.exe -Credential $credential
 
 ## Info
 
+### Targets
+
+- Username and hostname
+- Group memberships of the current user
+- Existing users and groups
+- Operating system, version and architecture
+- Network information
+- Installed applications
+- Running processes
+
 ### Users
 
 ```
