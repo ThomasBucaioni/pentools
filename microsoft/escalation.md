@@ -1,24 +1,5 @@
 # Escalation
 
-Cli escalation in current directory:
-```
-powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
-```
-
-Other user authentication: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
-```
-Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
-```
-
-```
-$username = 'user'
-$password = 'password'
-
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
-Start-Process Notepad.exe -Credential $credential
-```
-
 ## Info
 
 ### Targets
@@ -96,10 +77,42 @@ Get-Process | ForEach-Object {$_.Path}
 
 ### Files
 
+Find:
 ```
 Get-ChildItem -Path C:\ -Include *.extension -File -Recurse -ErrorAction SilentlyContinue
 Get-ChildItem -Path C:\*.txt -Recurse -Force
 Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue | select-object name
+```
+Display:
+```
+type somefile.txt
+cat somefile.txt
+Get-Content somefile.txt
+```
+
+### Cli escalation
+
+With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt):
+```
+PS> runas /user:somehackeduser cmd
+```
+or in current directory:
+```
+cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
+```
+
+Other user authentication, password entered manually: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
+```
+Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
+```
+or password provided as a Credential object:
+```
+$username = 'user'
+$password = 'password'
+
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+Start-Process Notepad.exe -Credential $credential
 ```
 
 ### History
