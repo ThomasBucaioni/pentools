@@ -229,6 +229,10 @@ With a password found in `somefile.txt`, we can use `Runas` if in a GUI (trigger
 ```
 PS> runas /user:somehackeduser cmd
 ```
+or with elevated privileges:
+```
+powershell start-process powershell -verb runas
+```
 or in current directory:
 ```
 cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
@@ -239,10 +243,6 @@ cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
 Other user authentication, password entered manually: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
 ```
 Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
-```
-or with elevated privileges:
-```
-powershell start-process powershell -verb runas
 ```
 or with a password provided in a Credential object:
 ```
