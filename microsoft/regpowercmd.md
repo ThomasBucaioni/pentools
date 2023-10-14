@@ -63,6 +63,14 @@ Regular options:
 cd "env:userprofile\desktop"
 ```
 
+### Write output to a file
+
+Source: https://stackoverflow.com/questions/1215260/how-to-redirect-the-output-of-a-powershell-to-a-file-during-its-execution
+```
+PS> .\myscript.ps1 | Out-File c:\myoutput.txt
+PS> Write "Stuff to write" | Out-File Outputfile.txt -Append
+```
+
 ### Find files
 
 ```
