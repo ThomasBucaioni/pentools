@@ -2,6 +2,12 @@
 
 ## Cmd
 
+### Environment variables
+
+```
+cd %userprofile%
+```
+
 ### Find and search files
 
 Find:
@@ -50,6 +56,12 @@ Regular options:
 - ExecutionPolicy: bypass
 - EncodedCommand: same as `-enc`
 - WindowStyle: `-w hidden`
+
+### Environment variables
+
+```
+cd "env:userprofile\desktop"
+```
 
 ### Find files
 
