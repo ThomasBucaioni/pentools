@@ -1,5 +1,7 @@
 # Escalation
 
+CLI escalation: [bottom of the page](https://github.com/ThomasBucaioni/pentools/blob/main/microsoft/escalation.md#cli-escalation)
+
 ## Info
 
 ### Targets
@@ -90,30 +92,6 @@ cat somefile.txt
 Get-Content somefile.txt
 ```
 
-### Cli escalation
-
-With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt):
-```
-PS> runas /user:somehackeduser cmd
-```
-or in current directory:
-```
-cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
-```
-
-Other user authentication, password entered manually: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
-```
-Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
-```
-or password provided as a Credential object:
-```
-$username = 'user'
-$password = 'password'
-
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
-Start-Process Notepad.exe -Credential $credential
-```
 
 ### History
 ```
@@ -199,5 +177,41 @@ schtasks /query /fo LIST /v
 - https://github.com/itm4n/PrintSpoofer
 - https://jlajara.gitlab.io/Potatoes_Windows_Privesc
 
+---
 
+## Cli escalation
+
+### Runas (cmd)
+
+With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt):
+```
+PS> runas /user:somehackeduser cmd
+```
+or in current directory:
+```
+cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
+```
+
+### Powershell
+
+Other user authentication, password entered manually: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
+```
+Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
+```
+or password provided as a Credential object:
+```
+$username = 'user'
+$password = 'password'
+
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential $username, $securePassword
+Start-Process Notepad.exe -Credential $credential
+```
+
+### Evil-WinRM
+
+With `evil-winrm` from Kali:
+```
+kali$ evil-winrm -i $TargetIP -u hackeduser -p "somehackedpass"
+```
 
