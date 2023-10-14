@@ -240,7 +240,11 @@ Other user authentication, password entered manually: https://stackoverflow.com/
 ```
 Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
 ```
-or password provided as a Credential object:
+or with elevated privileges:
+```
+powershell start-process powershell -verb runas
+```
+or with a password provided in a Credential object:
 ```
 $username = 'user'
 $password = 'password'
