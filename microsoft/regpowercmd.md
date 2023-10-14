@@ -77,6 +77,12 @@ PS> Write "Stuff to write" | Out-File Outputfile.txt -Append
 Get-ChildItem -Recurse -Include *.txt -File -ErrorAction SilentlyContinue -Path 'C:\path\to\dir' 
 ```
 
+### Search files
+
+```
+Get-Content somefile.txt | Select-String -Pattern 'string to search' -Context $nblinesbefore,$nblinedafter
+```
+
 ### Change the execution policy
 
 ```
