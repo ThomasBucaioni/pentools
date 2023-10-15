@@ -306,13 +306,13 @@ schtasks /query /fo LIST /v
 
 ### Runas (cmd)
 
-With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt):
+With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt): https://lazyadmin.nl/it/runas-command/
 ```
 PS> runas /user:somehackeduser cmd
 ```
-or with elevated privileges:
+then elevate privileges:
 ```
-powershell start-process powershell -verb runas
+cmd> powershell start-process powershell -verb runas
 ```
 or in current directory:
 ```
@@ -325,7 +325,7 @@ Other user authentication, password entered manually: https://stackoverflow.com/
 ```
 Start-Process powershell.exe -Credential “domain\username” -NoNewWindow -ArgumentList “Start-Process powershell.exe -Verb runAs”
 ```
-or with a password provided in a Credential object:
+or with password provided in a **Credential** object:
 ```
 $username = 'user'
 $password = 'password'
