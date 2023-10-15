@@ -255,6 +255,12 @@ net localgroup administrators
 
 ### Unquoted service path
 
+Unquoted path search in Powershell:
+```
+Get-CimInstance -classname Win32_Service | select pathname | select-string -pattern '\\.* .*\\' | select-string -pattern '"' -notmatch
+```
+
+In `cmd`:
 ```
 wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
 icacls c:\all\the\paths
