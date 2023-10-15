@@ -293,7 +293,9 @@ Restart-Service vulnerable_service_name
 
 List the task:
 ```
-schtasks /query /fo LIST /v
+cmd> schtasks /query /fo LIST /v
+PS>  schtasks.exe /query /fo list /v | select-string -pattern 'Task To Run' | select-string -pattern '\\system32\\' -NotMatch | select-string -pattern 'Com handler' -NotMatch
+PS> schtasks.exe /query /fo list /v | select-string -pattern 'c:\path\to\suspected_scheduled_task.exe' -context 8,25
 ```
 Check the ACL:
 ```
