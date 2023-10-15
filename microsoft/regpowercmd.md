@@ -46,7 +46,7 @@ route print
 netstat -ano
 net user
 net localgroup
-net localgroup administrators
+net localgroup administrators 
 ```
 
 ---
