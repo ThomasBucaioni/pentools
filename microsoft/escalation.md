@@ -262,7 +262,7 @@ Get-CimInstance -classname Win32_Service | select pathname | select-string -patt
 
 In `cmd`:
 ```
-wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """ # in cmd...
 icacls c:\all\the\paths
 Get-UnquotedService
 Write-ServiceBinary -name 'vulnerablepathservice' -path "C:\unquoted path\"
