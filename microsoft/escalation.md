@@ -304,7 +304,9 @@ schtasks /query /fo LIST /v
 
 ## Cli escalation
 
-### Runas (cmd)
+### Local
+
+#### Runas (cmd)
 
 With a password found in `somefile.txt`, we can use `Runas` if in a GUI (triggers a prompt): https://lazyadmin.nl/it/runas-command/
 ```
@@ -319,7 +321,7 @@ or in current directory:
 cmd> powershell.exe -Command "Start-Process cmd \"/k cd /d %cd%\" -Verb RunAs"
 ```
 
-### Powershell
+#### Powershell
 
 Other user authentication, password entered manually: https://stackoverflow.com/questions/28989750/running-powershell-as-another-user-and-launching-a-script
 ```
@@ -335,9 +337,20 @@ $credential = New-Object System.Management.Automation.PSCredential $username, $s
 Start-Process Notepad.exe -Credential $credential
 ```
 
-### Evil-WinRM
+### WinRM and Evil-WinRM remote connection
 
-With `evil-winrm` from Kali:
+#### Command `Enter-PSSession`
+
+From Powershell:
+```
+$password = ConvertTo-SecureString "hackedpassword" -AsPlainText -Force
+$cred = New-Object System.Management.Automation.PSCredential("hackeduser", $password)
+Enter-PSSession -ComputerName SOMEHACKEDHOSTNAME -Credential $cred
+```
+
+#### Evil-WinRM
+
+With `evil-winrm` from *Kali*, when a bindshell or WinRM connection (as with `Enter-PSSession`) don't work:
 ```
 kali$ evil-winrm -i $TargetIP -u hackeduser -p "somehackedpass"
 ```
