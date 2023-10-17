@@ -28,9 +28,15 @@ Commands:
 
 ## Automated enumeration
 
+Initial baseline:
 ```
 /usr/bin/unix-privesc-check
 ```
+Check for example writable config files.
+
+Other tools:
+- LinEnum: https://github.com/rebootuser/LinEnum
+- LinPeas: https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
 
 ## Brute force ssh
 
