@@ -10,9 +10,9 @@ Commands:
 - `cat /etc/os-realease`
 - `uname -a`
 - `ps aux`
-- `ip a`
-- `routel`
-- `ss -anp`
+- `ip a`, `ifconfig`
+- `route`, `routel`
+- `ss -anp`, `netstat -anp`
 - `cat /etc/iptables/rules.v4`
 - `ls -lah /etc/cron*`
 - `crontab -l`
