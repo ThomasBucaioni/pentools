@@ -148,4 +148,13 @@ Check with the `id` command.
 
 ## Misc
 
+### Other resources
 
+- https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+- https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology and Resources/Linux - Privilege Escalation.md
+- https://book.hacktricks.xyz/linux-hardening/privilege-escalation
+
+### Examples of exploits
+
+- PwnKit: https://github.com/ly4k/PwnKit
+- 
