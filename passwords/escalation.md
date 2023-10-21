@@ -126,12 +126,26 @@ Check the escalation with the `id` command.
 ## Kernel vulnerabilities
 
 Retrieve the kernel version and try to find an exploit on [exploitdb](https://www.exploit-db.com/):
+- kernel version:
+```
+cat /etc/issue
+uname -r
+arch
+```
+- `searchsploit` command:
 ```
 searchsploit -u
-searchsploit "Linux kernel 4.4.0 privilege escalation"
-cp /usr/share/exploitdb/exploits/linux/local/num.c .
+searchsploit "Linux kernel x.y.z privilege escalation" | grep -v ' < a.b.c'
+```
+- run the exploit:
+```
+cp /usr/share/exploitdb/exploits/linux/local/exploin_number.c ./num.c
 gcc num.c
-scp a.out victim@IP:
+scp a.out hackeduser@TargetIp:
 ./a.out
 ```
+Check with the `id` command.
+
+## Misc
+
 
