@@ -60,17 +60,17 @@ hacked_target$ for i in $(seq 1 254) ; do nc -zv -w 1 ${subnet}.${i} $Port; done
 
 Ssh forward tunnel:
 ```
-IpDmzOut$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpWindows:$PortWindows user@$IpDbOut
+DmzHost$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpWindows:$PortWindows user@$IpDbOut
 Kali$ smbclient -p $PortDmzOut -L //$IpDmzOut/ -U someuser --password=somepass
 ```
 
 Ssh dynamic tunnel:
 ```
-IpDmzOut$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDbOut
+DmzHost$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDbOut
 Kali$ sudo vi /etc/proxychains4.conf
     socks5 $IpDmzOut $PortDmzOut
-Kali$ proxychains smbclient -L //$IpDmzOut/ -U someuser --password=somepass
-Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpDmzOut
+Kali$ proxychains smbclient -L //$IpWindows/ -U someuser --password=somepass
+Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpWindows
 ```
 
 Ssh reverse tunnel:
