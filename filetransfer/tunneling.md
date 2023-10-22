@@ -34,7 +34,10 @@ Notes:
 
 ### Ssh
 
-IpAttacker <--|--> IpDmzOut <--DMZ--> IpDmzIn <--|--> IpDeepIn
+| WAN | DMZ | Inside LAN |
+|-----|-----|------------|
+| Kali | Gateway | DB |
+| IpAttacker | IpDmzOut - IpDmzIn | IpDeepIn |
 
 ```
 python3 -c 'import pty; pty.spawn("/bin/sh")' # python3 -c 'import pty; pty.spawn(["env","TERM=xterm-256color","/bin/bash","--rcfile", "/etc/bash.bashrc","-i"])'
