@@ -45,7 +45,7 @@ Tunnel for an SSH connection: `socat -ddd TCP-LISTEN:2222,fork TCP:DbHostIp:22`
 | WAN | DMZ | Inside LAN - subnet 1 | Inside LAN - subnet 2 |
 |-----|-----|------------|------|
 | Kali | Gateway | DB | Windows |
-| IpAttacker | IpDmzOut - IpDmzIn | IpDbIn - IpDbOut | IpWindows |
+| IpAttacker | IpDmzOut - IpDmzIn | IpDbOut - IpDbIn | IpWindows |
 
 TTY functionalities with Python:
 ```
@@ -53,24 +53,24 @@ hacked_target$ python3 -c 'import pty; pty.spawn("/bin/sh")'
 hacked_target$ python3 -c 'import pty; pty.spawn(["env","TERM=xterm-256color","/bin/bash","--rcfile", "/etc/bash.bashrc","-i"])'
 ```
 
-Netcat tunnel:
+Netcat port discovery:
 ```
-nc -zv -w 1 $IP $Port # listen, verbose, timeout 1sec
+hacked_target$ for i in $(seq 1 254) ; do nc -zv -w 1 ${subnet}.${i} $Port; done # listen, verbose, timeout 1sec
 ```
 
 Ssh forward tunnel:
 ```
-IpDmzOut$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpDeepInternal:$PortDeepInternal user@$IpDmzIn # from $IpDmzOut: out | dmz | in
+IpDmzOut$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpWindows:$PortWindows user@$IpDbOut
 Kali$ smbclient -p $PortDmzOut -L //$IpDmzOut/ -U someuser --password=somepass
 ```
 
 Ssh dynamic tunnel:
 ```
-IpDmzOut$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDmzIn
-Kali$ vi /etc/proxychains4.conf
-    socks5 $IpDmzIn $PortDmzOut
-Kali$ proxychains smbclient -L //$IpDeepInternal/ -U someuser --password=somepass
-Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpDeepInternal
+IpDmzOut$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDbOut
+Kali$ sudo vi /etc/proxychains4.conf
+    socks5 $IpDmzOut $PortDmzOut
+Kali$ proxychains smbclient -L //$IpDmzOut/ -U someuser --password=somepass
+Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpDmzOut
 ```
 
 Ssh reverse tunnel:
