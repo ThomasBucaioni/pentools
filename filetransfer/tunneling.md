@@ -4,6 +4,11 @@
 
 ### Socat
 
+| WAN | DMZ | Inside LAN |
+|-----|-----|------------|
+| Kali | Gateway | DB |
+| IpAttacker | IpDmzOut - IpDmzIn | IpDbDeepIn |
+
 Run a Socat tunnel on the gateway to the database:
 ```
 gateway$ socat -ddd TCP-LISTEN:2345,fork TCP:DbHostIP:5432
@@ -37,10 +42,10 @@ Tunnel for an SSH connection: `socat -ddd TCP-LISTEN:2222,fork TCP:DbHostIp:22`
 
 ### Ssh
 
-| WAN | DMZ | Inside LAN |
-|-----|-----|------------|
-| Kali | Gateway | DB |
-| IpAttacker | IpDmzOut - IpDmzIn | IpDbDeepIn |
+| WAN | DMZ | Inside LAN - subnet 1 | Inside LAN - subnet 2 |
+|-----|-----|------------|------|
+| Kali | Gateway | DB | Windows |
+| IpAttacker | IpDmzOut - IpDmzIn | IpDbIn - IpDbOut | IpWindows |
 
 TTY functionalities with Python:
 ```
