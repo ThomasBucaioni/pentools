@@ -1,4 +1,4 @@
-# Tunneling through Deep Packet Inspection
+# Tunneling Through Deep Packet Inspection
 
 ## Chisel
 
