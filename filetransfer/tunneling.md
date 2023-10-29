@@ -157,6 +157,7 @@ On the Windows target, poke a firewall hole with Netsh by adding a portproxy rul
 cmd> netsh interface portproxy add v4tov4 listenport=2222 listenaddress=$IpDmzOut connectport=22 connectaddress=$IpDbOut
 ```
 and check:
+```
 cmd> netstat -anp TCP | find "2222"
 cmd> netsh interface portproxy show all
 ```
