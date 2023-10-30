@@ -32,8 +32,8 @@ $ sudo systemctl enable postgresql
 $ sudo msfconsole
 > db_status
 > help
-workspace
-workspace -a newassesment
+> workspace
+> workspace -a newassesment
 ```
 
 ## Auxiliary modules
@@ -92,7 +92,7 @@ $ rdesktop VictimIp -u user -p pass -g num%+offsetX+offsetY
 > .\staged.exe # Nok
 ```
 
-### Multi-handler
+### Staged Ok & Multi-handler
 
 https://www.rapid7.com/db/modules/exploit/multi/handler/
 
