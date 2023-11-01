@@ -1,5 +1,7 @@
 # Active Directory
 
+Connection: `xfreerdp /u:someuser /d:somedomain.com /v:$TargetIp`
+
 ## Native enumeration
 
 ```
