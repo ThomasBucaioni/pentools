@@ -9,7 +9,7 @@ Also [here](https://github.com/ThomasBucaioni/pentools/tree/main/dorking#nmap):
 - No ping: `-Pn`
 - TCP, UDP: `-sT -sU`
 - With output file: `-oG` (grep), `-oA` (all)
-- OS scan: `-O`
+- OS scan: `-O`, `--osscan-guess`
 - Agressive scan: `-A` 
 - Timeouts: `-T5`
 - NSE default scripts: `-sC`
