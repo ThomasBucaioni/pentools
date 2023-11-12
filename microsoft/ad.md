@@ -44,7 +44,13 @@ $group.properties.member
 
 ## Powerview
 
-https://powersploit.readthedocs.io/en/latest/Recon/
+Main functions: https://powersploit.readthedocs.io/en/latest/Recon/
+- `Get-Domain` - returns the domain object for the current (or specified) domain
+- `Get-DomainUser` - return all users or specific user objects in AD
+- `Get-DomainGroup` - return all groups or specific group objects in AD
+- `Get-DomainComputer` - returns all computers or specific computer objects in AD
+- `Get-NetSession` - returns session information for the local (or a remote) machine
+- `Find-LocalAdminAccess` - finds machines on the local domain where the current user has local administrator access
 
 ### Users and groups
 
@@ -66,8 +72,12 @@ Get-NetComputer | select operatingsystem, dnshostname
 
 ### Permissions and logged users
 
+Tools:
+- PowerView
+- PsLoggedOn [Sysinternals](https://learn.microsoft.com/en-us/sysinternals/): https://learn.microsoft.com/en-us/sysinternals/downloads/psloggedon
+
 ```
-Find-LocalAdminAccess
+Find-LocalAdminAccess # from PowerView.ps1
 Get-NetSession -ComputerName somehostname
 Get-NetSession -ComputerName somehostname -Verbose
 Get-Acl -Path HKLM:System\CurrentControlSet\Services\LanmanServer\DefaultSecurity\ | format-list
