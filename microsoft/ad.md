@@ -98,6 +98,7 @@ net group "Misconfigured Department" hackeduser /del /domain # cleanup and check
 Get-NetGroup "Mis*Dep*" | select member
 ```
 Known IDs: https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers
+Abuse AD ACLs: https://book.hacktricks.xyz/windows-hardening/active-directory-methodology/acl-persistence-abuse
 
 ### Domain shares
 
