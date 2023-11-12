@@ -74,7 +74,7 @@ Get-NetComputer | select operatingsystem, dnshostname
 
 Tools:
 - PowerView
-- PsLoggedOn [Sysinternals](https://learn.microsoft.com/en-us/sysinternals/): https://learn.microsoft.com/en-us/sysinternals/downloads/psloggedon
+- PsLoggedOn ([Sysinternals](https://learn.microsoft.com/en-us/sysinternals/)): https://learn.microsoft.com/en-us/sysinternals/downloads/psloggedon
 
 ```
 Find-LocalAdminAccess # from PowerView.ps1
