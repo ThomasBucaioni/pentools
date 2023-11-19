@@ -161,7 +161,7 @@ Needs:
 which are provided by:
 - Domain Admins
 - Enterprise Admins
-- Administrators (local admins `+++`)
+- Administrators (NOT local admins)
 
 DCSync attack details: https://adsecurity.org/?p=2398#MimikatzDCSync \
 Impacket-Secretsdump on GitHub: https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
