@@ -72,7 +72,7 @@ PS > .\kerbrute_windows_amd64.exe passwordspray -d targetorg.com .\userstohack.t
 
 ### AS-REQ Roasting
 
-Takes __Do not require Kerberos preauthentication__ to be enabled (disabled by default).
+Takes _Do not require Kerberos preauthentication_ to be enabled (disabled by default).
 
 #### From Linux with Impacket-GetNPUsers
 
