@@ -106,7 +106,7 @@ sudo hashcat -m 18200 hashes_retrieved_with_Rubeus_on_Windows /usr/share/wordlis
 
 #### Users to AS-REQ roast
 
-To get only the users with option `Do not require Kerberos preauthentication` enabled on Linux:
+To get only the users with option _Do not require Kerberos preauthentication_ enabled on Linux:
 ```
 $ impacket-GetNPUsers -dc-ip $TargetDcIp # No options
 ```
