@@ -157,12 +157,13 @@ Needs:
 - Replicating Directory Changes
 - Replicating Directory Changes All
 - Replicating Directory Changes in Filtered
+
 which are provided by:
 - Domain Admins
 - Enterprise Admins
 - Administrators (local admins `+++`)
 
-DCSync attack details: https://adsecurity.org/?p=2398#MimikatzDCSync
+DCSync attack details: https://adsecurity.org/?p=2398#MimikatzDCSync \
 Impacket-Secretsdump on GitHub: https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
 
 #### From Linux
