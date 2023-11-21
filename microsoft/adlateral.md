@@ -13,6 +13,7 @@ Takes a local group `Administrators` account:
 Deprecated:
 ```
 wmic /node:$TargetIp /user:somelocalAdminuser /password:somepass process call create "cmd"
+wmic /node:$TargetIp /user:somelocalAdminuser /password:somepass process call create "powershell -nop -w hidden -e longbase64encodedstring"
 ```
 
 ##### In PowerShell
