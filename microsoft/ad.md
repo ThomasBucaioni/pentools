@@ -11,6 +11,12 @@ net group /domain
 net group "Some Group With Whitespaces" /domain
 ```
 
+Local admins (not Active Directory...):
+```
+net user some_hacked_user /all # for a single user 
+net localgroup Administrators # to list local admins on this host
+```
+
 ## Ldap enumeration
 
 https://learn.microsoft.com/en-us/windows/win32/adschema/a-samaccounttype
