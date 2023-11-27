@@ -38,6 +38,11 @@ gobuster dir -u $IP -w /path/to/wordlist.txt
 Kali wordlists: `/usr/share/wordlists/dirb/*.txt`
 Daniel Miessler wordlists: https://github.com/danielmiessler/SecLists
 
+Files enumeration:
+```
+gobuster dir -u http://$URL -w /usr/share/wordlists/dirb/common.txt -o myresultfile.txt -x txt,pdf,config
+```
+
 ### Enumerating APIs
 
 Make a pattern file `pattern.txt`:
