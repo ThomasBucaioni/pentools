@@ -161,3 +161,5 @@ Custom queries: https://neo4j.com/developer/cypher/ \
 Examples:
 - `MATCH (n:Computer) RETURN n`
 - `MATCH (n:User) RETURN n`
+- `MATCH (n:User), (m:Computer) RETURN n,m`
+- `MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p`
