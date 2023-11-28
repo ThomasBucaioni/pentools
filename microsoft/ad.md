@@ -157,3 +157,4 @@ sudo neo4j start
 bloodhound > upload data > more info > analysis > find shortest paths to domain admins
 ```
 
+Custom queries: https://neo4j.com/developer/cypher/
