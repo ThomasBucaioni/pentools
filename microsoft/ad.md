@@ -164,10 +164,11 @@ Examples:
 - `MATCH (n:User), (m:Computer) RETURN n,m`
 - `MATCH p = (c:Computer)-[:HasSession]->(m:User) RETURN p`
 
-Prebuilt searches:
+Pre-built searches:
 - _Find all Domain Admins_
 - _Find Workstations where Domain Users can RDP_
 - _Find Servers where Domain Users can RDP_
 - _Find Computers where Domain Users are Local Admin_
+- _List all Kerberoastable Accounts_
 - _Shortest Path to Domain Admins from Owned Principals_
 
