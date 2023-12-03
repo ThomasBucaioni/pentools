@@ -142,6 +142,7 @@ On Windows (cmd.exe):
 Shares enumeration: 
 - https://www.hackingarticles.in/a-little-guide-to-smb-enumeration/
 - https://fareedfauzi.gitbook.io/oscp-playbook/services-enumeration/smb
+- `IPC$` share: https://askubuntu.com/questions/818278/what-is-ipc-share-detected-by-samba
 
 Mount shares locally: `sudo mount //$IP/someshare /mnt`
 
