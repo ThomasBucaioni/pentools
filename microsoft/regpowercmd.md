@@ -91,6 +91,12 @@ Get-ChildItem -Recurse -Include *.txt -File -ErrorAction SilentlyContinue -Path 
 Get-Content somefile.txt | Select-String -Pattern 'string to search' -Context $nblinesbefore,$nblinedafter
 ```
 
+### Unzip archive
+
+```
+Expand-Archive -LiteralPath <PathToZipFile> -DestinationPath <PathToDestination>
+```
+
 ### Change the execution policy
 
 ```
