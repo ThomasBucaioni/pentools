@@ -1,5 +1,7 @@
 # SQLi
 
+URL encoding: https://www.urlencoder.io/
+
 ## MSSQL 
 
 ### Basics
@@ -131,7 +133,6 @@ The `order by` injection retrieves the table size, then simple `UNION SELECT` te
 ```
 ' union select '1', '2', '3', '4', '5', '6', ... -- //
 ```
-URL encoding: https://www.urlencoder.io/
 
 #### Blind injections
 
