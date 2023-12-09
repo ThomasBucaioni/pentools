@@ -26,6 +26,16 @@ SQL> select * from master.information_schema.tables;
 SQL> select top 2 * from master.dbo.sysusers; # table "sysusers" is an alias /!\; top 2 lines
 ```
 
+Find column names in the database containing the 'user' string:
+```
+select c.name as 'ColumnName', (SCHEMA_NAME(t.schema_id) + '.' + t.name) AS 'TableName' 
+    FROM sys.columns c 
+    JOIN sys.tables t 
+    ON c.object_id = t.object_id 
+    WHERE c.name LIKE '%user%' 
+    ORDER BY TableName,ColumnName;
+```
+
 ### Attacks
 
 #### Principle
