@@ -283,7 +283,7 @@ Get-CimInstance -classname Win32_Service | select pathname | select-string -patt
 
 In `cmd`:
 ```
-wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """ # in cmd...
+wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v '\"' | findstr "C:"
 icacls c:\all\the\paths
 ```
 then hijack an unquoted path:
