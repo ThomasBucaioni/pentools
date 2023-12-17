@@ -182,6 +182,7 @@ shutdown /r /t 0
 or restart the service if possible (usually takes admin rights...):
 ```
 net stop someservice.exe
+sc.exe query some_service_name
 sc.exe start some_service_name
 start-service some_service_name
 ```
