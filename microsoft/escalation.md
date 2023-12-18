@@ -308,6 +308,8 @@ Write-ServiceBinary -name 'vulnerable_service_path' -path "C:\unquoted path\"
 Restart-Service vulnerable_service_name
 ```
 
+Resource: https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md#tools
+
 ## Other components
 
 ### Scheduled tasks
