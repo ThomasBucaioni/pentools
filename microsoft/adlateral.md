@@ -46,7 +46,7 @@ print(cmd)
 ##### In `cmd`: WinRS (Windows Remote Shell)
  
 ```
-winrs -r:targethostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
+winrm -r:targethostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
 ```
 
 ##### In PowerShell
