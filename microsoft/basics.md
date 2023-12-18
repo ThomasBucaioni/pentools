@@ -111,10 +111,21 @@ psexec -i \\remotepc -u user -p pass cmd # interactive connexion
 
 ## Firewall
 
+### Profiles
+
 ```
 netsh advfirewall show allprofiles
 netsh advfirewall set ?
 netsh advfirewall add rule ?
+```
+
+### Deactivate 
+
+In PowerShell:
+```
+Set-MpPreference -DisableRealtimeMonitoring $true
+Set-MpPreference -DisableIDAVProtection $true
+netsh advfirewall set allprofiles state off
 ```
 
 ## Services
