@@ -9,7 +9,7 @@ Source: https://looptube.io/?videoId=DM1B8S80EvQ
 | WAN | DMZ | Inside LAN |
 |-----|-----|------------|
 | Kali | Gateway | servers, workstations | 
-| IpAttacker > | < eth0: IpDmzOut - eth1: IpDmzIn > | < IpDbDeepIn (DC, WS1, WS2) |
+| IpAttacker > | < eth0: IpDmzOut - eth1: IpDmzIn > | < IpInternalNetwork (DC, WS1, WS2) |
 
 ### Binary releases
 
