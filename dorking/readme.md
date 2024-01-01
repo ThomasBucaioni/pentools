@@ -229,3 +229,14 @@ snmpwalk -c public -v 1 $IP 1.3.6.1.2.1.25.6.3.1.2 # Installed software OID
 snmpwalk -c public -v 1 $IP 1.3.6.1.2.1.6.13.1.3 # Open TCP port OID ; 1.3.6.1.2.1.6.13.1.3.0.0.0.0.88.0.0.0.0.0 = port 88
 ```
 
+## With a foothold 
+
+### Git repository
+
+Track down passwords:
+```
+git logs
+git show
+git checkout some_hash_string
+git diff
+```
