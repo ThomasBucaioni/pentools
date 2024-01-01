@@ -240,3 +240,18 @@ git show
 git checkout some_hash_string
 git diff
 ```
+
+### Cmd
+
+```
+dir /s *.txt
+findstr /si password
+```
+
+### PowerShell
+
+```
+Get-ChildItem -file -recurse -erroraction silentlycontinue
+Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt'
+Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -path c:\users
+```
