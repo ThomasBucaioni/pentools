@@ -38,9 +38,18 @@ gobuster dir -u $IP -w /path/to/wordlist.txt
 Kali wordlists: `/usr/share/wordlists/dirb/*.txt`
 Daniel Miessler wordlists: https://github.com/danielmiessler/SecLists
 
-Files enumeration:
+Directory enumeration:
 ```
-gobuster dir -u http://$URL -w /usr/share/wordlists/dirb/common.txt -o myresultfile.txt -x txt,pdf,config
+vi /etc/hosts
+    a.b.c.d some.url.com
+URL=http://some.url.com
+gobuster dir -u $URL -w ~/github/SecLists/Discovery/Web-Content/raft-large-directories.txt
+```
+and find subdirectories. Other options: `-b some_http_code` to ignore error codes
+
+With subdirectories, files enumeration: `URL=a.b.c.d:p`
+```
+gobuster dir -u http://$URL/some_nice_dir/ -w /usr/share/wordlists/dirb/common.txt -o myresultfile.txt -x txt,pdf,config
 ```
 
 ### Enumerating APIs
@@ -59,6 +68,13 @@ Curl with headers: `curl -i`
 Post json data:
 ```
 curl -d '{"username":"someuser","password":"somepass"}' -H 'Content-Type: application/json' http://$IP/path/to/login/page.html
+```
+
+## Nikto
+
+Many false positives:
+```
+nikto -host $IP -port $Port
 ```
 
 ## Burp Suite
