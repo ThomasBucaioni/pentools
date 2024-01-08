@@ -77,6 +77,12 @@ Many false positives:
 nikto -host $IP -port $Port
 ```
 
+## Feroxbuster
+
+```
+feroxbuster --url http://$IpTarget
+```
+
 ## Burp Suite
 
 Proxy > Proxy Settings > Proxy Listeners\
