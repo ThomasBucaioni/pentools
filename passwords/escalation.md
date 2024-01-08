@@ -7,7 +7,7 @@ Commands:
 - `cat /etc/passwd`
 - `hostname`
 - `cat /etc/issue`
-- `cat /etc/os-realease`
+- `cat /etc/os-release`
 - `uname -a`
 - `ps aux`
 - `ip a`, `ifconfig`
@@ -25,6 +25,7 @@ Commands:
 - `lsmod`
 - `/sbin/modinfo some_kernel_module`
 - `find / -perm -u=s -type f 2> /dev/null`
+- `find / -perm -g=s -type f 2> /dev/null`
 
 ## Automated enumeration
 
