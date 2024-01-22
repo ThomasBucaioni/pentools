@@ -304,6 +304,21 @@ xfreerdp /u:someuser /p:'somepass' /v:$IP /d:somedomnoext
 
 ### Administrator, add
 
+#### Cmd
+
 ```
-Add-LocalGroupMember -Group "Administrators" -Member "someuser"
+net user fakeadmin fakepass123! /add
+net localgroup administrators fakeadmin /add
+```
+
+#### PowerShell
+
+```
+New-LocalUser -Name 'fakeadmin' -Description 'This is a fake admin.' -NoPassword
+$Password = 'fakepass123!'
+$secureString = ConvertTo-SecureString $password -AsPlaintext -Force
+$credential = New-Object System.Management.Automation.PSCredential fakeadmin, $secureString
+$UserAccount = Get-LocalUser -Name "fakeadmin"
+$UserAccount | Set-LocalUser -Password $credential
+Add-LocalGroupMember -Group "Administrators" -Member "fakeadmin"
 ```
