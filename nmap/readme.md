@@ -31,6 +31,23 @@ nmap -sU --open -vvv $IP
 nmap -sU --open -p- -T5 -vvv $IP
 ```
 
+#### Initial scan
+
+```
+sudo nmap -vvv -n -Pn -sT --open -p- -iL targets_ext.txt -oN nmap_ext_tcp_all.txt
+sudo nmap -vvv -sU -sC -sV -F -iL targets_ext.txt -oN nmap_ext_udp_100.txt
+sudo nmap -vvv -A -iL targets_ext.txt -oN nmap_ext_A.txt
+```
+
+Port filtering: `awk -F'/' '/*[0-9]/ {print $1} nmap_out.txt`
+
+#### Second scan
+
+```
+sudo nmap -vvv -n -Pn -sT -p p1,p2,p3 --script vuln $IP
+sudo nmap -vvv -n -Pn -sU -p161 --script vuln $IP
+```
+
 ### Reddit
 
 https://www.reddit.com/r/oscp/comments/15j4ewd/best_default_nmap_scan_flags/
