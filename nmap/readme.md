@@ -36,13 +36,14 @@ nmap -sU --open -p- -T5 -vvv $IP
 ```
 sudo nmap -vvv -n -Pn -sT --open -p- -iL targets_ext.txt -oN nmap_ext_tcp_all.txt
 sudo nmap -vvv -n -Pn -sU --open -F -iL targets_ext.txt -oN nmap_ext_udp_100.txt
-sudo nmap -vvv -A -iL targets_ext.txt -oN nmap_ext_A.txt
+sudo nmap -vvv -n -Pn -A -iL targets_ext.txt -oN nmap_ext_A.txt
 ```
 
-Port filtering: `awk -F'/' 'BEGIN {ORS=","} /^[0-9]/ {print $1} nmap_out.txt | sed 's/,$//' > nmap_out_open.txt`
+Port filtering: `awk -F'/' 'BEGIN {ORS=","} /^[0-9]/ {if (a>$1) {printf "\n"} ; a=$1 ; print $1}' nmap_out.txt | sed 's/,$//' > nmap_out_open.txt`
 
 ```
 sudo nmap -vvv -n -Pn -sT -p $(cat nmap_out_open.txt) --script vuln $IpTarget
+sudo nmap -A -n -Pn -p $(cat nmap_out_open.txt) $IpTarget
 ```
 
 #### Second scan
