@@ -262,7 +262,7 @@ Get-ChildItem -file -recurse -erroraction silentlycontinue
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt'
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include ('*.txt', '*.ini', '*.xml')
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' | get-content | select-string -pattern 'password' -context 5,5
-Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*Readline*' -path c:\users
+Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*Console*' -path c:\users
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -path c:\users
 Get-ChildItem -file -recurse -erroraction silentlycontinue -path c:\users -hidden | get-content -erroraction silentlycontinue | select-string -pattern 'password'
 ```
