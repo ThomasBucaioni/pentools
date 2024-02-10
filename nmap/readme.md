@@ -35,7 +35,7 @@ nmap -sU --open -p- -T5 -vvv $IP
 
 ```
 sudo nmap -vvv -n -Pn -sT --open -p- -iL targets_ext.txt -oN nmap_ext_tcp_all.txt
-sudo nmap -vvv -n -Pn -sU --open -F -iL targets_ext.txt -oN nmap_ext_udp_100.txt
+sudo nmap -vvv -n -Pn -sU --open -F --reason -iL targets_ext.txt -oN nmap_ext_udp_100.txt
 sudo nmap -vvv -n -Pn -A -iL targets_ext.txt -oN nmap_ext_A.txt
 ```
 
