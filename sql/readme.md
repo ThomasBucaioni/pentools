@@ -103,6 +103,8 @@ $ mysql -u root -p'rootpassword' -h $DbServerIp -P $DbServerPort
 > select table_name, table_schema from information_schema.tables where table_schema = 'databasetohack';
 > select table_name, table_schema from information_schema.tables where table_schema = database(); # current db in use
 > select column_name from information_schema.columns where table_name = 'tablenamewithusers' ;
+> select column_name, table_name, table_schema from information_schema.columns where column_name like '%user%';
+> select column_name, table_name, table_schema from information_schema.columns where column_name like '%pass%';
 
 > SELECT user, authentication_string, plugin FROM mysql.user WHERE user = 'usertohack';
 ```

