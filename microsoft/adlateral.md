@@ -44,9 +44,10 @@ print(cmd)
 #### WinRM
 
 ##### In `cmd`: WinRS (Windows Remote Shell)
- 
+
+WinRS documentation: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/winrs
 ```
-winrm -r:targethostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
+winrs -r:targethostname -u:user -p:pass  "powershell -nop -w hidden -e somebase64string"
 ```
 
 ##### In PowerShell

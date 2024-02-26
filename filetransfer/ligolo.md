@@ -89,5 +89,6 @@ Reverse dynamic tunelling:
 - on internal gateway02: `ssh -N -R 2222 kaliuser@$InternalIpForAgent01`
 - in `/etc/proxychains.conf`: `socks5 127.0.0.1 2222`
 - in Kali: `proxychains nmap -n -Pn -sT -vvv --top-ports=20 --open -oN nmap_tcp_deepinIP.txt $DeepInTargetIp03`
+- in Firefox: set up a Sock5 proxy with Ip=127.0.0.1 and port=2222 ; then browse to `http://$DeepInTarget03/` (or `proxychains curl http://$DeepInTarget03/` in cli).
 
 

